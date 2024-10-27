@@ -58,4 +58,8 @@ public class SwapCharacters : MonoBehaviour
         // Update the active character reference
         activeCharacter = characterToActivate;
     }
+
+    public GameObject getActiveCharacter(){
+        return activeCharacter;
+    }
 }

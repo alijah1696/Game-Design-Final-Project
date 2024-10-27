@@ -26,9 +26,4 @@ public class MoveCharacter : MonoBehaviour
         rb.velocity = new Vector2(movement.x * moveSpeed, rb.velocity.y);
     }
 
-    void OnDisable()
-    {
-        // Ensure the character stops moving horizontally when swapped out
-        rb.velocity = new Vector2(0, rb.velocity.y);
-    }
 }
