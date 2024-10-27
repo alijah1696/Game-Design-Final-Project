@@ -18,19 +18,25 @@ public class CameraFollow : MonoBehaviour
         offset = new Vector3(0, 3, -10); // Set a reasonable offset
     }
 
+    void Update(){
+        activeCharacter = swapCharacters.getActiveCharacter();  
+    }
+
     void LateUpdate() // Use LateUpdate for smoother following
     {
         // Update the active character each frame
-        activeCharacter = swapCharacters.getActiveCharacter();
+        
 
-        // Check if activeCharacter is not null before following
-        if (activeCharacter != null)
-        {
-            // Set the target position
-            Vector3 targetPosition = activeCharacter.transform.position + offset;
+        // // Check if activeCharacter is not null before following
+        // if (activeCharacter != null)
+        // {
+        //     // Set the target position
+        //     Vector3 targetPosition = activeCharacter.transform.position + offset;
 
-            // Smoothly move the camera towards the target position
-            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, followSpeed);
-        }
+        //     // Smoothly move the camera towards the target position
+        //     transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, followSpeed);
+        // }
+
+        transform.position = activeCharacter.transform.position + offset;
     }
 }
