@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a359f2785d41449292a122401a567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
+  startPoint: {fileID: 1530508896}
   Player: {fileID: 419667964}
 --- !u!212 &81061807
 SpriteRenderer:
@@ -1207,7 +1207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a359f2785d41449292a122401a567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
+  startPoint: {fileID: 1530508896}
   Player: {fileID: 419667964}
 --- !u!212 &385077245
 SpriteRenderer:
@@ -1761,7 +1761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a359f2785d41449292a122401a567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
+  startPoint: {fileID: 1530508896}
   Player: {fileID: 419667964}
 --- !u!212 &474157552
 SpriteRenderer:
@@ -2068,7 +2068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a359f2785d41449292a122401a567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
+  startPoint: {fileID: 1530508896}
   Player: {fileID: 419667964}
 --- !u!212 &797695528
 SpriteRenderer:
@@ -2473,7 +2473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a359f2785d41449292a122401a567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
+  startPoint: {fileID: 1530508896}
   Player: {fileID: 419667964}
 --- !u!212 &1059266659
 SpriteRenderer:
@@ -2650,7 +2650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a359f2785d41449292a122401a567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
+  startPoint: {fileID: 1530508896}
   Player: {fileID: 419667964}
 --- !u!212 &1254867888
 SpriteRenderer:
@@ -3118,7 +3118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a359f2785d41449292a122401a567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
+  startPoint: {fileID: 1530508896}
   Player: {fileID: 419667964}
 --- !u!212 &1404100973
 SpriteRenderer:
@@ -3211,6 +3211,37 @@ Transform:
   - {fileID: 385077242}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1530508896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1530508897}
+  m_Layer: 0
+  m_Name: Start
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1530508897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530508896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7, y: -3, z: -0.20479429}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1549357247
 GameObject:
@@ -3868,7 +3899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a359f2785d41449292a122401a567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
+  startPoint: {fileID: 1530508896}
   Player: {fileID: 419667964}
 --- !u!212 &1919065986
 SpriteRenderer:
@@ -4301,7 +4332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194a359f2785d41449292a122401a567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 0}
+  startPoint: {fileID: 1530508896}
   Player: {fileID: 419667964}
 --- !u!212 &2024298711
 SpriteRenderer:
