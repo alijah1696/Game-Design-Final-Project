@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    private SwapCharacters swapCharacters; // Reference to the SwapCharacters script
     public GameObject target; // The target GameObject to find SwapCharacters on
     private GameObject activeCharacter; // Reference to the active character
     public float followSpeed = 0.25f; // Speed at which the camera follows the character
@@ -13,16 +12,13 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        // Get the SwapCharacters component from the target GameObject
-        swapCharacters = target.GetComponent<SwapCharacters>();
-        offset = new Vector3(0, 3, -10); // Set a reasonable offset
+        offset = new Vector3(0, -1, -10); // Set a reasonable offset
     }
     
     void Update() // Use LateUpdate for smoother following
     {
         //Update the active character each frame
-        
-        activeCharacter = swapCharacters.getActiveCharacter();  
+        activeCharacter = target.GetComponent<SwapCharacters>().getCurrentForm();  
         // Check if activeCharacter is not null before following
         if (activeCharacter != null)
         {
@@ -32,6 +28,5 @@ public class CameraFollow : MonoBehaviour
             // Smoothly move the camera towards the target position
             transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, followSpeed);
         }
-
     }
 }

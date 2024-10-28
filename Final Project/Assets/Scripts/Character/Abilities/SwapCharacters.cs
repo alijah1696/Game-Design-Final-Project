@@ -43,23 +43,29 @@ public class SwapCharacters : MonoBehaviour
 
     void SetActiveCharacter(GameObject characterToActivate)
     {
-        // Transfer position
-        characterToActivate.transform.position = activeCharacter.transform.position;
+
 
         // Transfer variables
-        Rigidbody2D currentRb = activeCharacter.GetComponent<Rigidbody2D>();
-        Rigidbody2D newRb = characterToActivate.GetComponent<Rigidbody2D>();
-        
-        MoveCharacter currentMoveVars = activeCharacter.GetComponent<MoveCharacter>();
-        MoveCharacter newMoveVars = characterToActivate.GetComponent<MoveCharacter>();
-        
-        newMoveVars.transferVariablesFrom(currentMoveVars);
 
-        newRb.velocity = currentRb.velocity;
+        SwapForms currentForm = activeCharacter.GetComponent<SwapForms>();
+        SwapForms newForm = characterToActivate.GetComponent<SwapForms>();
+
+        Rigidbody2D currentRb = currentForm.CurrentForm().GetComponent<Rigidbody2D>();
+        Rigidbody2D newRb = newForm.CurrentForm().GetComponent<Rigidbody2D>();
+
+        MoveCharacter currentMoveVars = currentForm.CurrentForm().GetComponent<MoveCharacter>();
+        MoveCharacter newMoveVars = newForm.CurrentForm().GetComponent<MoveCharacter>();
+
+        newMoveVars.transferVariablesFrom(currentMoveVars);
 
         // Deactivate the previous character and activate the new one
         activeCharacter.SetActive(false);
         characterToActivate.SetActive(true);
+
+        // Transfer position and velocity
+        newForm.CurrentForm().transform.position = currentForm.CurrentForm().transform.position;
+        characterToActivate.transform.position = activeCharacter.transform.position;
+        newRb.velocity = currentRb.velocity;
 
         // Update the active character reference
         activeCharacter = characterToActivate;
@@ -67,5 +73,9 @@ public class SwapCharacters : MonoBehaviour
 
     public GameObject getActiveCharacter(){
         return activeCharacter;
+    }
+
+    public GameObject getCurrentForm(){
+        return activeCharacter.GetComponent<SwapForms>().CurrentForm();
     }
 }

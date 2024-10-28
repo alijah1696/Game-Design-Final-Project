@@ -13,6 +13,7 @@ public class MoveCharacter : MonoBehaviour
     private float horizontalValue;
     private Rigidbody2D rb;
     private Vector2 movement;
+    private Vector2 velocity = Vector2.zero; // Used for SmoothDamp
 
     void Start()
     {
@@ -31,20 +32,25 @@ public class MoveCharacter : MonoBehaviour
         }
     }
 
-
-
     void FixedUpdate()
     {
         Move(horizontalValue);
-    }
+    }   
+    
+    //WALKING METHODS
 
     void Move(float dir)
     {
-        float xVal = dir * moveSpeed * 100 * Time.deltaTime;
+        float xVal = dir * moveSpeed * 100f * Time.fixedDeltaTime;
         Vector2 targetVelocity = new Vector2(xVal, rb.velocity.y);
         rb.velocity = targetVelocity;
 
         // Flip character based on movement direction
+        FlipCharacter(dir);
+    }
+
+    void FlipCharacter(float dir)
+    {
         Vector3 currentScale = transform.localScale;
         if (facingRight && dir < 0)
         {
@@ -58,6 +64,8 @@ public class MoveCharacter : MonoBehaviour
         }
         transform.localScale = currentScale;
     }
+
+    //JUMPING METHODS
 
     void Jump()
     {
@@ -74,6 +82,17 @@ public class MoveCharacter : MonoBehaviour
             isGrounded = true;
         }
     }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
+
+    //HELPER METHODS
 
     void OnDisable()
     {
@@ -92,7 +111,7 @@ public class MoveCharacter : MonoBehaviour
         if ((other.transform.localScale).x < 0)
             currentScale.x = Mathf.Abs(currentScale.x) * -1f;
         else
-            currentScale.x = Mathf.Abs(currentScale.x);
+        currentScale.x = Mathf.Abs(currentScale.x);
         transform.localScale = currentScale;
     }
 
