@@ -11,12 +11,11 @@ public class SwapCharacters : MonoBehaviour
 
     void Start()
     {
-        // Start with the plant as the active character by default
-        activeCharacter = plant;
-        SetActiveCharacter(plant);
-
         // Ensure the other character is inactive
         robot.SetActive(false);
+
+        // Start with the plant as the active character by default
+        activeCharacter = plant;
     }
 
     void Update()
@@ -44,6 +43,8 @@ public class SwapCharacters : MonoBehaviour
     void SetActiveCharacter(GameObject characterToActivate)
     {
 
+        // Stops method if any character is null
+        if(activeCharacter == null || characterToActivate == null) return;
 
         // Transfer variables
 
