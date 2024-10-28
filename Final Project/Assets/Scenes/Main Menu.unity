@@ -1159,6 +1159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Pause_Button '
       objectReference: {fileID: 0}
+    - target: {fileID: 347673427408967820, guid: ede3b1108b27544b48e8701f46f67c5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5679759547888509074, guid: ede3b1108b27544b48e8701f46f67c5b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1529,6 +1533,10 @@ PrefabInstance:
     - target: {fileID: 4129926565440354175, guid: 3282cd3b3fe6b48199b201f69848b661, type: 3}
       propertyPath: m_Name
       value: Canvas_Pause
+      objectReference: {fileID: 0}
+    - target: {fileID: 4129926565440354175, guid: 3282cd3b3fe6b48199b201f69848b661, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5467058978111756217, guid: 3282cd3b3fe6b48199b201f69848b661, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2079,7 +2087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1694735704
 MonoBehaviour:
   m_ObjectHideFlags: 0

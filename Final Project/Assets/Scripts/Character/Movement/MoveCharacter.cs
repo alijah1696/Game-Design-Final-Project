@@ -6,7 +6,16 @@ public class MoveCharacter : MonoBehaviour
 {   
     // Movement variables
     public float moveSpeed = 5f;
+<<<<<<< Updated upstream
     public float jumpForce = 10f;
+=======
+
+    public float jump;
+
+    public bool isJumping;
+    
+    //direction
+>>>>>>> Stashed changes
     private bool facingRight = true;
     private bool isGrounded = true; // To check if character is on the ground
 
@@ -24,12 +33,20 @@ public class MoveCharacter : MonoBehaviour
         // Get horizontal input
         horizontalValue = Input.GetAxisRaw("Horizontal");
 
+<<<<<<< Updated upstream
         // Check for jump input
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Jump();
+=======
+        if (Input.GetButtonDown("Jump") && isJumping == false)
+        {
+            rb.AddForce(new Vector2(rb.velocity.x, jump));
+>>>>>>> Stashed changes
         }
     }
+
+
 
     void FixedUpdate()
     {
@@ -82,6 +99,7 @@ public class MoveCharacter : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
     // Method to add to transfer variables on swap
     public void transferVariablesFrom(MoveCharacter other)
     {
@@ -98,4 +116,22 @@ public class MoveCharacter : MonoBehaviour
     {
         return facingRight;
     }
+=======
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isJumping = false;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ground"))
+        {
+            isJumping = true;
+        }
+    }
+
+>>>>>>> Stashed changes
 }
