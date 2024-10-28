@@ -46,9 +46,15 @@ public class SwapCharacters : MonoBehaviour
         // Transfer position
         characterToActivate.transform.position = activeCharacter.transform.position;
 
-        // Transfer velocity
+        // Transfer variables
         Rigidbody2D currentRb = activeCharacter.GetComponent<Rigidbody2D>();
         Rigidbody2D newRb = characterToActivate.GetComponent<Rigidbody2D>();
+        
+        MoveCharacter currentMoveVars = activeCharacter.GetComponent<MoveCharacter>();
+        MoveCharacter newMoveVars = characterToActivate.GetComponent<MoveCharacter>();
+        
+        newMoveVars.transferVariablesFrom(currentMoveVars);
+
         newRb.velocity = currentRb.velocity;
 
         // Deactivate the previous character and activate the new one
