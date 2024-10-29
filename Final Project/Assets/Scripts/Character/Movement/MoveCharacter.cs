@@ -24,7 +24,7 @@ public class MoveCharacter : MonoBehaviour
     {
         // Get horizontal input
         horizontalValue = Input.GetAxisRaw("Horizontal");
-
+        
         // Check for jump input
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -83,6 +83,16 @@ public class MoveCharacter : MonoBehaviour
         }
     }
 
+    void OnCollisionStay2D(Collision2D collision)
+    {   
+        // Check if the character lands on the ground
+        if (collision.gameObject.CompareTag("Ground"))
+        {   
+            Debug.Log("grounded");
+            isGrounded = true;
+        }
+    }
+
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -91,6 +101,9 @@ public class MoveCharacter : MonoBehaviour
         }
     }
 
+    public void ResetJump(){
+        isGrounded = true;
+    }
 
     //HELPER METHODS
 
