@@ -7,19 +7,24 @@ public class PlantVineMovement : MonoBehaviour
     public float climbSpeed = 5f;
     private bool isClimbing = false;
     private Rigidbody2D rb;
-    private float defualtGravityScale;
+    private float defaultGravityScale;
 
     public float grappleForce = 7f;
-    private bool canGrapple = false;    
-    private bool isGrapling = false;
+    private bool canGrapple = false;
+    private bool isGrappling = false;
 
     private GameObject grapplePoint;
-    public float grappleRange = 1.5f; // Range within which the player will stay still
+    public float grappleRange = 1.5f; 
+
+    private AudioManager audioManager;  
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        defualtGravityScale = rb.gravityScale;
+        defaultGravityScale = rb.gravityScale;
+
+        // Find AudioManager in the scene
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     void Update()
@@ -30,53 +35,49 @@ public class PlantVineMovement : MonoBehaviour
             rb.velocity = new Vector2(0, vertical * climbSpeed);
         }
 
-        if(Input.GetKeyDown(KeyCode.E) && canGrapple){
+        if (Input.GetKeyDown(KeyCode.E) && canGrapple)
+        {
             Grapple(grapplePoint);
         }
 
         MoveCharacter mv = GetComponent<MoveCharacter>();
-        
-        if (isGrapling && grapplePoint != null && Vector2.Distance(transform.position, grapplePoint.transform.position) <= grappleRange)
-        {   
+
+        if (isGrappling && grapplePoint != null && Vector2.Distance(transform.position, grapplePoint.transform.position) <= grappleRange)
+        {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                rb.gravityScale = defualtGravityScale; // Re-enable gravity when space is pressed
+                rb.gravityScale = defaultGravityScale; // Re-enable gravity when space is pressed
                 mv.Dash(Input.GetAxisRaw("Horizontal"), 1f);
-                
-                isGrapling = false;
-                
+                isGrappling = false;
             }
             else
             {
-                rb.velocity = Vector2.zero; // Keep the player stationary
-                rb.gravityScale = 0; // Disable gravity while stationary
+                rb.velocity = Vector2.zero; 
+                rb.gravityScale = 0; 
             }
         }
-        mv.canMove = !isGrapling;
+        mv.canMove = !isGrappling;
     }
 
     public void Grapple(GameObject point)
     {
         if (point != null)
         {
-
-            // Calculate direction from the current object to the grapple point
             Vector2 directionToGrapple = ((Vector2)point.transform.position - (Vector2)transform.position).normalized;
-            
-            // Calculate distance to the grapple point
             float distance = Vector2.Distance(transform.position, point.transform.position);
-            
-            // Calculate force based on distance
             Vector2 grappleVector = directionToGrapple * distance * grappleForce;
-            
-            // Apply force to the Rigidbody
-            rb.velocity = Vector2.zero;
-            rb.gravityScale = defualtGravityScale * 0.5f;
-            rb.AddForce(grappleVector, ForceMode2D.Impulse);        
-            
 
-            MoveCharacter mv = GetComponent<MoveCharacter>();
-            isGrapling = true;
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = defaultGravityScale * 0.5f;
+            rb.AddForce(grappleVector, ForceMode2D.Impulse);
+
+            
+            if (audioManager != null && audioManager.climbVine != null)
+            {
+                audioManager.PlaySFX(audioManager.climbVine);  
+            }
+
+            isGrappling = true;
             canGrapple = false;
         }
     }
@@ -87,15 +88,26 @@ public class PlantVineMovement : MonoBehaviour
         {
             isClimbing = true;
             rb.gravityScale = 0; // Disable gravity while climbing
+
+            // Start the climbing sound
+            if (audioManager != null)
+            {
+                audioManager.StartClimbingSound();
+            }
+        }
+        else if (other.CompareTag("VineGrapple"))
+        {
+            grapplePoint = other.gameObject;
+            canGrapple = true;
         }
     }
 
-    void OnTriggerStay2D(Collider2D other){
+    void OnTriggerStay2D(Collider2D other)
+    {
         if (other.CompareTag("VineGrapple"))
         {
             grapplePoint = other.gameObject;
-            VineGrappleLogic vgLogic = grapplePoint.GetComponent<VineGrappleLogic>();
-            if (vgLogic.CanGrapple()) canGrapple = true;
+            canGrapple = true;
         }
     }
 
@@ -104,10 +116,15 @@ public class PlantVineMovement : MonoBehaviour
         if (other.CompareTag("Vine"))
         {
             isClimbing = false;
-            rb.gravityScale = defualtGravityScale; // Re-enable gravity when not climbing
-        }
+            rb.gravityScale = defaultGravityScale; // Re-enable gravity when not climbing
 
-        if (other.CompareTag("VineGrapple"))
+            // Stop the climbing sound
+            if (audioManager != null)
+            {
+                audioManager.StopClimbingSound();
+            }
+        }
+        else if (other.CompareTag("VineGrapple"))
         {
             canGrapple = false;
             grapplePoint = null;
