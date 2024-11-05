@@ -6,8 +6,15 @@ public class SwapCharacters : MonoBehaviour
 {
     public GameObject plant;      // The first character (mutated plant)
     public GameObject robot;      // The second character (robot)
-
     private GameObject activeCharacter; // Currently active character
+
+    private AudioManager audioManager;  // Reference to the AudioManager
+
+    void Awake()
+    {
+        // Find the AudioManager in the scene and assign it
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     void Start()
     {
@@ -24,6 +31,7 @@ public class SwapCharacters : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             SwapCharacter();
+            audioManager.PlaySFX(audioManager.switchingCharacter);  // Play the switch character sound effect
         }
     }
 
@@ -42,12 +50,10 @@ public class SwapCharacters : MonoBehaviour
 
     void SetActiveCharacter(GameObject characterToActivate)
     {
-
         // Stops method if any character is null
-        if(activeCharacter == null || characterToActivate == null) return;
+        if (activeCharacter == null || characterToActivate == null) return;
 
         // Transfer variables
-
         SwapForms currentForm = activeCharacter.GetComponent<SwapForms>();
         SwapForms newForm = characterToActivate.GetComponent<SwapForms>();
 
@@ -72,11 +78,13 @@ public class SwapCharacters : MonoBehaviour
         activeCharacter = characterToActivate;
     }
 
-    public GameObject getActiveCharacter(){
+    public GameObject getActiveCharacter()
+    {
         return activeCharacter;
     }
 
-    public GameObject getCurrentForm(){
+    public GameObject getCurrentForm()
+    {
         return activeCharacter.GetComponent<SwapForms>().CurrentForm();
     }
 }
