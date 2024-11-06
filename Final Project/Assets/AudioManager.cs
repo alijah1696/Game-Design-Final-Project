@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [Header("--------- Audio Sources -----------")]
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource SFXSource;
-    [SerializeField] private AudioSource climbingSource;  // New AudioSource for climbing sound
+    [Header("Audio Sources")]
+    [SerializeField] private AudioSource musicSource;    
+    [SerializeField] private AudioSource SFXSource;      
+    [SerializeField] private AudioSource climbingSource; 
 
-    [Header("--------- Audio Clips -----------")]
-    public AudioClip background;
-    public AudioClip Death;
-    public AudioClip CheckPoint;
-    public AudioClip WallTouch;
-    public AudioClip FloorTouch;
-    public AudioClip switchingCharacter;
-    public AudioClip climbVine;  // Clip for climbing sound
+    [Header("Audio Clips")]
+    public AudioClip background;            
+    public AudioClip pressurePlateSound;     
+    public AudioClip FloorTouch;             
+    public AudioClip WallTouch;              
+    public AudioClip climbVine;              
+    public AudioClip jumpSound;              
+    public AudioClip switchingCharacterSound; 
 
     private void Start()
     {
@@ -24,11 +24,11 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.clip = background;
             musicSource.Play();
-            Debug.Log("Background Sound playing!");
+            Debug.Log("Background music playing!");
         }
     }
 
-    // Play a one-shot sound effect
+    
     public void PlaySFX(AudioClip clip)
     {
         if (SFXSource != null && clip != null)
@@ -37,18 +37,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Start playing the climbing sound continuously
+    
     public void StartClimbingSound()
     {
         if (climbingSource != null && climbVine != null)
         {
             climbingSource.clip = climbVine;
-            climbingSource.loop = true;  // Loop the climbing sound
+            climbingSource.loop = true;
             climbingSource.Play();
         }
     }
 
-    // Stop the climbing sound immediately
+    
     public void StopClimbingSound()
     {
         if (climbingSource != null)

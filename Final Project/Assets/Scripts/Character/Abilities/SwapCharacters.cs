@@ -1,82 +1,55 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SwapCharacters : MonoBehaviour
 {
-    public GameObject plant;      // The first character (mutated plant)
-    public GameObject robot;      // The second character (robot)
+    public GameObject plant;      // The first character
+    public GameObject robot;      // The second character
+    private GameObject activeCharacter; // Reference to the currently active character
+    private AudioManager audioManager;
 
-    private GameObject activeCharacter; // Currently active character
-
-    void Start()
+    private void Awake()
     {
-        // Ensure the other character is inactive
-        robot.SetActive(false);
-
-        // Start with the plant as the active character by default
-        activeCharacter = plant;
+        // Find the AudioManager in the scene and get its component
+        audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
     }
 
-    void Update()
+    private void Start()
     {
-        // Swap characters when Tab is pressed
+        // Set the initial active character to the plant and disable the robot
+        activeCharacter = plant;
+        plant.SetActive(true);
+        robot.SetActive(false);
+    }
+
+    private void Update()
+    {
+        // Check for Tab key press to swap characters
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             SwapCharacter();
+
+            // Play character switch sound, if available
+            if (audioManager != null && audioManager.switchingCharacterSound != null)
+            {
+                audioManager.PlaySFX(audioManager.switchingCharacterSound);
+            }
         }
     }
 
-    void SwapCharacter()
+    // Public method to get the currently active character for other scripts (e.g., CameraFollow)
+    public GameObject getCurrentForm()
     {
-        // Toggle the active character
-        if (activeCharacter == plant)
-        {
-            SetActiveCharacter(robot);
-        }
-        else
-        {
-            SetActiveCharacter(plant);
-        }
-    }
-
-    void SetActiveCharacter(GameObject characterToActivate)
-    {
-
-        // Stops method if any character is null
-        if(activeCharacter == null || characterToActivate == null) return;
-
-        // Transfer variables
-
-        SwapForms currentForm = activeCharacter.GetComponent<SwapForms>();
-        SwapForms newForm = characterToActivate.GetComponent<SwapForms>();
-
-        Rigidbody2D currentRb = currentForm.CurrentForm().GetComponent<Rigidbody2D>();
-        Rigidbody2D newRb = newForm.CurrentForm().GetComponent<Rigidbody2D>();
-
-        MoveCharacter currentMoveVars = currentForm.CurrentForm().GetComponent<MoveCharacter>();
-        MoveCharacter newMoveVars = newForm.CurrentForm().GetComponent<MoveCharacter>();
-
-        newMoveVars.transferVariablesFrom(currentMoveVars);
-
-        // Deactivate the previous character and activate the new one
-        activeCharacter.SetActive(false);
-        characterToActivate.SetActive(true);
-
-        // Transfer position and velocity
-        newForm.CurrentForm().transform.position = currentForm.CurrentForm().transform.position;
-        characterToActivate.transform.position = activeCharacter.transform.position;
-        newRb.velocity = currentRb.velocity;
-
-        // Update the active character reference
-        activeCharacter = characterToActivate;
-    }
-
-    public GameObject getActiveCharacter(){
         return activeCharacter;
     }
 
-    public GameObject getCurrentForm(){
-        return activeCharacter.GetComponent<SwapForms>().CurrentForm();
+    private void SwapCharacter()
+    {
+        // Toggle between plant and robot as the active character
+        activeCharacter.SetActive(false);
+        activeCharacter = (activeCharacter == plant) ? robot : plant;
+        activeCharacter.SetActive(true);
     }
 }
