@@ -24,7 +24,7 @@ public class PlantVineMovement : MonoBehaviour
         defaultGravityScale = rb.gravityScale;
 
         // Find AudioManager in the scene
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager = null;
     }
 
     void Update()
@@ -44,19 +44,21 @@ public class PlantVineMovement : MonoBehaviour
 
         if (isGrappling && grapplePoint != null && Vector2.Distance(transform.position, grapplePoint.transform.position) <= grappleRange)
         {
+
+            rb.velocity = Vector2.zero; // Keep the player stationary
+            rb.gravityScale = 0; // Disable gravity while stationary
+            mv.canMove = false;
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 rb.gravityScale = defaultGravityScale; // Re-enable gravity when space is pressed
-                mv.Dash(Input.GetAxisRaw("Horizontal"), 1f);
+                mv.Dash(Input.GetAxisRaw("Horizontal"), 0.25f);
+                mv.canMove = true;
                 isGrappling = false;
             }
-            else
-            {
-                rb.velocity = Vector2.zero; // Keep the player stationary
-                rb.gravityScale = 0; // Disable gravity while stationary
-            }
+
         }
-        mv.canMove = !isGrappling;
+        
     }
 
     public void Grapple(GameObject point)

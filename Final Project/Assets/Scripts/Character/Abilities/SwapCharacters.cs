@@ -13,7 +13,7 @@ public class SwapCharacters : MonoBehaviour
     private void Awake()
     {
         // Find the AudioManager in the scene and get its component
-        audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
+        audioManager = null;
     }
 
     private void Start()
@@ -27,10 +27,12 @@ public class SwapCharacters : MonoBehaviour
     private void Update()
     {
         // Check for Tab key press to swap characters
-        if (Input.GetKeyDown(KeyCode.Tab))
+
+        
+        bool isOnGround = GetCurrentForm().GetComponent<MoveCharacter>().IsOnGround();
+        if (Input.GetKeyDown(KeyCode.Tab) && isOnGround)
         {
             SwapCharacter();
-
             // Play character switch sound, if available
             if (audioManager != null && audioManager.switchingCharacterSound != null)
             {
@@ -39,17 +41,35 @@ public class SwapCharacters : MonoBehaviour
         }
     }
 
+
     // Public method to get the currently active character for other scripts (e.g., CameraFollow)
-    public GameObject getCurrentForm()
+    public GameObject GetCurrentForm()
     {
-        return activeCharacter;
+        return activeCharacter.GetComponent<SwapForms>().CurrentForm();
     }
 
     private void SwapCharacter()
     {
         // Toggle between plant and robot as the active character
+        
+        GameObject OldCharacter= activeCharacter;
         activeCharacter.SetActive(false);
         activeCharacter = (activeCharacter == plant) ? robot : plant;
         activeCharacter.SetActive(true);
+
+        TransferVarables(OldCharacter);
+
+    }
+
+    public void TransferVarables(GameObject old){
+
+        SwapForms oldSf = old.GetComponent<SwapForms>();
+        SwapForms activeSf = activeCharacter.GetComponent<SwapForms>();
+
+        MoveCharacter oldMv = oldSf.CurrentForm().GetComponent<MoveCharacter>();
+        MoveCharacter activeMv = activeSf.CurrentForm().GetComponent<MoveCharacter>();
+
+        activeMv.TransferVariablesFrom(oldMv);
+        activeSf.CurrentForm().transform.position = oldSf.CurrentForm().transform.position;
     }
 }

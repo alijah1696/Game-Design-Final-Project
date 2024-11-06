@@ -55,6 +55,9 @@ public class SwapForms : MonoBehaviour
         Vector2 currentVelocity = currentRb.velocity;
         Vector2 currentAcceleration = (currentRb.velocity - previousVelocity) / Time.deltaTime;
 
+        //Old variables
+        MoveCharacter oldMv = currentForm.GetComponent<MoveCharacter>();
+
         // Deactivate all forms
         foreach (GameObject form in forms)
         {
@@ -71,6 +74,10 @@ public class SwapForms : MonoBehaviour
         currentRb.velocity = currentVelocity;
         // Apply the calculated acceleration (if needed, you might need to apply forces to simulate this)
         currentRb.AddForce(currentAcceleration * currentRb.mass, ForceMode2D.Force);
+
+        //Transfer variables from old form
+        MoveCharacter currentMv = currentForm.GetComponent<MoveCharacter>();
+        currentMv.TransferVariablesFrom(oldMv);
 
         // Update previous velocity for the new form
         previousVelocity = currentRb.velocity;

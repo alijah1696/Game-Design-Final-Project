@@ -8,27 +8,24 @@ public class MoveCharacter : MonoBehaviour
     public float jumpForce = 10f;
     private bool facingRight = true;
     private bool isGrounded = true;
-    private bool isClimbing = false;
-
     private float horizontalValue;
     public float linearDragX = 0.1f;
     public bool canMove = true;
 
     private Rigidbody2D rb;
-    public List<Rigidbody2D> RigidBodies = new List<Rigidbody2D>();
 
     private AudioManager audioManager;  // Reference to AudioManager
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        audioManager = null;
     }
 
     void Update()
     {
         horizontalValue = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isClimbing)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Jump();
         }
@@ -36,7 +33,7 @@ public class MoveCharacter : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (canMove && !isClimbing) Move(horizontalValue);
+        if (canMove) Move(horizontalValue);
         ApplyXAxisDrag();
     }
 
@@ -128,31 +125,6 @@ public class MoveCharacter : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Vine"))
-        {
-            isClimbing = true;
-            rb.velocity = Vector2.zero;
-            if (audioManager != null && audioManager.climbVine != null)
-            {
-                audioManager.PlaySFX(audioManager.climbVine);
-            }
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Vine"))
-        {
-            isClimbing = false;
-            if (audioManager != null)
-            {
-                audioManager.StopClimbingSound();
-            }
-        }
-    }
-
     void OnDisable()
     {
         if (rb != null)
@@ -161,15 +133,26 @@ public class MoveCharacter : MonoBehaviour
         }
     }
 
-    public void transferVariablesFrom(MoveCharacter other)
+    public void TransferVariablesFrom(MoveCharacter other)
     {
         Vector3 currentScale = transform.localScale;
         currentScale.x = Mathf.Abs(currentScale.x) * (other.transform.localScale.x < 0 ? -1f : 1f);
         transform.localScale = currentScale;
+
+        isGrounded = other.isGrounded;
+
+        //flip charater
+        int dir = other.GetDirection() ? 1 : -1;
+        FlipCharacter(dir);
     }
 
-    public bool getDirection()
+    public bool GetDirection()
     {
         return facingRight;
     }
+
+    public bool IsOnGround(){
+        return isGrounded;
+    }
+    
 }
