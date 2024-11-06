@@ -30,9 +30,11 @@ public class MoveCharacter : MonoBehaviour
         // Get horizontal input
         horizontalValue = Input.GetAxisRaw("Horizontal");        
         // Check for jump input
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && isGrounded)
         {
             Jump();
+        } else if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)){
+            Fall();
         }
     }
 
@@ -93,6 +95,14 @@ public class MoveCharacter : MonoBehaviour
     {
         // Apply jump force
         rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                 
+        isGrounded = false; // Character is airborne after jumping
+    }
+
+    public void Fall()
+    {
+        // Apply jump force
+        rb.AddForce(new Vector2(0, -3f), ForceMode2D.Impulse);
                  
         isGrounded = false; // Character is airborne after jumping
     }
