@@ -170,7 +170,7 @@ Rigidbody2D:
   m_Mass: 1.25
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.5
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 548d2b246518b554da3556b1b5c3b92b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -194,8 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63e870114ea16047829fab213d92bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 10
+  moveSpeed: 6
+  jumpForce: 15
+  linearDragX: 2.5
+  canMove: 1
+  gravityScaleIncrease: 1
 --- !u!114 &6847481202838898475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,8 +295,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63e870114ea16047829fab213d92bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 10
+  moveSpeed: 6
+  jumpForce: 15
+  linearDragX: 2.5
+  canMove: 1
+  gravityScaleIncrease: 1
 --- !u!50 &5755561588795942121
 Rigidbody2D:
   serializedVersion: 4
@@ -309,7 +315,7 @@ Rigidbody2D:
   m_Mass: 1.25
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.5
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 548d2b246518b554da3556b1b5c3b92b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -334,6 +340,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   climbSpeed: 6
+  grappleForce: 7
+  grappleRange: 1.5
 --- !u!1 &3097084698933608379
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +560,7 @@ Rigidbody2D:
   m_Mass: 1.25
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.5
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 548d2b246518b554da3556b1b5c3b92b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -576,8 +584,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63e870114ea16047829fab213d92bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 10
+  moveSpeed: 6
+  jumpForce: 15
+  linearDragX: 2.5
+  canMove: 1
+  gravityScaleIncrease: 1
 --- !u!1 &5790079017818334046
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +939,7 @@ Rigidbody2D:
   m_Mass: 1.25
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.5
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 548d2b246518b554da3556b1b5c3b92b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -952,5 +963,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63e870114ea16047829fab213d92bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  jumpForce: 10
+  moveSpeed: 6
+  jumpForce: 15
+  linearDragX: 2.5
+  canMove: 1
+  gravityScaleIncrease: 1

@@ -5,12 +5,15 @@ using UnityEngine;
 public class MoveCharacter : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float jumpForce = 10f;
+    public float jumpForce = 15f;
     private bool facingRight = true;
     private bool isGrounded = true;
     private float horizontalValue;
-    public float linearDragX = 0.1f;
+    public float linearDragX = 2.5f;
     public bool canMove = true;
+    
+    private float defaultGravityScale;
+    public float gravityScaleIncrease = 2.5f;
 
     private Rigidbody2D rb;
 
@@ -20,6 +23,7 @@ public class MoveCharacter : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         audioManager = null;
+        defaultGravityScale = rb.gravityScale;
     }
 
     void Update()
@@ -29,6 +33,7 @@ public class MoveCharacter : MonoBehaviour
         {
             Jump();
         }
+        IncreaseGravity();
     }
 
     void FixedUpdate()
@@ -77,6 +82,26 @@ public class MoveCharacter : MonoBehaviour
             audioManager.PlaySFX(audioManager.jumpSound);
         }
     }
+
+    private void IncreaseGravity(){
+        
+        if(canMove){
+            //increases at apex of jump
+            if(rb.velocity.y < 0f){
+                rb.gravityScale = defaultGravityScale + gravityScaleIncrease;   
+            }
+
+            //increase if you press down
+            if(Input.GetAxisRaw("Vertical") < 0){
+                rb.gravityScale = defaultGravityScale + gravityScaleIncrease;   
+            }
+        }
+
+        //reset gravity scale
+        if(isGrounded || rb.velocity.y == 0f){
+            rb.gravityScale = defaultGravityScale;
+        }
+    }   
 
     public void Dash(float x, float y)
     {
