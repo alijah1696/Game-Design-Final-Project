@@ -157,10 +157,10 @@ MonoBehaviour:
   climbingSource: {fileID: 1462971920}
   background: {fileID: 8300000, guid: 46d0c55c42a834472b0b58cafd406b18, type: 3}
   pressurePlateSound: {fileID: 8300000, guid: d2670b8e50b084b59b1d7ae607e25eb0, type: 3}
-  FloorTouch: {fileID: 0}
-  WallTouch: {fileID: 0}
-  climbVine: {fileID: 0}
-  jumpSound: {fileID: 0}
+  FloorTouch: {fileID: 8300000, guid: 5250677e576694c38976128bf804e96d, type: 3}
+  WallTouch: {fileID: 8300000, guid: 0d7087892f00d4ddc8f8ec7e9e197637, type: 3}
+  climbVine: {fileID: 8300000, guid: 01d05b96076c64e4784d6d0b542adecd, type: 3}
+  jumpSound: {fileID: 8300000, guid: 0d7087892f00d4ddc8f8ec7e9e197637, type: 3}
   switchingCharacterSound: {fileID: 8300000, guid: 74dffe2d979d94eee9ddf9686dfa3c89, type: 3}
 --- !u!4 &5410464
 Transform:
