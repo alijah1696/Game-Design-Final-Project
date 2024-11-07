@@ -37,6 +37,14 @@ public class SwapForms : MonoBehaviour
         {
             SwapForm(1); // Swap to form 2
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SwapForm(2); // Swap to form 2
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SwapForm(3); // Swap to form 2
+        }
     }
 
     // Helper method to get the current form
