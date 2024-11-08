@@ -33,7 +33,7 @@ public class MoveCharacter : MonoBehaviour
     void Update()
     {
         horizontalValue = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && canJump)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded && canJump)
         {
             Jump();
         }
