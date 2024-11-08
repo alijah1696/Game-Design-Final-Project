@@ -10,11 +10,14 @@ public class CameraFollow : MonoBehaviour
     public Vector3 offset = new Vector3(0, 2, -10); // Offset from the active character's position
     private Vector3 velocity = Vector3.zero; // Used for SmoothDamp
 
+    bool followTempTarget = false;
+
     void LateUpdate() // Use LateUpdate for smoother following
     {
         // Retrieve the SwapCharacters script from the target GameObject
+        
         SwapCharacters swapScript = target.GetComponent<SwapCharacters>();
-        if (swapScript != null)
+        if (swapScript != null && !followTempTarget)
         {
             // Get the currently active character from SwapCharacters
             activeCharacter = swapScript.GetCurrentForm();
@@ -34,5 +37,14 @@ public class CameraFollow : MonoBehaviour
         {
             Debug.LogWarning("Active character is null. Camera cannot follow.");
         }
+    }
+
+    public void FollowTemporaryTarget(GameObject temptarget){
+        followTempTarget = true;
+        activeCharacter = temptarget;
+    }
+
+    public void FollowPlayer(){
+        followTempTarget = false;
     }
 }

@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6352875864433893670}
   - component: {fileID: 7504071778691569502}
   - component: {fileID: 8278904242499263233}
-  - component: {fileID: 6847481202838898475}
+  - component: {fileID: 1229182556338092108}
   m_Layer: 0
   m_Name: Magnet
   m_TagString: Robot
@@ -196,10 +196,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   jumpForce: 15
+  canJump: 1
   linearDragX: 2.5
   canMove: 1
   gravityScaleIncrease: 2.5
---- !u!114 &6847481202838898475
+--- !u!114 &1229182556338092108
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,10 +209,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1272984128896007487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a75a64a4d0ab2c14f9264775af7674b1, type: 3}
+  m_Script: {fileID: 11500000, guid: c8aa2c74ef2eb87499aa79cbdb7093bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushSpeed: 4
+  moveSpeed: 5
+  moveTime: 0.5
+  highlightColor: {r: 0, g: 0.2451613, b: 1, a: 1}
 --- !u!1 &1569546797315037202
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   jumpForce: 15
+  canJump: 1
   linearDragX: 2.5
   canMove: 1
   gravityScaleIncrease: 2.5
@@ -537,6 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   jumpForce: 15
+  canJump: 1
   linearDragX: 2.5
   canMove: 1
   gravityScaleIncrease: 2.5
@@ -1135,6 +1140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   jumpForce: 15
+  canJump: 1
   linearDragX: 2.5
   canMove: 1
   gravityScaleIncrease: 2.5
@@ -1252,6 +1258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 20
+  canJump: 1
   linearDragX: 2.5
   canMove: 1
   gravityScaleIncrease: 2.5
