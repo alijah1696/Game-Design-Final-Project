@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24264d0111e1036438e1e5e48c15aa4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPoint: {fileID: 0}
+  respawnPoint: {fileID: 1530508896}
 --- !u!212 &58471303
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -260,7 +260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58471301}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.5282, y: -1.3977165, z: -2.3}
+  m_LocalPosition: {x: 8, y: 15, z: -2.3}
   m_LocalScale: {x: 7.6391597, y: 6.87739, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -289,11 +289,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952952757380776432, guid: db9740e17658be44087c707bfcfdf5c8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.7664058
+      value: -0.63643646
       objectReference: {fileID: 0}
     - target: {fileID: 4952952757380776432, guid: db9740e17658be44087c707bfcfdf5c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.254519
+      value: 17.791922
       objectReference: {fileID: 0}
     - target: {fileID: 4952952757380776432, guid: db9740e17658be44087c707bfcfdf5c8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1014,7 +1014,7 @@ GameObject:
   - component: {fileID: 214990033}
   m_Layer: 0
   m_Name: Square (14)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2171,7 +2171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195d09886e58cc14ca9fcddb6269bc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPoint: {fileID: 0}
+  respawnPoint: {fileID: 1530508896}
 --- !u!212 &677395224
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2277,7 +2277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 677395222}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 52.3682, y: -4.0177193, z: -2.3}
+  m_LocalPosition: {x: -5, y: 10, z: -2.3}
   m_LocalScale: {x: 2.21765, y: 26.41086, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -3321,7 +3321,7 @@ GameObject:
   - component: {fileID: 1208422042}
   m_Layer: 0
   m_Name: 'Player '
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4596,11 +4596,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952952757380776432, guid: db9740e17658be44087c707bfcfdf5c8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.493533
+      value: -1.3635635
       objectReference: {fileID: 0}
     - target: {fileID: 4952952757380776432, guid: db9740e17658be44087c707bfcfdf5c8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.254519
+      value: 17.791922
       objectReference: {fileID: 0}
     - target: {fileID: 4952952757380776432, guid: db9740e17658be44087c707bfcfdf5c8, type: 3}
       propertyPath: m_LocalPosition.z
