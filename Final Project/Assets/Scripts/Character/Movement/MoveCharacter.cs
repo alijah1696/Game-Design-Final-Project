@@ -6,8 +6,10 @@ public class MoveCharacter : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 15f;
-    private bool facingRight = true;
     private bool isGrounded = true;
+    public bool canJump = true;
+
+    private bool facingRight = true;
     private float horizontalValue;
     public float linearDragX = 2.5f;
     public bool canMove = true;
@@ -29,7 +31,7 @@ public class MoveCharacter : MonoBehaviour
     void Update()
     {
         horizontalValue = Input.GetAxisRaw("Horizontal");
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && canJump)
         {
             Jump();
         }
