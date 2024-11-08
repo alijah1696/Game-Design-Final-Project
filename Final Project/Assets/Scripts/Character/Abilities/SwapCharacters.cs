@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +12,7 @@ public class SwapCharacters : MonoBehaviour
     private void Awake()
     {
         // Find the AudioManager in the scene and get its component
-        audioManager = null;
+        audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
     }
 
     private void Start()
@@ -26,13 +25,12 @@ public class SwapCharacters : MonoBehaviour
 
     private void Update()
     {
-        // Check for Tab key press to swap characters
-
-        
+        // Check if the character is on the ground and if the Tab key is pressed to swap characters
         bool isOnGround = GetCurrentForm().GetComponent<MoveCharacter>().IsOnGround();
         if (Input.GetKeyDown(KeyCode.Tab) && isOnGround)
         {
             SwapCharacter();
+
             // Play character switch sound, if available
             if (audioManager != null && audioManager.switchingCharacterSound != null)
             {
@@ -40,7 +38,6 @@ public class SwapCharacters : MonoBehaviour
             }
         }
     }
-
 
     // Public method to get the currently active character for other scripts (e.g., CameraFollow)
     public GameObject GetCurrentForm()
@@ -51,24 +48,24 @@ public class SwapCharacters : MonoBehaviour
     private void SwapCharacter()
     {
         // Toggle between plant and robot as the active character
-        
-        GameObject OldCharacter= activeCharacter;
+        GameObject oldCharacter = activeCharacter;
         activeCharacter.SetActive(false);
         activeCharacter = (activeCharacter == plant) ? robot : plant;
         activeCharacter.SetActive(true);
 
-        TransferVarables(OldCharacter);
-
+        TransferVariables(oldCharacter);
     }
 
-    public void TransferVarables(GameObject old){
-
+    // Transfer variables from the old character to the new one
+    public void TransferVariables(GameObject old)
+    {
         SwapForms oldSf = old.GetComponent<SwapForms>();
         SwapForms activeSf = activeCharacter.GetComponent<SwapForms>();
 
         MoveCharacter oldMv = oldSf.CurrentForm().GetComponent<MoveCharacter>();
         MoveCharacter activeMv = activeSf.CurrentForm().GetComponent<MoveCharacter>();
 
+        // Transfer movement variables and position from old to new character
         activeMv.TransferVariablesFrom(oldMv);
         activeSf.CurrentForm().transform.position = oldSf.CurrentForm().transform.position;
     }
