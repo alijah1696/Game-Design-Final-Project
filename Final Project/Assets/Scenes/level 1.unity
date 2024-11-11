@@ -123,6 +123,79 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &36014897
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_RootOrder
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.8199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4.8199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.8199997
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.0000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 18.000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.149709
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.90788025
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.042599183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.09524974
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.40603736
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 11.978
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983722037366323099, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 48.192
+      objectReference: {fileID: 0}
+    - target: {fileID: 7306821960357523127, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
+      propertyPath: m_Name
+      value: VineGrapple
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1042c80f5f105174d80e1e18a72af5fd, type: 3}
 --- !u!1 &58471301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,6 +1458,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManger
       objectReference: {fileID: 0}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: grappleVine
+      value: 
+      objectReference: {fileID: 8300000, guid: 01d05b96076c64e4784d6d0b542adecd, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: Magneticability
+      value: 
+      objectReference: {fileID: 8300000, guid: 01d05b96076c64e4784d6d0b542adecd, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: PlantBallmovement
+      value: 
+      objectReference: {fileID: 8300000, guid: 74dffe2d979d94eee9ddf9686dfa3c89, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3822,6 +3907,10 @@ PrefabInstance:
     - target: {fileID: 5660107525911140547, guid: 3282cd3b3fe6b48199b201f69848b661, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7027906811054605209, guid: 3282cd3b3fe6b48199b201f69848b661, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -12.865845
       objectReference: {fileID: 0}
     - target: {fileID: 8879620618780185459, guid: 3282cd3b3fe6b48199b201f69848b661, type: 3}
       propertyPath: m_Pivot.x

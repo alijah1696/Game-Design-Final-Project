@@ -24,7 +24,7 @@ public class PlantVineMovement : MonoBehaviour
         defaultGravityScale = rb.gravityScale;
 
         // Find AudioManager in the scene
-        audioManager = null;
+        audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
     }
 
     void Update()
@@ -42,12 +42,18 @@ public class PlantVineMovement : MonoBehaviour
 
         MoveCharacter mv = GetComponent<MoveCharacter>();
 
+        // Check if player has reached the grapple point to stop movement and start the delayed stop for grapple sound
         if (isGrappling && grapplePoint != null && Vector2.Distance(transform.position, grapplePoint.transform.position) <= grappleRange)
         {
-
             rb.velocity = Vector2.zero; // Keep the player stationary
             rb.gravityScale = 0; // Disable gravity while stationary
             mv.canMove = false;
+
+            // Start the delayed stop for grapple sound
+            if (audioManager != null)
+            {
+                StartCoroutine(StopGrappleSoundAfterDelay(2f)); // 2 seconds delay
+            }
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -56,9 +62,7 @@ public class PlantVineMovement : MonoBehaviour
                 mv.canMove = true;
                 isGrappling = false;
             }
-
         }
-        
     }
 
     public void Grapple(GameObject point)
@@ -73,14 +77,24 @@ public class PlantVineMovement : MonoBehaviour
             rb.gravityScale = defaultGravityScale * 0.5f;
             rb.AddForce(grappleVector, ForceMode2D.Impulse);
 
-            // Play grapple sound effect if you have a specific sound for grappling
-            if (audioManager != null && audioManager.climbVine != null)
+            // Start the grapple sound effect as a looped sound
+            if (audioManager != null && audioManager.grappleVine != null)
             {
-                audioManager.PlaySFX(audioManager.climbVine);  // Change this to a specific grapple sound if available
+                audioManager.StartGrappleSound();
             }
 
             isGrappling = true;
             canGrapple = false;
+        }
+    }
+
+    // Coroutine to stop the grapple sound after a delay
+    private IEnumerator StopGrappleSoundAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (audioManager != null)
+        {
+            audioManager.StopGrappleSound();
         }
     }
 
