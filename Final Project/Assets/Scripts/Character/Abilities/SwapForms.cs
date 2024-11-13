@@ -53,8 +53,8 @@ public class SwapForms : MonoBehaviour
         return currentForm;
     }
 
-    // Method to swap forms
-    private void SwapForm(int formIndex)
+    // Method to swap forms (must be public so UI code can access)
+    public void SwapForm(int formIndex)
     {
         if (formIndex < 0 || formIndex >= forms.Length) return;
 

@@ -48,7 +48,8 @@ public class SwapCharacters : MonoBehaviour
         return activeCharacter.GetComponent<SwapForms>().CurrentForm();
     }
 
-    private void SwapCharacter()
+    //needs to be public so UI buttons can access:
+    public void SwapCharacter()
     {
         // Toggle between plant and robot as the active character
         
@@ -72,4 +73,14 @@ public class SwapCharacters : MonoBehaviour
         activeMv.TransferVariablesFrom(oldMv);
         activeSf.CurrentForm().transform.position = oldSf.CurrentForm().transform.position;
     }
+
+    //these functions allow the UI to access forms swaps:
+    public void SetPlantForm1(){plant.GetComponent<SwapForms>().SwapForm(0); }
+    public void SetPlantForm2(){plant.GetComponent<SwapForms>().SwapForm(1); }
+    public void SetPlantForm3(){plant.GetComponent<SwapForms>().SwapForm(2); }
+
+    public void SetRobotForm1(){robot.GetComponent<SwapForms>().SwapForm(0); }
+    public void SetRobotForm2(){robot.GetComponent<SwapForms>().SwapForm(1); }
+    public void SetRobotForm3(){robot.GetComponent<SwapForms>().SwapForm(2); }
+
 }
