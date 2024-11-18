@@ -18,7 +18,9 @@ public class MoveCharacter : MonoBehaviour
     public float gravityScaleIncrease = 2.5f;
 
     private Rigidbody2D rb;
-    private AudioManager audioManager;  // Reference to AudioManager
+    private AudioManager audioManager; // Reference to AudioManager
+
+    private bool isWalkingSoundPlaying = false; // Track if walking sound is currently playing
 
     void Start()
     {
@@ -42,7 +44,11 @@ public class MoveCharacter : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (canMove) Move(horizontalValue);
+        if (canMove)
+        {
+            Move(horizontalValue);
+            HandleWalkingSound(horizontalValue);
+        }
         ApplyXAxisDrag();
     }
 
@@ -129,15 +135,6 @@ public class MoveCharacter : MonoBehaviour
                 audioManager.PlaySFX(audioManager.FloorTouch);
             }
         }
-
-        // Play sound when touching a wall
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            if (audioManager != null && audioManager.WallTouch != null)
-            {
-                audioManager.PlaySFX(audioManager.WallTouch);
-            }
-        }
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -161,6 +158,26 @@ public class MoveCharacter : MonoBehaviour
         if (rb != null)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+    }
+
+    void HandleWalkingSound(float direction)
+    {
+        // Play walking sound if moving, stop if idle
+        if (audioManager != null && isGrounded)
+        {
+            if (direction != 0 && !isWalkingSoundPlaying)
+            {
+                audioManager.PlaySFX(audioManager.WallTouch); // Use the walking sound here
+                isWalkingSoundPlaying = true;
+                Debug.Log("Walking sound started.");
+            }
+            else if (direction == 0 && isWalkingSoundPlaying)
+            {
+                // Stop walking sound when idle
+                isWalkingSoundPlaying = false;
+                Debug.Log("Walking sound stopped.");
+            }
         }
     }
 
