@@ -1307,7 +1307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952952757380776432, guid: db9740e17658be44087c707bfcfdf5c8, type: 3}
       propertyPath: m_RootOrder
-      value: 22
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 4952952757380776432, guid: db9740e17658be44087c707bfcfdf5c8, type: 3}
       propertyPath: m_LocalScale.y
@@ -1783,12 +1783,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 590724591}
   m_LocalRotation: {x: -0, y: -0, z: -0.9999998, w: -0.00065276655}
-  m_LocalPosition: {x: -13, y: 17.507792, z: 0}
-  m_LocalScale: {x: 2.4398606, y: 0.58814317, z: 1}
+  m_LocalPosition: {x: -12.924453, y: 3.9447174, z: 0.0009501468}
+  m_LocalScale: {x: 2.439861, y: 0.5881433, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_Father: {fileID: 1381448175}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180.075}
 --- !u!1 &677395222
 GameObject:
@@ -2316,8 +2316,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 811012396}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.3393, y: 6.0357, z: -0.101903744}
-  m_LocalScale: {x: 4.5250907, y: 9.325866, z: 1}
+  m_LocalPosition: {x: -5.272582, y: -10.386568, z: -0.101903744}
+  m_LocalScale: {x: 47.25187, y: 0.94490105, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1290980933}
@@ -2673,12 +2673,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 841828918}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -21, y: 22, z: 0}
+  m_LocalPosition: {x: -20.924454, y: 8.436926, z: 0.0009501468}
   m_LocalScale: {x: 2.4398606, y: 0.58814317, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_Father: {fileID: 1381448175}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1054090213
 GameObject:
@@ -3295,8 +3295,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254867884}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.763, y: -17.816147, z: 10.004262}
-  m_LocalScale: {x: 43.324856, y: 0.7003577, z: 1}
+  m_LocalPosition: {x: -4.9067, y: -17.734, z: 10.004262}
+  m_LocalScale: {x: 81.28654, y: 0.8646986, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1463350534}
@@ -3360,7 +3360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 1530508896}
-  Player: {fileID: 419667964}
+  Player: {fileID: 1631174113}
 --- !u!212 &1254867888
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3815,6 +3815,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1090173408}
+  - {fileID: 1612909128}
+  - {fileID: 841828921}
+  - {fileID: 590724594}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4338,12 +4341,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1612909125}
   m_LocalRotation: {x: -0, y: -0, z: -0.9999998, w: -0.00065276655}
-  m_LocalPosition: {x: -13, y: 27, z: 0}
-  m_LocalScale: {x: 2.4398606, y: 0.58814317, z: 1}
+  m_LocalPosition: {x: -12.924453, y: 13.436926, z: 0.0009501468}
+  m_LocalScale: {x: 2.439861, y: 0.5881433, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_Father: {fileID: 1381448175}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180.075}
 --- !u!1 &1621792916
 GameObject:
@@ -4489,7 +4492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952952757380776432, guid: db9740e17658be44087c707bfcfdf5c8, type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4952952757380776432, guid: db9740e17658be44087c707bfcfdf5c8, type: 3}
       propertyPath: m_LocalScale.y
@@ -4559,7 +4562,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1667402377}
   m_Layer: 0
-  m_Name: 'Finish '
+  m_Name: Finish/next level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4880,7 +4883,7 @@ GameObject:
   - component: {fileID: 1887703146}
   - component: {fileID: 1887703147}
   m_Layer: 0
-  m_Name: Square (1)
+  m_Name: Next level 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
