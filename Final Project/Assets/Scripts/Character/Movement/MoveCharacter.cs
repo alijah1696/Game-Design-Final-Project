@@ -35,10 +35,13 @@ public class MoveCharacter : MonoBehaviour
     void Update()
     {
         horizontalValue = Input.GetAxisRaw("Horizontal");
+
+        // Handle jumping
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded && canJump)
         {
             Jump();
         }
+
         IncreaseGravity();
     }
 
@@ -126,14 +129,10 @@ public class MoveCharacter : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Play sound when touching the ground
+        // Set grounded status
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            if (audioManager != null && audioManager.FloorTouch != null)
-            {
-                audioManager.PlaySFX(audioManager.FloorTouch);
-            }
         }
     }
 
@@ -150,31 +149,33 @@ public class MoveCharacter : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
-        }
-    }
 
-    void OnDisable()
-    {
-        if (rb != null)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            // Ensure walking sound stops when leaving the ground
+            if (audioManager != null && isWalkingSoundPlaying)
+            {
+                audioManager.StopWalkingSound();
+                isWalkingSoundPlaying = false;
+                Debug.Log("Walking sound stopped (not grounded).");
+            }
         }
     }
 
     void HandleWalkingSound(float direction)
     {
-        // Play walking sound if moving, stop if idle
+        // Play walking sound if moving and grounded, stop if idle or airborne
         if (audioManager != null && isGrounded)
         {
             if (direction != 0 && !isWalkingSoundPlaying)
             {
-                audioManager.PlaySFX(audioManager.WallTouch); // Use the walking sound here
+                // Start walking sound loop
+                audioManager.StartWalkingSound(); // Play FloorTouch as looping sound
                 isWalkingSoundPlaying = true;
                 Debug.Log("Walking sound started.");
             }
             else if (direction == 0 && isWalkingSoundPlaying)
             {
-                // Stop walking sound when idle
+                // Stop walking sound loop
+                audioManager.StopWalkingSound();
                 isWalkingSoundPlaying = false;
                 Debug.Log("Walking sound stopped.");
             }

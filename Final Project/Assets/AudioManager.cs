@@ -5,23 +5,22 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [Header("Audio Sources")]
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource SFXSource;
-    [SerializeField] private AudioSource climbingSource;
-    [SerializeField] private AudioSource grappleSource;
+    [SerializeField] private AudioSource musicSource; // For background music
+    [SerializeField] private AudioSource SFXSource;   // For one-shot sound effects
+    [SerializeField] private AudioSource climbingSource; // For climbing-related sounds
+    [SerializeField] private AudioSource grappleSource;  // For grapple-related sounds
 
     [Header("Audio Clips")]
     public AudioClip background;
     public AudioClip pressurePlateSound;
-    public AudioClip FloorTouch;
-    public AudioClip WallTouch;
+    public AudioClip FloorTouch; // For walking or floor interaction
+    public AudioClip WallTouch;  // For hitting walls
     public AudioClip climbVine;
     public AudioClip jumpSound;
     public AudioClip switchingCharacterSound;
     public AudioClip grappleVine;
     public AudioClip PlantBallmovement;
     public AudioClip Magneticability;
-
 
     private void Start()
     {
@@ -109,6 +108,52 @@ public class AudioManager : MonoBehaviour
             SFXSource.Stop();
             SFXSource.loop = false; // Reset loop to false after stopping
             Debug.Log("Ball movement sound stopped.");
+        }
+    }
+
+    // Start looping magnetic ability sound
+    public void StartMagneticAbilitySound()
+    {
+        if (SFXSource != null && Magneticability != null)
+        {
+            SFXSource.loop = true;
+            SFXSource.clip = Magneticability;
+            SFXSource.Play();
+            Debug.Log("Magnetic ability sound started.");
+        }
+    }
+
+    // Stop looping magnetic ability sound
+    public void StopMagneticAbilitySound()
+    {
+        if (SFXSource != null && SFXSource.clip == Magneticability && SFXSource.isPlaying)
+        {
+            SFXSource.Stop();
+            SFXSource.loop = false; // Reset loop to false after stopping
+            Debug.Log("Magnetic ability sound stopped.");
+        }
+    }
+
+    // Start looping walking sound effect
+    public void StartWalkingSound()
+    {
+        if (SFXSource != null && FloorTouch != null)
+        {
+            SFXSource.loop = true;
+            SFXSource.clip = FloorTouch;
+            SFXSource.Play();
+            Debug.Log("Walking sound started.");
+        }
+    }
+
+    // Stop looping walking sound effect
+    public void StopWalkingSound()
+    {
+        if (SFXSource != null && SFXSource.clip == FloorTouch && SFXSource.isPlaying)
+        {
+            SFXSource.Stop();
+            SFXSource.loop = false; // Reset loop to false after stopping
+            Debug.Log("Walking sound stopped.");
         }
     }
 }

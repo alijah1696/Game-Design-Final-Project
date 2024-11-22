@@ -25,6 +25,7 @@ public class MageticAbilities : MonoBehaviour
     private Color defaultColor;
 
     private GameObject controlled;
+    private bool isMagneticSoundPlaying = false; // Track if the magnetic sound is currently playing
 
     void Start()
     {
@@ -45,10 +46,11 @@ public class MageticAbilities : MonoBehaviour
 
                 defaultColor = controlled.GetComponent<SpriteRenderer>().color;
 
-                // Play magnetic control sound
-                if (audioManager != null)
+                // Start looping magnetic control sound
+                if (audioManager != null && !isMagneticSoundPlaying)
                 {
-                    audioManager.PlaySFX(audioManager.Magneticability);
+                    audioManager.StartMagneticAbilitySound();
+                    isMagneticSoundPlaying = true;
                     Debug.Log("Started magnetic control sound.");
                 }
             }
@@ -127,10 +129,11 @@ public class MageticAbilities : MonoBehaviour
 
         camera.FollowPlayer();
 
-        // Stop magnetic control sound
-        if (audioManager != null)
+        // Stop looping magnetic control sound
+        if (audioManager != null && isMagneticSoundPlaying)
         {
-            audioManager.StopBallMovementSound();
+            audioManager.StopMagneticAbilitySound();
+            isMagneticSoundPlaying = false;
             Debug.Log("Stopped magnetic control sound.");
         }
     }
