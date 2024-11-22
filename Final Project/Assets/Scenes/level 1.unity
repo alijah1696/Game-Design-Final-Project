@@ -1882,15 +1882,19 @@ PrefabInstance:
     - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
       propertyPath: grappleVine
       value: 
-      objectReference: {fileID: 8300000, guid: 01d05b96076c64e4784d6d0b542adecd, type: 3}
+      objectReference: {fileID: 8300000, guid: 8516ca8f9d88e401abb2d590abe746d7, type: 3}
     - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
       propertyPath: Magneticability
       value: 
-      objectReference: {fileID: 8300000, guid: 01d05b96076c64e4784d6d0b542adecd, type: 3}
+      objectReference: {fileID: 8300000, guid: 180dadacbc8c84e5a882333ab9e9313d, type: 3}
     - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
       propertyPath: PlantBallmovement
       value: 
-      objectReference: {fileID: 8300000, guid: 74dffe2d979d94eee9ddf9686dfa3c89, type: 3}
+      objectReference: {fileID: 8300000, guid: 4ee05a0c7312f43c495fdd89be5bffbe, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: pressurePlateSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f939e697a416343d9b7ebdc86e0ebf2f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
