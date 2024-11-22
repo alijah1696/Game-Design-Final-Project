@@ -19,8 +19,8 @@ public class LightBulbEffect : MonoBehaviour
     public float dimmedIntensityMin = 0.2f;
     public float dimmedIntensityMax = 0.8f;
 
-    [Range(0.0F, 10.0F)]
-    public float dimmingSpeed = 1f;
+    [Range(0.0F, 3.0F)]
+    public float dimmingSpeed = 0.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +41,7 @@ public class LightBulbEffect : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if(setting == LightBulbSetting.Constant) lt.intensity = maxIntensity;
+        if(setting == LightBulbSetting.Constant || setting == LightBulbSetting.Flicker) lt.intensity = maxIntensity;
         lt.intensity *= isOn ? 1 : 0;
     }
 
@@ -75,7 +75,6 @@ public class LightBulbEffect : MonoBehaviour
                 {
                     elapsed += Time.deltaTime;
                     float progress = elapsed / dimmingSpeed;
-                    Debug.Log(progress);
                     lt.intensity = Mathf.Lerp(startIntensity, targetIntensity, progress);
                     yield return null;
                 }

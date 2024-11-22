@@ -12,6 +12,7 @@ public class InteractableProxy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        progress = 0;
     }
 
     // Update is called once per frame
@@ -22,6 +23,12 @@ public class InteractableProxy : MonoBehaviour
         if(hm != null){
              progress = (hm.getProgress() * 0.5f) + 0.5f;
              return;
+        }
+
+        ButtonLogic bl = puzzleInteractable.GetComponent<ButtonLogic>();
+        if(bl != null){
+            progress = bl.getProgress();
+            return;
         }
     }
 
