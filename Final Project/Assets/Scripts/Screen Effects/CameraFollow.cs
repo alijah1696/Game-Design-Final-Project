@@ -7,12 +7,12 @@ public class CameraFollow : MonoBehaviour
     public GameObject target; // The GameObject that holds the SwapCharacters script
     private GameObject activeCharacter; // Reference to the active character
     public float followSpeed = 0.1f; // Speed at which the camera follows the character
-    public Vector3 offset = new Vector3(0, 2, -10); // Offset from the active character's position
+    public Vector3 offset = new Vector3(0, 2, -200); // Offset from the active character's position
     private Vector3 velocity = Vector3.zero; // Used for SmoothDamp
 
     bool followTempTarget = false;
 
-    void LateUpdate() // Use LateUpdate for smoother following
+    void Update() // Use LateUpdate for smoother following
     {
         // Retrieve the SwapCharacters script from the target GameObject
         

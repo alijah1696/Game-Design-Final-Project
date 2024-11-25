@@ -74,6 +74,7 @@ public class MageticAbilities : MonoBehaviour
         {
             StopControl();
         }
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -104,6 +105,7 @@ public class MageticAbilities : MonoBehaviour
 
         mv.canMove = false;
         mv.canJump = false;
+        mv.isBusy = true;
 
         rb.velocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
@@ -121,6 +123,7 @@ public class MageticAbilities : MonoBehaviour
 
         mv.canMove = true;
         mv.canJump = true;
+        mv.isBusy = false;
 
         rb.bodyType = RigidbodyType2D.Dynamic;
 
@@ -136,5 +139,7 @@ public class MageticAbilities : MonoBehaviour
             isMagneticSoundPlaying = false;
             Debug.Log("Stopped magnetic control sound.");
         }
+
+        
     }
 }

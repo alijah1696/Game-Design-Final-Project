@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveCharacter : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 5f;    
     public float jumpForce = 15f;
     private bool isGrounded = true;
     public bool canJump = true;
@@ -14,10 +14,14 @@ public class MoveCharacter : MonoBehaviour
     public float linearDragX = 2.5f;
     public bool canMove = true;
 
+
+    public bool notSlowed = true;
+    public bool isBusy = false;
     private float defaultGravityScale;
     public float gravityScaleIncrease = 2.5f;
 
     private Rigidbody2D rb;
+    public bool canInteract;
     private AudioManager audioManager; // Reference to AudioManager
 
     private bool isWalkingSoundPlaying = false; // Track if walking sound is currently playing
@@ -35,9 +39,10 @@ public class MoveCharacter : MonoBehaviour
     void Update()
     {
         horizontalValue = Input.GetAxisRaw("Horizontal");
+        notSlowed = (Time.timeScale >= 0.4f);
 
         // Handle jumping
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded && canJump)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded && canJump && notSlowed)
         {
             Jump();
         }
@@ -47,8 +52,8 @@ public class MoveCharacter : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (canMove)
-        {
+        if (canMove && notSlowed)
+        {   
             Move(horizontalValue);
             HandleWalkingSound(horizontalValue);
         }
@@ -57,7 +62,7 @@ public class MoveCharacter : MonoBehaviour
 
     void Move(float dir)
     {
-        float moveAmount = dir * moveSpeed * Time.deltaTime;
+        float moveAmount = dir * moveSpeed * Time.fixedDeltaTime;
         transform.position = new Vector3(transform.position.x + moveAmount, transform.position.y, transform.position.z);
         FlipCharacter(dir);
     }
@@ -189,6 +194,7 @@ public class MoveCharacter : MonoBehaviour
         transform.localScale = currentScale;
 
         isGrounded = other.isGrounded;
+        isBusy = other.isBusy;
 
         // Flip character
         int dir = other.GetDirection() ? 1 : -1;
