@@ -35,12 +35,13 @@ public class PlantVineMovement : MonoBehaviour
             rb.velocity = new Vector2(0, vertical * climbSpeed);
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && canGrapple)
+         MoveCharacter mv = GetComponent<MoveCharacter>();
+        if (Input.GetKeyDown(KeyCode.E) && canGrapple && mv.notSlowed)
         {
             Grapple(grapplePoint);
         }
 
-        MoveCharacter mv = GetComponent<MoveCharacter>();
+       
 
         if (isGrappling && grapplePoint != null && Vector2.Distance(transform.position, grapplePoint.transform.position) <= grappleRange)
         {
@@ -48,10 +49,12 @@ public class PlantVineMovement : MonoBehaviour
             rb.velocity = Vector2.zero; // Keep the player stationary
             rb.gravityScale = 0; // Disable gravity while stationary
             mv.canMove = false;
+            mv.isBusy = true;
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && mv.notSlowed)
             {
                 mv.canMove = true;
+                mv.isBusy = false;
                 rb.gravityScale = defaultGravityScale; // Re-enable gravity when space is pressed
                 mv.Dash(Input.GetAxisRaw("Horizontal"), 0.25f);
                 isGrappling = false;

@@ -9,6 +9,8 @@ public class SwapCharacters : MonoBehaviour
     private GameObject activeCharacter; // Reference to the currently active character
     private AudioManager audioManager;
 
+    private int formIndex;
+
     private void Awake()
     {
         // Find the AudioManager in the scene and get its component
@@ -26,17 +28,17 @@ public class SwapCharacters : MonoBehaviour
     private void Update()
     {
         // Check if the character is on the ground and if the Tab key is pressed to swap characters
-        bool isOnGround = GetCurrentForm().GetComponent<MoveCharacter>().IsOnGround();
-        if (Input.GetKeyDown(KeyCode.Tab) && isOnGround)
-        {
-            SwapCharacter();
+        // bool isOnGround = GetCurrentForm().GetComponent<MoveCharacter>().IsOnGround();
+        // if (Input.GetKeyDown(KeyCode.Tab) && isOnGround && false)
+        // {
+        //     SwapCharacter();
 
-            // Play character switch sound, if available
-            if (audioManager != null && audioManager.switchingCharacterSound != null)
-            {
-                audioManager.PlaySFX(audioManager.switchingCharacterSound);
-            }
-        }
+        //     // Play character switch sound, if available
+        //     if (audioManager != null && audioManager.switchingCharacterSound != null)
+        //     {
+        //         audioManager.PlaySFX(audioManager.switchingCharacterSound);
+        //     }
+        // }
     }
 
     // Public method to get the currently active character for other scripts (e.g., CameraFollow)
@@ -71,13 +73,21 @@ public class SwapCharacters : MonoBehaviour
         activeSf.CurrentForm().transform.position = oldSf.CurrentForm().transform.position;
     }
 
-    //these functions allow the UI to access forms swaps:
-    public void SetPlantForm1(){plant.GetComponent<SwapForms>().SwapForm(0); }
-    public void SetPlantForm2(){plant.GetComponent<SwapForms>().SwapForm(1); }
-    public void SetPlantForm3(){plant.GetComponent<SwapForms>().SwapForm(2); }
+    public bool isCurrentlyBusy(){
+        return GetCurrentForm().GetComponent<MoveCharacter>().isBusy;
+    }
 
-    public void SetRobotForm1(){robot.GetComponent<SwapForms>().SwapForm(0); }
-    public void SetRobotForm2(){robot.GetComponent<SwapForms>().SwapForm(1); }
-    public void SetRobotForm3(){robot.GetComponent<SwapForms>().SwapForm(2); }
+    public float GetCurrentIndex(){
+        return formIndex;
+    }
+
+    //these functions allow the UI to access forms swaps:
+    public void SetPlantForm1(){plant.GetComponent<SwapForms>().SwapForm(0); formIndex = 1;}
+    public void SetPlantForm2(){plant.GetComponent<SwapForms>().SwapForm(1); formIndex = 0;}
+    public void SetPlantForm3(){plant.GetComponent<SwapForms>().SwapForm(2); formIndex = 2;}
+
+    public void SetRobotForm1(){robot.GetComponent<SwapForms>().SwapForm(0); formIndex = 4;}
+    public void SetRobotForm2(){robot.GetComponent<SwapForms>().SwapForm(1); formIndex = 5;}
+    public void SetRobotForm3(){robot.GetComponent<SwapForms>().SwapForm(2); formIndex = 3;}
 
 }

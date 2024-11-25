@@ -104,6 +104,7 @@ public class BallMovement : MonoBehaviour
     void BallMode()
     {
         Debug.Log("Entering Ball Mode.");
+        mv.isBusy = true;
 
         // Start ball movement sound when switching to Ball Mode
         if (audioManager != null && horizontalValue != 0)
@@ -118,7 +119,8 @@ public class BallMovement : MonoBehaviour
     void IdleMode()
     {
         Debug.Log("Entering Idle Mode.");
-
+        mv.isBusy = false;
+        
         // Stop ball movement sound when switching to Idle Mode
         if (audioManager != null)
         {
