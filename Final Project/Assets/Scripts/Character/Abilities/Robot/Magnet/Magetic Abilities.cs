@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MageticAbilities : MonoBehaviour
+public class MagneticAbilities : MonoBehaviour
 {
+    [Header("Ability Settings")]
+    public float abilityDuration = 5f; // Duration of the ability in seconds (editable in the Inspector)
+    private float abilityTimer = 0f;   // Tracks how much time has passed
+
     private bool canControl;
     private bool isControlling;
     private bool shouldControl;
@@ -43,7 +47,7 @@ public class MageticAbilities : MonoBehaviour
             {
                 isControlling = true;
                 shouldControl = true;
-
+                abilityTimer = abilityDuration; // Start the timer
                 defaultColor = controlled.GetComponent<SpriteRenderer>().color;
 
                 // Start looping magnetic control sound
@@ -62,6 +66,18 @@ public class MageticAbilities : MonoBehaviour
 
         verticalInput = Input.GetAxisRaw("Vertical");
         horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        // Handle ability timer
+        if (isControlling)
+        {
+            abilityTimer -= Time.deltaTime;
+
+            if (abilityTimer <= 0f)
+            {
+                StopControl(); // Automatically stop control when timer expires
+                Debug.Log("Magnetic ability timed out.");
+            }
+        }
     }
 
     void FixedUpdate()
@@ -74,7 +90,6 @@ public class MageticAbilities : MonoBehaviour
         {
             StopControl();
         }
-        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -139,7 +154,5 @@ public class MageticAbilities : MonoBehaviour
             isMagneticSoundPlaying = false;
             Debug.Log("Stopped magnetic control sound.");
         }
-
-        
     }
 }
