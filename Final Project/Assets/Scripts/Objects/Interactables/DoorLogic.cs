@@ -9,6 +9,7 @@ public class DoorLogic : MonoBehaviour
     private Collider2D c2d;
     
     private SpriteRenderer sr;
+    public bool isOpen;
     public Color offColor;
     private Color onColor;
     // Start is called before the first frame update
@@ -27,8 +28,10 @@ public class DoorLogic : MonoBehaviour
         float progress = proxy.getProgress();
         if(progress == 1){
             Opened();
+            isOpen = true;
         }else if(progress == 0){
             Closed();
+            isOpen = false;
         }
     }
 
