@@ -135,7 +135,7 @@ public class MoveCharacter : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         // Set grounded status
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Magnet"))
         {
             isGrounded = true;
         }
@@ -143,7 +143,7 @@ public class MoveCharacter : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground")  || collision.gameObject.CompareTag("Magnet"))
         {
             isGrounded = true;
         }
@@ -151,7 +151,7 @@ public class MoveCharacter : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground")  || collision.gameObject.CompareTag("Magnet"))
         {
             isGrounded = false;
 
