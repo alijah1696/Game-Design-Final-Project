@@ -123,7 +123,7 @@ public class MagneticAbilities : MonoBehaviour
         mv.isBusy = true;
 
         rb.velocity = Vector2.zero;
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.bodyType = RigidbodyType2D.Kinematic;
 
         camera.FollowTemporaryTarget(other);
     }
