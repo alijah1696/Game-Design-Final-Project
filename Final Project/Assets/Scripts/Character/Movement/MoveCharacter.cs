@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveCharacter : MonoBehaviour
 {
-    public float moveSpeed = 5f;    
+    public float moveSpeed = 5f;
     public float jumpForce = 15f;
     private bool isGrounded = true;
     public bool canJump = true;
@@ -14,14 +14,12 @@ public class MoveCharacter : MonoBehaviour
     public float linearDragX = 2.5f;
     public bool canMove = true;
 
-
     public bool notSlowed = true;
     public bool isBusy = false;
     private float defaultGravityScale;
     public float gravityScaleIncrease = 2.5f;
 
     private Rigidbody2D rb;
-    public bool canInteract;
     private AudioManager audioManager; // Reference to AudioManager
 
     private bool isWalkingSoundPlaying = false; // Track if walking sound is currently playing
@@ -38,22 +36,26 @@ public class MoveCharacter : MonoBehaviour
 
     void Update()
     {
-        horizontalValue = Input.GetAxisRaw("Horizontal");
+        // Read horizontal input from keyboard or controller (left stick)
+        horizontalValue = Input.GetAxis("Horizontal");
+
+        // Ensure character is not slowed due to time scaling
         notSlowed = (Time.timeScale >= 0.4f);
 
-        // Handle jumping
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGrounded && canJump && notSlowed)
+        // Handle jumping with "A" on the controller or "Space" on the keyboard
+        if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)) && isGrounded && canJump && notSlowed)
         {
             Jump();
         }
 
+        // Increase gravity when falling
         IncreaseGravity();
     }
 
     void FixedUpdate()
     {
         if (canMove && notSlowed)
-        {   
+        {
             Move(horizontalValue);
             HandleWalkingSound(horizontalValue);
         }
