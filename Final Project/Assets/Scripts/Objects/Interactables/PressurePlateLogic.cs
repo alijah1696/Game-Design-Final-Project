@@ -28,7 +28,6 @@ public class PressurePlateLogic : MonoBehaviour
         beingPressed = currentTriggers.Count > 0;
         
         float lerped = pressSpeed * Time.fixedDeltaTime;
-        Debug.Log(progress);
         if(beingPressed){
             progress = Mathf.Lerp(progress, 1, lerped); 
             if(progress > 0.95)progress = 1;

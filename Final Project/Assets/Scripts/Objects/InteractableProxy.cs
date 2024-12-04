@@ -20,12 +20,6 @@ public class InteractableProxy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Hamster wheel (-1 to 1)
-        HamsterWheel hm = puzzleInteractable.GetComponent<HamsterWheel>();
-        if(hm != null){
-             progress = (hm.getProgress() * 0.5f) + 0.5f;
-             return;
-        }
 
         //Button is binary  (0 or 1)
         ButtonLogic bl = puzzleInteractable.GetComponent<ButtonLogic>();
@@ -33,12 +27,33 @@ public class InteractableProxy : MonoBehaviour
             progress = bl.getProgress();
             return;
         }
+        
 
         //Pressure plate is analog (0 to 1)
         PressurePlateLogic pl = puzzleInteractable.GetComponent<PressurePlateLogic>();
         if(pl != null){
             progress = pl.GetProgress();
             return;
+        }
+
+        //Key is binary and cant be changed once set to 1
+        KeyLogic kl = puzzleInteractable.GetComponent<KeyLogic>();
+        if(kl != null && progress != 1){
+            float distance = Vector2.Distance((Vector2)transform.position, (Vector2)puzzleInteractable.transform.position);
+            if(Mathf.Abs(distance) < 2f){
+                kl.Unlock(transform);
+                progress = kl.GetUnlockProgress();
+                Debug.Log(progress);
+                if(progress == 1) puzzleInteractable.SetActive(false);
+            }
+            return;
+        }
+
+                //Hamster wheel (-1 to 1)
+        HamsterWheel hm = puzzleInteractable.GetComponent<HamsterWheel>();
+        if(hm != null){
+             progress = (hm.getProgress() * 0.5f) + 0.5f;
+             return;
         }
     }
 

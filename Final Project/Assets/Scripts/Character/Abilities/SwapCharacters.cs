@@ -25,6 +25,14 @@ public class SwapCharacters : MonoBehaviour
         robot.SetActive(false);
     }
 
+    public bool IsPlantActive(){
+        return (activeCharacter == plant);
+    }
+
+    public bool IsFacingRight(){
+        return GetCurrentForm().GetComponent<MoveCharacter>().GetDirection();
+    }
+
     private void Update()
     {
         // Check if the character is on the ground and if the Tab key is pressed to swap characters

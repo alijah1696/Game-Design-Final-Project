@@ -9,7 +9,7 @@ public class MoveCharacter : MonoBehaviour
     private bool isGrounded = true;
     public bool canJump = true;
 
-    private bool facingRight = true;
+    public bool facingRight = true;
     private float horizontalValue;
     public float linearDragX = 2.5f;
     public bool canMove = true;

@@ -28,23 +28,7 @@ public class SwapForms : MonoBehaviour
         currentAcceleration = (currentRb.velocity - previousVelocity) / Time.deltaTime;
         previousVelocity = currentRb.velocity;
 
-        // Check for input to swap forms
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SwapForm(0); // Swap to form 1
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SwapForm(1); // Swap to form 2
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SwapForm(2); // Swap to form 2
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SwapForm(3); // Swap to form 2
-        }
+        Debug.Log(currentForm);
     }
 
     // Helper method to get the current form

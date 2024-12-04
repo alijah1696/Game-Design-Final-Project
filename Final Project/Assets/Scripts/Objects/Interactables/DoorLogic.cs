@@ -7,10 +7,14 @@ public class DoorLogic : MonoBehaviour
 
     private InteractableProxy proxy;
     private Collider2D c2d;
-    
     private SpriteRenderer sr;
-    public Color offColor;
-    private Color onColor;
+
+    public bool isOpen;
+
+    [SerializeField]
+    private Sprite openedSprite;
+    private Sprite closedSprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,27 +22,30 @@ public class DoorLogic : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         c2d = GetComponent<Collider2D>();
 
-        onColor = sr.color;
+        closedSprite = sr.sprite;
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         float progress = proxy.getProgress();
-        if(progress == 1){
-            Opened();
-        }else if(progress == 0){
-            Closed();
+        
+        if(progress == 1 && !isOpen){
+            Open();  
+        }else if(progress == 0 && isOpen){
+            Close();   
         }
     }
 
-    void Opened(){
-        sr.color = offColor;
+    public void Open(){
+        isOpen = true;
         c2d.isTrigger = true;
+        sr.sprite = openedSprite;
     }
 
-    void Closed(){
-        sr.color = onColor;
+    public void Close(){
+        isOpen = false;
         c2d.isTrigger = false;
+        sr.sprite = closedSprite;
     }
 }

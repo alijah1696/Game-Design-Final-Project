@@ -5,25 +5,29 @@ using UnityEngine;
 public class ButtonLogic : MonoBehaviour
 {
 
-    public GameObject buttonPivot;
-    public SpriteRenderer buttonSprite; 
-
-    public Color offColor;
-    private Color onColor;
-
-    public float offHeight;
-    private Vector3 onScale;
-
     private float progress;
     public bool pressed;
     private bool canPress;
+    
+    private SpriteRenderer sr;
+    private Sprite unpressedSprite;
+    [SerializeField]
+    private Sprite pressedSprite;
+
+    [SerializeField]
+    private GameObject lightSource;
+    UnityEngine.Rendering.Universal.Light2D lt;
+    private float maxLight;
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
-        onColor = buttonSprite.color;
-        onScale = buttonPivot.transform.localScale;
+        sr = GetComponent<SpriteRenderer>();
+        if(lightSource != null) lt = lightSource.GetComponent<UnityEngine.Rendering.Universal.Light2D>();
+        if(lt != null) maxLight = lt.intensity;
+        if(sr != null) unpressedSprite = sr.sprite;
     }
 
     // Update is called once per frame
@@ -33,18 +37,18 @@ public class ButtonLogic : MonoBehaviour
     }
 
     void Press(){
-        Vector3 offScale = new Vector3(onScale.x, offHeight, onScale.z);
+        if(sr == null) return; 
+        
         pressed = !pressed;
-
         if(pressed){
-            buttonSprite.color = offColor;
-            buttonPivot.transform.localScale = offScale;
+            sr.sprite = pressedSprite;
+            if(lt != null) lt.intensity = 0;
             progress = 1;
         }else{
-            buttonSprite.color = onColor;
-            buttonPivot.transform.localScale = onScale;
+            sr.sprite = unpressedSprite;
+            if(lt != null) lt.intensity = maxLight;
             progress = 0;
-        }
+        } 
         
     }
 
@@ -55,7 +59,6 @@ public class ButtonLogic : MonoBehaviour
     }
 
     void OnTriggerExit2D(Collider2D  other){
-
         if(isPlayer(other.gameObject))
         canPress = false;
     }
