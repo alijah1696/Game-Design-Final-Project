@@ -18,7 +18,9 @@ public class ButtonLogic : MonoBehaviour
     private GameObject lightSource;
     UnityEngine.Rendering.Universal.Light2D lt;
     private float maxLight;
-    
+
+    [SerializeField]
+    private bool forPlant;  
 
 
     // Start is called before the first frame update
@@ -54,8 +56,11 @@ public class ButtonLogic : MonoBehaviour
 
 
     void OnTriggerEnter2D(Collider2D  other){
-        if(isPlayer(other.gameObject))
-        canPress = true;
+        bool isValid = 
+        ((forPlant && other.CompareTag("Plant")) ||
+        (!forPlant && other.CompareTag("Robot")));
+
+        if(isValid) canPress = true;
     }
 
     void OnTriggerExit2D(Collider2D  other){
@@ -70,5 +75,6 @@ public class ButtonLogic : MonoBehaviour
     private bool isPlayer(GameObject other){
         return other.GetComponent<MoveCharacter>() != null;
     }
+
 
 }

@@ -27,8 +27,6 @@ public class SwapForms : MonoBehaviour
         // Calculate acceleration
         currentAcceleration = (currentRb.velocity - previousVelocity) / Time.deltaTime;
         previousVelocity = currentRb.velocity;
-
-        Debug.Log(currentForm);
     }
 
     // Helper method to get the current form
