@@ -4468,6 +4468,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2604e6e0ffae6484e92d2d15a01251a5, type: 2}
+    - target: {fileID: 5089037504239002611, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
+      propertyPath: jumpForce
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6015262032663361462, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_Name
       value: PLAYER
