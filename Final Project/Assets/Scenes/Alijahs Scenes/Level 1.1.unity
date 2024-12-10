@@ -5713,10 +5713,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1538468279}
     m_Modifications:
-    - target: {fileID: 1469613444910089941, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1600939383528151755, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -5801,18 +5797,6 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 8601428631978758580, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8601428631978758580, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8601428631978758580, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8662245863743344015, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -5824,7 +5808,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 216915768288365896, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
-    - {fileID: 3809703394277500899, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1469613444910089941, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       insertIndex: -1
@@ -5832,9 +5815,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8601428631978758580, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1867372819}
-    - targetCorrespondingSourceObject: {fileID: 8601428631978758580, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1008370696}
     - targetCorrespondingSourceObject: {fileID: 8225979603998605675, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       insertIndex: -1
       addedObject: {fileID: 470863612}
@@ -16064,6 +16044,7 @@ Transform:
   m_GameObject: {fileID: 318828945}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.12, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -83207,6 +83188,7 @@ PrefabInstance:
       addedObject: {fileID: 213335732}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93819678156ea334287174b5acade94f, type: 3}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 --- !u!1 &1008370695
 GameObject:
@@ -83377,6 +83359,8 @@ PrefabInstance:
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d93d46852a1de544db09d090199c6a04, type: 3}
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of cb0338d (tried to get robot animations in)
 --- !u!224 &1144572401 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5622261978284558441, guid: 3e5cd420892514f018bde7955a74e770, type: 3}
