@@ -40165,7 +40165,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 1.5
 --- !u!61 &365838253
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -40481,7 +40481,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1012649487807133957, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: moveTime
-      value: 0.2
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012649487807133957, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
+      propertyPath: abilityDuration
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1600939383528151755, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_RootOrder
