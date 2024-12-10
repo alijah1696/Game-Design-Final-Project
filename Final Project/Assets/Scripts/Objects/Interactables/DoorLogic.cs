@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DoorLogic : MonoBehaviour
 {
-    private InteractableProxy proxy; // Handles interaction with various objects (e.g., pressure plates)
     private Collider2D c2d;
     private SpriteRenderer sr;
 
@@ -16,15 +15,16 @@ public class DoorLogic : MonoBehaviour
 
     private AudioManager audioManager; // Reference to AudioManager
 
+    public PressurePlate connectedPressurePlate; // Reference to the connected pressure plate
+    public bool keyUsed = false; // Tracks if the key has been used to open the door
+
     void Start()
     {
-        proxy = GetComponent<InteractableProxy>();
         sr = GetComponent<SpriteRenderer>();
         c2d = GetComponent<Collider2D>();
 
         closedSprite = sr.sprite;
 
-        // Find the AudioManager
         audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
         if (audioManager == null)
         {
@@ -34,49 +34,55 @@ public class DoorLogic : MonoBehaviour
 
     void Update()
     {
-        // Get the progress from the proxy (e.g., pressure plate, button)
-        float progress = proxy.getProgress();
+        // Check if the door should open via key or pressure plate
+        if ((connectedPressurePlate != null && connectedPressurePlate.IsActivated) || keyUsed)
+        {
+            if (!isOpen)
+            {
+                Open();
+            }
+        }
+    }
 
-        // Open or close the door based on progress
-        if (progress == 1 && !isOpen)
-        {
-            Open();
-        }
-        else if (progress == 0 && isOpen)
-        {
-            Close();
-        }
+    public void UseKey()
+    {
+        keyUsed = true;
+        Open();
     }
 
     public void Open()
     {
-        isOpen = true;
-        c2d.isTrigger = true; // Make the collider a trigger to allow passage
-        sr.sprite = openedSprite; // Change the sprite to indicate the open state
-
-        // Play the door opening sound
-        if (audioManager != null && audioManager.pressurePlateSound != null)
+        if (!isOpen)
         {
-            audioManager.PlaySFX(audioManager.pressurePlateSound);
-            Debug.Log("Door opened sound played.");
-        }
+            isOpen = true;
+            c2d.isTrigger = true;
+            sr.sprite = openedSprite;
 
-        Debug.Log("Door opened.");
+            if (audioManager != null && audioManager.pressurePlateSound != null)
+            {
+                audioManager.PlaySFX(audioManager.pressurePlateSound);
+                Debug.Log("Door opened sound played.");
+            }
+
+            Debug.Log("Door opened.");
+        }
     }
 
     public void Close()
     {
-        isOpen = false;
-        c2d.isTrigger = false; // Make the collider solid again
-        sr.sprite = closedSprite; // Change the sprite to indicate the closed state
-
-        // Play the door closing sound
-        if (audioManager != null && audioManager.pressurePlateSound != null)
+        if (isOpen)
         {
-            audioManager.PlaySFX(audioManager.pressurePlateSound);
-            Debug.Log("Door closed sound played.");
-        }
+            isOpen = false;
+            c2d.isTrigger = false;
+            sr.sprite = closedSprite;
 
-        Debug.Log("Door closed.");
+            if (audioManager != null && audioManager.pressurePlateSound != null)
+            {
+                audioManager.PlaySFX(audioManager.pressurePlateSound);
+                Debug.Log("Door closed sound played.");
+            }
+
+            Debug.Log("Door closed.");
+        }
     }
 }
