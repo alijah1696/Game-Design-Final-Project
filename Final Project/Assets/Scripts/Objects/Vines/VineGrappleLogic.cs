@@ -5,9 +5,15 @@ using UnityEngine;
 public class VineGrappleLogic : MonoBehaviour
 {   
     private Material material;
-    private bool canGrapple;
+    private bool inRange;
     public float outlineThickness = 2f;
     public Color offColor;
+
+    private bool onCooldown; 
+    [SerializeField] private float cooldownTime;
+    
+    [SerializeField] private ParticleSystem ps;
+
 
     private LineRenderer lr;
     private GameObject player;
@@ -16,7 +22,9 @@ public class VineGrappleLogic : MonoBehaviour
     private Color defaultMainColor; // Store the original color
 
     void Start()
-    {
+    {     
+        if(ps != null) ps.Stop(true);
+
         material = GetComponent<SpriteRenderer>().material;
         defaultMainColor = material.GetColor("_MainColor"); // Get the default color
 
@@ -25,38 +33,48 @@ public class VineGrappleLogic : MonoBehaviour
 
     void Update()
     {   
-        if (canGrapple)
+        if (inRange && !onCooldown)
         {
             material.SetFloat("_Thickness", outlineThickness);
             material.SetColor("_MainColor", defaultMainColor);
-
-            //logic for drawing vine to player when grappling
-            bool shouldDraw = false;
-            if(HasVine(player)) shouldDraw = player.GetComponent<PlantVineMovement>().IsGrappling();
-            
-            if(shouldDraw){
-                DrawVineTo(player); 
-            }else{
-                CutVine();
-            }
         }
         else
         {
             material.SetFloat("_Thickness", 0f);
             material.SetColor("_MainColor", offColor);
-
-            CutVine();
         }
     }
+    
+    public void Cooldown(){
+        StartCoroutine(CooldownCoroutine());
+    }
+    
+    IEnumerator CooldownCoroutine(){
+        onCooldown = true;
+        yield return new WaitForSeconds(cooldownTime);
+        onCooldown = false;
+    }
 
+    public bool OnCooldown(){
+        return onCooldown;
+    }
 
+    public void Particle(){
+        if(ps != null) StartCoroutine(ParticleCoroutine());
+    }
+
+    IEnumerator ParticleCoroutine(){
+        ps.Play();
+        yield return new WaitForSeconds(0.1f);
+        ps.Stop(false);
+    }
     
     void OnTriggerStay2D(Collider2D other)
     {   
-        canGrapple = false;
+        inRange = false;
         if (other.CompareTag("Plant") && HasVine(other.gameObject))
         {
-            canGrapple = true;
+            inRange = true;
             player = other.gameObject;
         }
     }
@@ -64,26 +82,10 @@ public class VineGrappleLogic : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {   
         if(other.CompareTag("Plant") || other.CompareTag("Robot")){
+            inRange = false;
             player = null;
-            canGrapple = false;
         }
     }
-
-    //ACTIVE METHODS
-    public void DrawVineTo(GameObject player){
-        lr.SetPosition(0, transform.position);
-        if(player != null){
-            lr.SetPosition(1, player.transform.position);
-        }else{
-            CutVine();
-        }
-    }
-
-    public void CutVine(){
-        lr.SetPosition(0, transform.position);
-        lr.SetPosition(1, transform.position);
-    }
-
 
     //HELPER METHODS
     bool HasVine(GameObject player)
@@ -91,9 +93,4 @@ public class VineGrappleLogic : MonoBehaviour
         if(player == null) return false;
         return player.GetComponent<PlantVineMovement>() != null;
     }
-
-    public bool CanGrapple(){
-        return canGrapple;
-    }
-
 }

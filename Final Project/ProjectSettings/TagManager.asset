@@ -17,7 +17,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Pixels
   - Water
   - UI
   - UI 1
@@ -49,6 +49,9 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 2264266051
+    locked: 0
+  - name: Pixelated
+    uniqueID: 2869658741
     locked: 0
   - name: Default
     uniqueID: 0
