@@ -13,12 +13,22 @@ public class PressurePlate : MonoBehaviour
     private bool platformActivated = false; // Whether the platform is moving towards the target
     private bool returningToOriginal = false; // Whether the platform is moving back to the original position
 
+    private AudioManager audioManager;    // Reference to the AudioManager
+    public DoorLogic connectedDoor;       // Reference to the connected door logic (set in the Inspector)
+
     private void Start()
     {
         // Save the original position of the platform
         if (platform != null)
         {
             originalPosition = platform.position;
+        }
+
+        // Find the AudioManager in the scene
+        audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
+        if (audioManager == null)
+        {
+            Debug.LogError("AudioManager not found! Make sure it exists in the scene.");
         }
     }
 
@@ -60,13 +70,41 @@ public class PressurePlate : MonoBehaviour
         if (!platformActivated && !returningToOriginal)
         {
             platformActivated = true;
+
+            // Play the pressure plate sound
+            if (audioManager != null && audioManager.pressurePlateSound != null)
+            {
+                audioManager.PlaySFX(audioManager.pressurePlateSound);
+                Debug.Log($"Pressure plate sound played by {other.gameObject.name}.");
+            }
+
             Debug.Log($"Pressure plate activated by {other.gameObject.name}. Platform moving to target position: {targetPosition}");
+
+            // Notify the connected door
+            if (connectedDoor != null)
+            {
+                connectedDoor.Open();
+            }
         }
         else if (!returningToOriginal && !platformActivated)
         {
             // If the platform is at the target position, return to the original position
             returningToOriginal = true;
+
+            // Play the pressure plate sound again
+            if (audioManager != null && audioManager.pressurePlateSound != null)
+            {
+                audioManager.PlaySFX(audioManager.pressurePlateSound);
+                Debug.Log($"Pressure plate sound played by {other.gameObject.name}.");
+            }
+
             Debug.Log($"Pressure plate activated again by {other.gameObject.name}. Platform returning to original position: {originalPosition}");
+
+            // Notify the connected door
+            if (connectedDoor != null)
+            {
+                connectedDoor.Close();
+            }
         }
     }
 }
