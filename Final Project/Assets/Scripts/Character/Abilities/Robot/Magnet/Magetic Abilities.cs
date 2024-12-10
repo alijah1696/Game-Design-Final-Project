@@ -5,12 +5,14 @@ using UnityEngine;
 public class MagneticAbilities : MonoBehaviour
 {
     [Header("Ability Settings")]
-    public float abilityDuration = 5f; // Duration of the ability in seconds (editable in the Inspector)
-    private float abilityTimer = 0f;   // Tracks how much time has passed
+    [Tooltip("Set the duration (in seconds) for how long the magnetic ability lasts.")]
+    [Min(0.1f)] // Ensures duration is always positive
+    public float abilityDuration = 5f; // Duration of the ability (editable in the Inspector)
+    private float abilityTimer = 0f;   // Tracks remaining time for the ability
 
-    private bool canControl;
-    private bool isControlling;
-    private bool shouldControl;
+    private bool canControl;          // Indicates if a magnet object can be controlled
+    private bool isControlling;       // Indicates if the ability is currently active
+    private bool shouldControl;       // Indicates if control should continue
 
     private float verticalInput;
     private float horizontalInput;
@@ -28,35 +30,26 @@ public class MagneticAbilities : MonoBehaviour
     public Color highlightColor;
     private Color defaultColor;
 
-    private GameObject controlled;
-    private bool isMagneticSoundPlaying = false; // Track if the magnetic sound is currently playing
+    private GameObject controlled;       // The object being controlled
+    private bool isMagneticSoundPlaying; // Tracks if the magnetic sound is playing
 
     void Start()
     {
         mv = GetComponent<MoveCharacter>();
         rb = GetComponent<Rigidbody2D>();
         camera = FindObjectOfType<CameraFollow>();
-        audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>(); // Initialize AudioManager
+        audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
     }
 
     void Update()
     {
+        // Activate the magnetic ability
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (canControl && !isControlling)
+            // Start controlling the object if one was previously detected
+            if (controlled != null && !isControlling)
             {
-                isControlling = true;
-                shouldControl = true;
-                abilityTimer = abilityDuration; // Start the timer
-                defaultColor = controlled.GetComponent<SpriteRenderer>().color;
-
-                // Start looping magnetic control sound
-                if (audioManager != null && !isMagneticSoundPlaying)
-                {
-                    audioManager.StartMagneticAbilitySound();
-                    isMagneticSoundPlaying = true;
-                    Debug.Log("Started magnetic control sound.");
-                }
+                StartControl();
             }
             else if (isControlling)
             {
@@ -67,14 +60,14 @@ public class MagneticAbilities : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        // Handle ability timer
+        // Handle the ability timer
         if (isControlling)
         {
             abilityTimer -= Time.deltaTime;
 
             if (abilityTimer <= 0f)
             {
-                StopControl(); // Automatically stop control when timer expires
+                StopControl(); // Automatically stop control when the timer expires
                 Debug.Log("Magnetic ability timed out.");
             }
         }
@@ -96,8 +89,9 @@ public class MagneticAbilities : MonoBehaviour
     {
         if (other.CompareTag("Magnet"))
         {
-            canControl = true;
-            controlled = other.gameObject;
+            controlled = other.gameObject; // Assign the object to control
+            canControl = true;            // Allow control if this object was detected
+            Debug.Log($"Entered magnetic field of {controlled.name}");
         }
     }
 
@@ -105,12 +99,40 @@ public class MagneticAbilities : MonoBehaviour
     {
         if (other.CompareTag("Magnet"))
         {
-            canControl = false;
+            // Only disallow control if not actively controlling
+            if (!isControlling)
+            {
+                canControl = false;
+                Debug.Log($"Exited magnetic field of {controlled?.name}");
+            }
         }
+    }
+
+    private void StartControl()
+    {
+        if (controlled == null) return;
+
+        isControlling = true;
+        shouldControl = true;
+        abilityTimer = abilityDuration; // Initialize the timer
+
+        defaultColor = controlled.GetComponent<SpriteRenderer>().color;
+
+        // Start looping magnetic control sound
+        if (audioManager != null && !isMagneticSoundPlaying)
+        {
+            audioManager.StartMagneticAbilitySound();
+            isMagneticSoundPlaying = true;
+            Debug.Log("Started magnetic control sound.");
+        }
+
+        Debug.Log($"Started controlling {controlled.name} for {abilityDuration} seconds.");
     }
 
     public void Control(GameObject other)
     {
+        if (other == null) return;
+
         Rigidbody2D other_rb = other.GetComponent<Rigidbody2D>();
         Vector2 targetVelocity = new Vector2(horizontalInput * moveSpeed, verticalInput * moveSpeed);
         other_rb.velocity = Vector2.SmoothDamp(other_rb.velocity, targetVelocity, ref moveVelocity, moveTime);
@@ -130,11 +152,14 @@ public class MagneticAbilities : MonoBehaviour
 
     public void StopControl()
     {
-        Rigidbody2D other_rb = controlled.GetComponent<Rigidbody2D>();
-        other_rb.velocity = Vector2.zero;
-        other_rb.gravityScale = 1f;
+        if (controlled != null)
+        {
+            Rigidbody2D other_rb = controlled.GetComponent<Rigidbody2D>();
+            other_rb.velocity = Vector2.zero;
+            other_rb.gravityScale = 1f;
 
-        controlled.GetComponent<SpriteRenderer>().color = defaultColor;
+            controlled.GetComponent<SpriteRenderer>().color = defaultColor;
+        }
 
         mv.canMove = true;
         mv.canJump = true;
@@ -154,5 +179,7 @@ public class MagneticAbilities : MonoBehaviour
             isMagneticSoundPlaying = false;
             Debug.Log("Stopped magnetic control sound.");
         }
+
+        Debug.Log($"Stopped controlling {controlled?.name}");
     }
 }

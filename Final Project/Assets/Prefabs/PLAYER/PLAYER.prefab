@@ -197,8 +197,11 @@ MonoBehaviour:
   moveSpeed: 6
   jumpForce: 15
   canJump: 1
+  facingRight: 1
   linearDragX: 2.5
   canMove: 1
+  notSlowed: 1
+  isBusy: 0
   gravityScaleIncrease: 2.5
 --- !u!114 &1012649487807133957
 MonoBehaviour:
@@ -212,6 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8aa2c74ef2eb87499aa79cbdb7093bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityDuration: 5
   moveSpeed: 5
   moveTime: 0.1
   highlightColor: {r: 1, g: 1, b: 1, a: 1}
@@ -301,8 +305,11 @@ MonoBehaviour:
   moveSpeed: 6
   jumpForce: 15
   canJump: 1
+  facingRight: 1
   linearDragX: 2.5
   canMove: 1
+  notSlowed: 1
+  isBusy: 0
   gravityScaleIncrease: 2.5
 --- !u!50 &5755561588795942121
 Rigidbody2D:
@@ -542,8 +549,11 @@ MonoBehaviour:
   moveSpeed: 6
   jumpForce: 15
   canJump: 1
+  facingRight: 1
   linearDragX: 2.5
   canMove: 1
+  notSlowed: 1
+  isBusy: 0
   gravityScaleIncrease: 2.5
 --- !u!1 &3097084698933608379
 GameObject:
@@ -780,7 +790,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8554815634783012648
 Transform:
   m_ObjectHideFlags: 0
@@ -845,7 +855,7 @@ Transform:
   - {fileID: 2098127836546124774}
   - {fileID: 8554815634783012648}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5320200440642589064
 MonoBehaviour:
@@ -871,8 +881,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5704603364315536373}
   - component: {fileID: 4587013302430615384}
+  - component: {fileID: 1732121565292679475}
   m_Layer: 0
-  m_Name: manget_idle(test)
+  m_Name: robot_art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,8 +897,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6621191757857682127}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.48399973, z: 0}
-  m_LocalScale: {x: 2.9, y: 2.9, z: 2.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8225979603998605675}
@@ -933,8 +944,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ecc3f30c7682dbf439a478c9a9ba56c7, type: 3}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: -1025247231, guid: a6a1d1eb28fde4204b99eabda1873e3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -945,6 +956,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1732121565292679475
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6621191757857682127}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 391379ee66b004068bbd302148e938a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6816817654541806293
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,8 +987,9 @@ GameObject:
   m_Component:
   - component: {fileID: 145276956618973493}
   - component: {fileID: 3585940439923854650}
+  - component: {fileID: 6062655910982650952}
   m_Layer: 0
-  m_Name: plant_vine_idle(test)
+  m_Name: plant_art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -970,8 +1003,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6816817654541806293}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.48399973, z: 0}
-  m_LocalScale: {x: 2.9, y: 2.9, z: 2.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3338418095344388863}
@@ -1017,8 +1050,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 026369ef24183de4ea7eb99c04455749, type: 3}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: -1271870306, guid: 0a2d3849f363845e4bc63f3c87a1bf57, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1029,6 +1062,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6062655910982650952
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6816817654541806293}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a2cbc6e8e67c0401dae1abb3a20f35e4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7920028522739289305
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,7 +1101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1469613444910089941
 Transform:
   m_ObjectHideFlags: 0
@@ -1141,8 +1195,11 @@ MonoBehaviour:
   moveSpeed: 6
   jumpForce: 15
   canJump: 1
+  facingRight: 1
   linearDragX: 2.5
   canMove: 1
+  notSlowed: 1
+  isBusy: 0
   gravityScaleIncrease: 2.5
 --- !u!1 &8905847016652159397
 GameObject:
@@ -1164,7 +1221,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6731985216467318189
 Transform:
   m_ObjectHideFlags: 0
@@ -1259,8 +1316,11 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 20
   canJump: 1
+  facingRight: 1
   linearDragX: 2.5
   canMove: 1
+  notSlowed: 1
+  isBusy: 0
   gravityScaleIncrease: 2.5
 --- !u!114 &6724352843503812199
 MonoBehaviour:

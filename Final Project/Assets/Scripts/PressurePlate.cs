@@ -4,69 +4,67 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour
 {
-    [Header("Platform Settings")]
-    public Transform platform;            // The object to move
-    public Vector3 targetPosition;        // Desired position
-    public float speed = 2f;              // Movement speed
+    private AudioManager audioManager;    // Reference to the AudioManager
+    public DoorLogic connectedDoor;       // Reference to the connected door logic (set in the Inspector)
 
-    private Vector3 originalPosition;     // Original position of the platform
-    private bool platformActivated = false; // Whether the platform is moving towards the target
-    private bool returningToOriginal = false; // Whether the platform is moving back to the original position
+    private bool isActivated = false;     // Tracks if the pressure plate is currently activated
+
+    // Public getter for activation status
+    public bool IsActivated => isActivated;
 
     private void Start()
     {
-        // Save the original position of the platform
-        if (platform != null)
+        audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
+        if (audioManager == null)
         {
-            originalPosition = platform.position;
-        }
-    }
-
-    private void Update()
-    {
-        if (platform != null)
-        {
-            // Move the platform towards the target position
-            if (platformActivated)
-            {
-                platform.position = Vector3.MoveTowards(platform.position, targetPosition, speed * Time.deltaTime);
-
-                // If the platform has reached the target position, deactivate movement
-                if (Vector3.Distance(platform.position, targetPosition) < 0.01f)
-                {
-                    platformActivated = false;
-                    Debug.Log("Platform reached target position.");
-                }
-            }
-
-            // Move the platform back to the original position
-            if (returningToOriginal)
-            {
-                platform.position = Vector3.MoveTowards(platform.position, originalPosition, speed * Time.deltaTime);
-
-                // If the platform has returned to the original position, deactivate movement
-                if (Vector3.Distance(platform.position, originalPosition) < 0.01f)
-                {
-                    returningToOriginal = false;
-                    Debug.Log("Platform returned to original position.");
-                }
-            }
+            Debug.LogError("AudioManager not found! Make sure it exists in the scene.");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Activate the platform movement towards the target position
-        if (!platformActivated && !returningToOriginal)
+        if (!isActivated)
         {
-            platformActivated = true;
-            Debug.Log($"Pressure plate activated by {other.gameObject.name}. Platform moving to target position: {targetPosition}");
+            isActivated = true;
+
+            // Play the pressure plate sound
+            if (audioManager != null && audioManager.pressurePlateSound != null)
+            {
+                audioManager.PlaySFX(audioManager.pressurePlateSound);
+                Debug.Log($"Pressure plate activated by {other.gameObject.name}. Sound played.");
+            }
+
+            // Notify the connected door to open
+            if (connectedDoor != null)
+            {
+                connectedDoor.Open();
+                Debug.Log("Connected door opened by pressure plate.");
+            }
         }
-        else if (!returningToOriginal && !platformActivated)
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (isActivated)
         {
-            // If the platform is at the target position, return to the original position
-            returningToOriginal = true;
-            Debug.Log($"Pressure plate activated again by {other.gameObject.name}. Platform returning to original position: {originalPosition}");
+            isActivated = false;
+
+            // Optionally play sound when deactivating the pressure plate
+            if (audioManager != null && audioManager.pressurePlateSound != null)
+            {
+                audioManager.PlaySFX(audioManager.pressurePlateSound);
+                Debug.Log($"Pressure plate deactivated by {other.gameObject.name}. Sound played.");
+            }
+
+            // Optionally notify the connected door to close
+            // Uncomment the following lines if you want the door to close when the plate is deactivated
+            /*
+            if (connectedDoor != null)
+            {
+                connectedDoor.Close();
+                Debug.Log("Connected door closed by pressure plate.");
+            }
+            */
         }
     }
 }
