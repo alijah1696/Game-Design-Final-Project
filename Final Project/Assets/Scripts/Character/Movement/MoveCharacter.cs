@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MoveCharacter : MonoBehaviour
 {
+    private Animator anim;
     public float moveSpeed = 5f;
     public float jumpForce = 15f;
     private bool isGrounded = true;
@@ -27,6 +28,7 @@ public class MoveCharacter : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
 
         // Initialize the AudioManager
         audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
@@ -46,6 +48,7 @@ public class MoveCharacter : MonoBehaviour
         if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)) && isGrounded && canJump && notSlowed)
         {
             Jump();
+            anim.SetTrigger("Jump");
         }
 
         // Increase gravity when falling
@@ -60,6 +63,13 @@ public class MoveCharacter : MonoBehaviour
             HandleWalkingSound(horizontalValue);
         }
         ApplyXAxisDrag();
+
+        if (horizontalValue != 0){
+            anim.SetBool("Walk", true);
+        }
+        else {
+            anim.SetBool("Walk", false);
+        }
     }
 
     void Move(float dir)
