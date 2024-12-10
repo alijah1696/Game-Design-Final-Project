@@ -16,7 +16,10 @@ public class DoorLogic : MonoBehaviour
     private AudioManager audioManager; // Reference to AudioManager
 
     public PressurePlate connectedPressurePlate; // Reference to the connected pressure plate
+    public InteractableProxy interactableProxy; // Reference to InteractableProxy (for key or other interactables)
     public bool keyUsed = false; // Tracks if the key has been used to open the door
+
+    private bool pressurePlateTriggered = false; // Tracks if the pressure plate has been activated
 
     void Start()
     {
@@ -36,19 +39,23 @@ public class DoorLogic : MonoBehaviour
     void Update()
     {
         Debug.Log("DoorLogic: Update method called.");
-        // Check if the door should open via key or pressure plate
-        if ((connectedPressurePlate != null && connectedPressurePlate.IsActivated) || keyUsed)
+
+        // Check if the door should open via pressure plate or interactable
+        if ((connectedPressurePlate != null && connectedPressurePlate.IsActivated && !pressurePlateTriggered) ||
+            (interactableProxy != null && interactableProxy.getProgress() == 1) ||
+            keyUsed)
         {
             if (!isOpen)
             {
                 Debug.Log("DoorLogic: Conditions met to open the door.");
                 Open();
+
+                // If the pressure plate activated the door, mark it as triggered
+                if (connectedPressurePlate != null && connectedPressurePlate.IsActivated)
+                {
+                    pressurePlateTriggered = true;
+                }
             }
-        }
-        else if (isOpen)
-        {
-            Debug.Log("DoorLogic: Conditions met to close the door.");
-            Close();
         }
     }
 
@@ -82,22 +89,7 @@ public class DoorLogic : MonoBehaviour
 
     public void Close()
     {
-        if (isOpen)
-        {
-            Debug.Log("DoorLogic: Closing the door.");
-            isOpen = false;
-            c2d.isTrigger = false;
-            sr.sprite = closedSprite;
-
-            if (audioManager != null && audioManager.pressurePlateSound != null)
-            {
-                audioManager.PlaySFX(audioManager.pressurePlateSound);
-                Debug.Log("DoorLogic: Door closed sound played.");
-            }
-        }
-        else
-        {
-            Debug.Log("DoorLogic: Door is already closed.");
-        }
+        // The door will no longer close automatically
+        Debug.Log("DoorLogic: Close method called, but door will remain open.");
     }
 }
