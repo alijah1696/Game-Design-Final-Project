@@ -69,7 +69,7 @@ public class SwapCharacters : MonoBehaviour
 
     // Transfer variables from the old character to the new one
     public void TransferVariables(GameObject old)
-    {
+    {   
         SwapForms oldSf = old.GetComponent<SwapForms>();
         SwapForms activeSf = activeCharacter.GetComponent<SwapForms>();
 
@@ -79,6 +79,7 @@ public class SwapCharacters : MonoBehaviour
         // Transfer movement variables and position from old to new character
         activeMv.TransferVariablesFrom(oldMv);
         activeSf.CurrentForm().transform.position = oldSf.CurrentForm().transform.position;
+        
     }
 
     public bool isCurrentlyBusy(){
