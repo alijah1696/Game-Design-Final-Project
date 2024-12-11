@@ -7,8 +7,12 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("DEMO");
+        SceneManager.LoadScene("Level1");
         Time.timeScale = 1.0f;
+    }
+
+     public void Credits(){
+        SceneManager.LoadScene("Credits");
     }
 
     public void QuitGame()
