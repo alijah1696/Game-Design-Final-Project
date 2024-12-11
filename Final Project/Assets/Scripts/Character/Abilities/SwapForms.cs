@@ -32,7 +32,7 @@ public class SwapForms : MonoBehaviour
     // Helper method to get the current form
     public GameObject CurrentForm()
     {
-        return currentForm;
+        return (currentForm == null) ? forms[0] : currentForm;
     }
 
     // Method to swap forms (must be public so UI code can access)
