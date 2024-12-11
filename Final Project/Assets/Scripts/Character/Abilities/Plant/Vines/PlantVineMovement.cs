@@ -175,7 +175,7 @@ public class PlantVineMovement : MonoBehaviour
     void AdjustTrail(){
         bool notValid = !isGrappling || grapplePoint == null;
         float goalTime = notValid ? 0 : (DistanceTo(grapplePoint)/radiusToDistanceMultiplier) * radiusToTrailMultiplier;
-        float lerpMulti = notValid  ? 2f : 0.5f;
+        float lerpMulti = notValid  ? 1.5f : 1f;
         trail.time = Mathf.Lerp(trail.time, goalTime, (lerpSpeed/lerpMulti) * Time.deltaTime);
     }
 
