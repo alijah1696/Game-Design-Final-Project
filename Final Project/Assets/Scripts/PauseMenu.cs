@@ -5,46 +5,52 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseMenu;
+    public GameObject pauseMenu;
+    public GameObject pauseButton;
+    bool isPaused = false;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (pauseMenu.activeInHierarchy)
-            {
+    private void Start(){
+        pauseMenu.SetActive(false);
+        pauseButton.SetActive(true);
+    }
+
+    void Update(){
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            //if (pauseMenu.activeInHierarchy){
+            if (isPaused) { 
                 ResumeGame();
             }
-            else
-            {
+            else{
                 PauseGame();
             }
         }
     }
 
-    public void PauseGame()
-    {
+    public void PauseGame(){
         pauseMenu.SetActive(true);
+        pauseButton.SetActive(false);
         Time.timeScale = 0.0f;
+        isPaused = true;
     }
 
-    public void ResumeGame()
-    {
+    public void ResumeGame(){
         pauseMenu.SetActive(false);
+        pauseButton.SetActive(true);
         Time.timeScale = 1.0f;
+        isPaused = false;
     }
-    public void BacktoMenu()
-    {
+    public void BacktoMenu(){
         SceneManager.LoadScene("Main Menu");
     }
 
-    public void QuitGame()
-    {
+    public void QuitGame(){
         Debug.Log("QUIT!");
-#if UNITY_STANDALONE
+        #if UNITY_STANDALONE
         Application.Quit();
-#elif UNITY_EDITOR
+        #elif UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-#endif
+        #endif
     }
+
+
 }
