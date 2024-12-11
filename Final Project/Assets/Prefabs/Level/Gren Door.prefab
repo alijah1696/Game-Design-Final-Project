@@ -101,6 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOpen: 0
   openedSprite: {fileID: 21300000, guid: d8a02e3dd01424513b959ccf2dc8ac94, type: 3}
+  connectedPressurePlate: {fileID: 0}
+  interactableProxy: {fileID: 7669919616695596007}
+  keyUsed: 0
 --- !u!114 &7669919616695596007
 MonoBehaviour:
   m_ObjectHideFlags: 0
