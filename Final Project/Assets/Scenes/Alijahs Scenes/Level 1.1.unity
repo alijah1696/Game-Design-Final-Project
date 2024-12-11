@@ -4482,7 +4482,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2604e6e0ffae6484e92d2d15a01251a5, type: 2}
     - target: {fileID: 8278904242499263233, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: jumpForce
-      value: 7.5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8278904242499263233, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: moveSpeed
@@ -12744,6 +12744,18 @@ PrefabInstance:
       propertyPath: m_Depth
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3967870817385281862, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967870817385281862, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967870817385281862, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4403416186187994197, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -13815,7 +13827,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2030701245
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -4
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
