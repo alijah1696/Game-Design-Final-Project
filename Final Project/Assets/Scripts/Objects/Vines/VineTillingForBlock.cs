@@ -14,7 +14,7 @@ public class VineTillingForBlock : MonoBehaviour
     private float scaleMulti;
 
     private SpriteRenderer[] sprites;
-    private float oldLength;
+    private float oldLength = 1;
 
 
     void Start()
@@ -31,7 +31,7 @@ public class VineTillingForBlock : MonoBehaviour
 
     void UpdateTilling()
     {   
-        oldLength = block.transform.localScale.y;
+        oldLength = Mathf.Abs(block.transform.localScale.y);
         int num = (int) oldLength;
 
         // Destroy existing vine sprites if they exist

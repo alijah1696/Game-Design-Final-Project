@@ -12,6 +12,7 @@ public class DoorLogic : MonoBehaviour
     [SerializeField]
     private Sprite openedSprite; // Sprite for the open state
     private Sprite closedSprite; // Sprite for the closed state
+    [SerializeField] private bool shouldNotStayOpen;
 
     private AudioManager audioManager; // Reference to AudioManager
 
@@ -57,11 +58,13 @@ public class DoorLogic : MonoBehaviour
                 }
             }
         }
+        if(isOpen && interactableProxy != null && interactableProxy.getProgress() != 1 && shouldNotStayOpen){
+            Close();
+        }
     }
 
     public void UseKey()
     {
-        Debug.Log("DoorLogic: UseKey called.");
         keyUsed = true;
         Open();
     }
@@ -89,7 +92,18 @@ public class DoorLogic : MonoBehaviour
 
     public void Close()
     {
-        // The door will no longer close automatically
-        Debug.Log("DoorLogic: Close method called, but door will remain open.");
+        if(isOpen)
+        {
+            Debug.Log("DoorLogic: Opening the door.");
+            isOpen = false;
+            c2d.isTrigger = false;
+            sr.sprite = closedSprite;
+
+            if (audioManager != null && audioManager.pressurePlateSound != null)
+            {
+                audioManager.PlaySFX(audioManager.pressurePlateSound);
+                Debug.Log("DoorLogic: Door close sound played.");
+            }
+        }
     }
 }
