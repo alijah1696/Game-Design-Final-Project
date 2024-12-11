@@ -1434,9 +1434,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 7
   jumpForce: 10
+  canJump: 1
+  facingRight: 1
   linearDragX: 0.1
   canMove: 1
-  RigidBodies: []
+  notSlowed: 1
+  isBusy: 0
+  gravityScaleIncrease: 2.5
 --- !u!1 &445719142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,9 +1965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1a58072ee9c4ba9ab086e8e33ddee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platform: {fileID: 1090173408}
-  targetPosition: {x: -1, y: 18, z: 0}
-  speed: 3
+  connectedDoor: {fileID: 0}
 --- !u!1 &764066123
 GameObject:
   m_ObjectHideFlags: 0
@@ -4328,6 +4330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09499ffa0ed1846918e705ef861ebac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextSceneName: 
+  loadNextSceneByIndex: 0
 --- !u!1 &1919065982
 GameObject:
   m_ObjectHideFlags: 0

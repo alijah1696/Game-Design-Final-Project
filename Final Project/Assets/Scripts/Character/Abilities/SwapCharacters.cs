@@ -35,18 +35,18 @@ public class SwapCharacters : MonoBehaviour
 
     private void Update()
     {
-        // Check if the character is on the ground and if the Tab key is pressed to swap characters
-        // bool isOnGround = GetCurrentForm().GetComponent<MoveCharacter>().IsOnGround();
-        // if (Input.GetKeyDown(KeyCode.Tab) && isOnGround && false)
-        // {
-        //     SwapCharacter();
+        //Check if the character is on the ground and if the Tab key is pressed to swap characters
+        bool isOnGround = GetCurrentForm().GetComponent<MoveCharacter>().IsOnGround();
+        if (Input.GetKeyDown(KeyCode.Tab) && isOnGround && false)
+        {
+            SwapCharacter();
 
-        //     // Play character switch sound, if available
-        //     if (audioManager != null && audioManager.switchingCharacterSound != null)
-        //     {
-        //         audioManager.PlaySFX(audioManager.switchingCharacterSound);
-        //     }
-        // }
+            // Play character switch sound, if available
+            if (audioManager != null && audioManager.switchingCharacterSound != null)
+            {
+                audioManager.PlaySFX(audioManager.switchingCharacterSound);
+            }
+        }
     }
 
     // Public method to get the currently active character for other scripts (e.g., CameraFollow)

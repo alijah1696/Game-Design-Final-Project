@@ -100,7 +100,7 @@ public class MagneticAbilities : MonoBehaviour
         if (other.CompareTag("Magnet"))
         {
             // Only disallow control if not actively controlling
-            if (!isControlling)
+            if (isControlling)
             {
                 canControl = false;
                 Debug.Log($"Exited magnetic field of {controlled?.name}");
@@ -138,7 +138,7 @@ public class MagneticAbilities : MonoBehaviour
         other_rb.velocity = Vector2.SmoothDamp(other_rb.velocity, targetVelocity, ref moveVelocity, moveTime);
         other_rb.gravityScale = 0f;
 
-        other.GetComponent<SpriteRenderer>().color = highlightColor;
+        //other.GetComponent<SpriteRenderer>().color = highlightColor;
 
         mv.canMove = false;
         mv.canJump = false;
