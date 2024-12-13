@@ -7,7 +7,7 @@ public class MagneticAbilities : MonoBehaviour
     [Header("Ability Settings")]
     [Tooltip("Set the duration (in seconds) for how long the magnetic ability lasts.")]
     [Min(0.1f)] // Ensures duration is always positive
-    public float abilityDuration = 5f; // Duration of the ability (editable in the Inspector)
+    public float abilityDuration = 999f; // Duration of the ability (editable in the Inspector)
     private float abilityTimer = 0f;   // Tracks remaining time for the ability
 
     private bool canControl;          // Indicates if a magnet object can be controlled
@@ -24,6 +24,9 @@ public class MagneticAbilities : MonoBehaviour
     private AudioManager audioManager; // Reference to AudioManager
 
     public float moveSpeed = 1f;
+    private float moveSpeedMulti;
+    [SerializeField]
+    private float moveSpeedFactor;
     public float moveTime = 0.1f;
     private Vector2 moveVelocity = Vector2.zero;
 
@@ -47,7 +50,7 @@ public class MagneticAbilities : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             // Start controlling the object if one was previously detected
-            if (controlled != null && !isControlling)
+            if (controlled != null && !isControlling && canControl)
             {
                 StartControl();
             }
@@ -56,6 +59,8 @@ public class MagneticAbilities : MonoBehaviour
                 shouldControl = false;
             }
         }
+
+        CalculateSpeed();
 
         verticalInput = Input.GetAxisRaw("Vertical");
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -67,8 +72,8 @@ public class MagneticAbilities : MonoBehaviour
 
             if (abilityTimer <= 0f)
             {
-                StopControl(); // Automatically stop control when the timer expires
-                Debug.Log("Magnetic ability timed out.");
+                shouldControl = false;
+                StopControl();
             }
         }
     }
@@ -85,13 +90,26 @@ public class MagneticAbilities : MonoBehaviour
         }
     }
 
+    void OnTriggerStay2D(Collider2D other){
+        if (other.CompareTag("Magnet"))
+        {
+            if(!isControlling){
+                float oldDist = controlled != null ? DistanceTo(controlled) : float.MaxValue;
+                float newDist = DistanceTo(other.gameObject);
+
+                if(newDist < oldDist){
+                    controlled = other.gameObject;
+                }
+            }
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Magnet"))
         {
-            controlled = other.gameObject; // Assign the object to control
-            canControl = true;            // Allow control if this object was detected
-            Debug.Log($"Entered magnetic field of {controlled.name}");
+            controlled = other.gameObject;
+            if(!isControlling) canControl = true;
         }
     }
 
@@ -99,13 +117,16 @@ public class MagneticAbilities : MonoBehaviour
     {
         if (other.CompareTag("Magnet"))
         {
-            // Only disallow control if not actively controlling
-            if (isControlling)
-            {
+            if(other.gameObject == controlled && !isControlling){
                 canControl = false;
-                Debug.Log($"Exited magnetic field of {controlled?.name}");
+                controlled = null;
             }
         }
+    }
+
+    float DistanceTo(GameObject other)
+    {
+        return Vector2.Distance(transform.position, other.transform.position);
     }
 
     private void StartControl()
@@ -129,12 +150,32 @@ public class MagneticAbilities : MonoBehaviour
         Debug.Log($"Started controlling {controlled.name} for {abilityDuration} seconds.");
     }
 
+    public bool IsControlling(){
+        return isControlling;
+    }
+
+    public GameObject GetControlled(){
+        return controlled;
+    }
+
+    void CalculateSpeed(){
+        moveSpeedMulti = moveSpeedFactor/ObjectScaleFactor(controlled);
+    }
+
+    float ObjectScaleFactor(GameObject g)
+    {
+        if(g == null) return 0;
+
+        Vector3 scale = g.transform.localScale;
+        return (scale.x + scale.y)/2f;
+    }
+
     public void Control(GameObject other)
     {
         if (other == null) return;
 
         Rigidbody2D other_rb = other.GetComponent<Rigidbody2D>();
-        Vector2 targetVelocity = new Vector2(horizontalInput * moveSpeed, verticalInput * moveSpeed);
+        Vector2 targetVelocity = new Vector2(horizontalInput * moveSpeed * moveSpeedMulti, verticalInput * moveSpeed  * moveSpeedMulti);
         other_rb.velocity = Vector2.SmoothDamp(other_rb.velocity, targetVelocity, ref moveVelocity, moveTime);
         other_rb.gravityScale = 0f;
 
@@ -168,6 +209,9 @@ public class MagneticAbilities : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
 
         isControlling = false;
+
+        controlled = null;
+
         shouldControl = false;
 
         camera.FollowPlayer();

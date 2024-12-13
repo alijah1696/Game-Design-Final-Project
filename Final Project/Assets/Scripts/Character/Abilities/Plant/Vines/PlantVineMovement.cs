@@ -84,6 +84,8 @@ public class PlantVineMovement : MonoBehaviour
                 sj.connectedBody = grapplePoint.GetComponent<Rigidbody2D>();
                 isGrappling = true;
                 sj.enabled = true;
+
+                mv.isBusy = true;
             }
             else if (isGrappling && fullyExtended)
             {
@@ -98,6 +100,8 @@ public class PlantVineMovement : MonoBehaviour
                 isGrappling = false;
                 sj.connectedBody = null;
                 sj.enabled = false;
+
+                mv.isBusy = false;
             }
 
             vineRenderer.SetActive(true);
