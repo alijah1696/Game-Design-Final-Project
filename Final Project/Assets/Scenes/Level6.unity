@@ -7593,15 +7593,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3967870817385281862, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0.7843138
+      value: 0.5560616
       objectReference: {fileID: 0}
     - target: {fileID: 3967870817385281862, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0.8235295
+      value: 0.5849056
       objectReference: {fileID: 0}
     - target: {fileID: 3967870817385281862, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0.7372549
+      value: 0.5214489
       objectReference: {fileID: 0}
     - target: {fileID: 4403416186187994197, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
       propertyPath: m_RootOrder
@@ -8922,6 +8922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5751289d9a3aa094682b8aa4f582ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  proxy: {fileID: 0}
 --- !u!114 &1014204927
 MonoBehaviour:
   m_ObjectHideFlags: 0
