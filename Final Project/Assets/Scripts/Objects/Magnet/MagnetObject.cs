@@ -25,6 +25,7 @@ public class MagnetObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        mag = FindObjectOfType<MagneticAbilities>();
         if(mag != null){
             if(mag.GetControlled() == this.gameObject){
                 CanControl();
