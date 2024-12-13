@@ -39,8 +39,6 @@ public class DoorLogic : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("DoorLogic: Update method called.");
-
         // Check if the door should open via pressure plate or interactable
         if ((connectedPressurePlate != null && connectedPressurePlate.IsActivated && !pressurePlateTriggered) ||
             (interactableProxy != null && interactableProxy.getProgress() == 1) ||

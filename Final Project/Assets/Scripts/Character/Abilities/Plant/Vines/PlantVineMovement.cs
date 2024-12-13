@@ -12,6 +12,7 @@ public class PlantVineMovement : MonoBehaviour
     
     private GameObject grapplePoint;
     private bool isGrappling = false;
+    private bool externallyCalled = false;
     private SpringJoint2D sj;
     private float radiusToDistanceMultiplier = 4.3f;
     [SerializeField] private float distanceToAnimSpeedMultiplier;
@@ -64,7 +65,7 @@ public class PlantVineMovement : MonoBehaviour
 
     void HandleGrappling()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) || externallyCalled)
         {   
             bool animDone = va.AnimationDone();
             bool fullyExtended = va.FullyExtended();
@@ -103,9 +104,14 @@ public class PlantVineMovement : MonoBehaviour
 
                 mv.isBusy = false;
             }
-
             vineRenderer.SetActive(true);
+            externallyCalled = false;
         }
+        
+    }
+
+    public void EndSwing(){
+        externallyCalled = true;
     }
 
     IEnumerator LerpVariables(){

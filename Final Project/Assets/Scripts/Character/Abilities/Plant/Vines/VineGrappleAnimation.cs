@@ -46,7 +46,7 @@ public class VineGrappleAnimation : MonoBehaviour
         animationDone = false;
 
         line.positionCount = resolution;
-        LeanTween.value(gameObject, UpdateAnimPercent, 0, 1f, animSpeed * speedMulti).setEase(LeanTweenType.easeOutSine);
+        LeanTween.value(gameObject, UpdateAnimPercent, 0, 1f, animSpeed * speedMulti).setEase(LeanTweenType.easeInOutSine);
         
         while(animPercent < 1 || !lineBroken){
             float angle = LookAtAngle(targetPos - transform.position);
@@ -54,7 +54,7 @@ public class VineGrappleAnimation : MonoBehaviour
             yield return null;
         }
 
-        LeanTween.value(gameObject, UpdateAnimPercent, 1f, 0f, (animSpeed) / 2).setEase(LeanTweenType.easeOutSine);
+        LeanTween.value(gameObject, UpdateAnimPercent, 1f, 0f, (animSpeed) / 2).setEase(LeanTweenType.easeInOutSine);
         while(animPercent > 0){
             float angle = LookAtAngle(targetPos - transform.position);
             SetPoints(targetPos, animPercent, angle, 1f);

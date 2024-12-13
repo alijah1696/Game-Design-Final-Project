@@ -20,10 +20,8 @@ public class Water : MonoBehaviour
     {   
         if (other.CompareTag("Robot"))
         {
-            // Teleport the object to the respawn point
-            
-            other.transform.position = respawnPoint.transform.position;
-            other.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2();
+            SwapCharacters sc = FindObjectOfType<SwapCharacters>();
+            sc.Kill(respawnPoint);
         }
     }
 }

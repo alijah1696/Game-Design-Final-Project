@@ -30,7 +30,6 @@ public class KeyLogic : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("KeyLogic: Update method called.");
         if (isCollected && playerTransform != null)
         {
             FollowPlayer();

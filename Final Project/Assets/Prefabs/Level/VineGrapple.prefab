@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1510196584590926467}
   - component: {fileID: 4045701341954658748}
   - component: {fileID: 4941273688931079382}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4846,7 +4846,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 43
+  m_SortingOrder: 90
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4912,7 +4912,7 @@ Transform:
   m_Children:
   - {fileID: 1510196584590926467}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 11.978, z: 48.192}
 --- !u!212 &265459483633355313
 SpriteRenderer:
@@ -4954,7 +4954,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 50
+  m_SortingOrder: 100
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

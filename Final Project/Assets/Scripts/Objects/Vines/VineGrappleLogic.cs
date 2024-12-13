@@ -11,9 +11,9 @@ public class VineGrappleLogic : MonoBehaviour
 
     private bool onCooldown; 
     [SerializeField] private float cooldownTime;
-    
-    [SerializeField] private ParticleSystem ps;
+    [SerializeField] private LayerMask obstacleLayer;  // LayerMask for detecting obstacles
 
+    [SerializeField] private ParticleSystem ps;
 
     private LineRenderer lr;
     private GameObject player;
@@ -33,7 +33,7 @@ public class VineGrappleLogic : MonoBehaviour
 
     void Update()
     {   
-        if (inRange && !onCooldown)
+        if (inRange && !OnCooldown())
         {
             material.SetFloat("_Thickness", outlineThickness);
             material.SetColor("_MainColor", defaultMainColor);
@@ -56,7 +56,7 @@ public class VineGrappleLogic : MonoBehaviour
     }
 
     public bool OnCooldown(){
-        return onCooldown;
+        return onCooldown || !CanGrapple();
     }
 
     public void Particle(){
@@ -67,6 +67,23 @@ public class VineGrappleLogic : MonoBehaviour
         ps.Play();
         yield return new WaitForSeconds(0.1f);
         ps.Stop(false);
+    }
+
+    bool CanGrapple()
+    {
+        if (player == null)
+        {
+            return false;
+        }
+
+        // Perform a raycast to check for obstacles
+        Vector2 direction = (transform.position - player.transform.position).normalized;
+        float distance = Vector2.Distance(transform.position, player.transform.position);
+
+        RaycastHit2D hit = Physics2D.Raycast(player.transform.position, direction, distance, obstacleLayer);
+
+        // Return true if the raycast does not hit any obstacles
+        return hit.collider == null;
     }
     
     void OnTriggerStay2D(Collider2D other)

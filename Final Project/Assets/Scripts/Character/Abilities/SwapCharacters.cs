@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class SwapCharacters : MonoBehaviour
@@ -8,6 +9,9 @@ public class SwapCharacters : MonoBehaviour
     public GameObject robot;      // The second character
     private GameObject activeCharacter; // Reference to the currently active character
     private AudioManager audioManager;
+
+    private int numLives;
+    [SerializeField] private int Lives;
 
     private int formIndex;
 
@@ -23,6 +27,10 @@ public class SwapCharacters : MonoBehaviour
         activeCharacter = plant;
         plant.SetActive(true);
         robot.SetActive(false);
+
+        numLives = Lives;
+
+        LoseScreen.previousScene = SceneManager.GetActiveScene().name;
     }
 
     public bool IsPlantActive(){
@@ -80,6 +88,36 @@ public class SwapCharacters : MonoBehaviour
         activeMv.TransferVariablesFrom(oldMv);
         activeSf.CurrentForm().transform.position = oldSf.CurrentForm().transform.position;
         
+    }
+
+    public void LooseScreen(){
+        SceneManager.LoadScene("LoseMenu");
+    }
+
+    public void Kill(GameObject respawnPoint){
+        
+
+        if(numLives > 1){
+            GameObject character = GetCurrentForm();
+            MoveCharacter mv = character.GetComponent<MoveCharacter>();
+            if(activeCharacter == plant){
+                PlantVineMovement vm = character.GetComponent<PlantVineMovement>();
+                vm.EndSwing();
+            }else if(activeCharacter == robot){
+                MagneticAbilities ma = character.GetComponent<MagneticAbilities>();
+                ma.StopControl();
+            }
+            character.transform.position = respawnPoint.transform.position;
+            character.GetComponent<Rigidbody2D>().velocity = new Vector2();
+        }else{
+            //ADD DEATH SCREEN
+            LooseScreen();
+        }
+        numLives--;
+    }
+
+    public float CurrentLives(){
+        return numLives;
     }
 
     public bool isCurrentlyBusy(){

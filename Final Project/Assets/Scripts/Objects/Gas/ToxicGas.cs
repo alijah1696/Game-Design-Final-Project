@@ -19,11 +19,9 @@ public class ToxicGas : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {   
         if (other.CompareTag("Plant"))
-        {
-            // Teleport the object to the respawn point
-            
-            other.transform.position = respawnPoint.transform.position;
-            other.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2();
+        {   
+            SwapCharacters sc = FindObjectOfType<SwapCharacters>();
+            sc.Kill(respawnPoint);
         }
     }
 }
