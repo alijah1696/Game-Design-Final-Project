@@ -133,8 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 500380091}
   - component: {fileID: 500380092}
+  - component: {fileID: 500380093}
   m_Layer: 0
-  m_Name: LooseMenu
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,6 +159,18 @@ Transform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &500380092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500380090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1067b109391f497785a95a1e8bd60d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &500380093
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -250,7 +263,7 @@ GameObject:
   - component: {fileID: 697057094}
   - component: {fileID: 697057093}
   m_Layer: 5
-  m_Name: Retry
+  m_Name: Credits
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -322,8 +335,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 500380092}
-        m_TargetAssemblyTypeName: LoseScreen, Assembly-CSharp
-        m_MethodName: RestartLastLevel
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: Credits
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -765,7 +778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TRy again
+  m_text: Credits
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c653c645f61344e63a06064c0b612c45, type: 2}
   m_sharedMaterial: {fileID: -8044586853734199568, guid: c653c645f61344e63a06064c0b612c45, type: 2}
@@ -900,7 +913,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: YOU LOSE
+  m_text: YOU WIN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c653c645f61344e63a06064c0b612c45, type: 2}
   m_sharedMaterial: {fileID: -8044586853734199568, guid: c653c645f61344e63a06064c0b612c45, type: 2}
@@ -1061,7 +1074,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 500380092}
+      - m_Target: {fileID: 500380093}
         m_TargetAssemblyTypeName: LoseScreen, Assembly-CSharp
         m_MethodName: GoToMainMenu
         m_Mode: 1
@@ -1412,10 +1425,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'You have failed to escape.
-
-    Will this be your life forever or will
-    you try again'
+  m_text: You managed to escape. You have so many things to see in the new world
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c653c645f61344e63a06064c0b612c45, type: 2}
   m_sharedMaterial: {fileID: -8044586853734199568, guid: c653c645f61344e63a06064c0b612c45, type: 2}

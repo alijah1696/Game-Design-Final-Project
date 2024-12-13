@@ -70,7 +70,7 @@ public class PlantVineMovement : MonoBehaviour
             bool animDone = va.AnimationDone();
             bool fullyExtended = va.FullyExtended();
             
-            if (!isGrappling && grapplePoint != null && animDone && !(grapplePoint.GetComponent<VineGrappleLogic>().OnCooldown()))
+            if (!isGrappling && grapplePoint != null && animDone && !(grapplePoint.GetComponent<VineGrappleLogic>().OnCooldown()) && !externallyCalled)
             {   
                 float currentDist = DistanceTo(grapplePoint);
                 float speedMulti = currentDist / distanceToAnimSpeedMultiplier;
@@ -88,7 +88,7 @@ public class PlantVineMovement : MonoBehaviour
 
                 mv.isBusy = true;
             }
-            else if (isGrappling && fullyExtended)
+            else if (isGrappling && (fullyExtended || externallyCalled))
             {
                 va.SetBroken(true);
 
