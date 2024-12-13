@@ -8,6 +8,8 @@ public class DoorLevelChange : MonoBehaviour{
 
         public string NextLevel = "MainMenu";
         public GameObject msgPressE;
+        [SerializeField] private SpriteRenderer closedSprite;
+        [SerializeField] private SpriteRenderer openSprite;
         public bool canPressE =false;
 
        void Start(){
@@ -15,6 +17,9 @@ public class DoorLevelChange : MonoBehaviour{
         }
 
        void Update(){
+            openSprite.enabled = canPressE;
+            closedSprite.enabled = !canPressE;
+
               if ((canPressE == true) && (Input.GetKeyDown(KeyCode.E))){
                      EnterDoor();
               }
