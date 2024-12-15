@@ -13396,7 +13396,11 @@ Tilemap:
     m_Data: {fileID: 1275305847, guid: 0f3673c44c31f4c86a1e8fa783b656d1, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1197956209, guid: 0f3673c44c31f4c86a1e8fa783b656d1, type: 3}
+<<<<<<< Updated upstream
   - m_RefCount: 18
+=======
+  - m_RefCount: 22
+>>>>>>> Stashed changes
     m_Data: {fileID: 407404214, guid: aa147d6fdf97d4f459cd6312f4448e10, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 750837723, guid: 0f3673c44c31f4c86a1e8fa783b656d1, type: 3}
@@ -105897,11 +105901,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1600939383528151755, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_LocalPosition.x
+<<<<<<< Updated upstream
       value: 86.6
       objectReference: {fileID: 0}
     - target: {fileID: 1600939383528151755, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_LocalPosition.y
       value: 31.7
+=======
+      value: -42.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 1600939383528151755, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.26
+>>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 1600939383528151755, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_LocalPosition.z
