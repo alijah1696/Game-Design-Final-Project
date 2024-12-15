@@ -17,10 +17,13 @@ public class AudioManager : MonoBehaviour
     public AudioClip WallTouch;  // For hitting walls
     public AudioClip climbVine;
     public AudioClip jumpSound;
-    public AudioClip switchingCharacterSound;
+    public AudioClip switchingCharacterSound; // Character switch sound
     public AudioClip grappleVine;
     public AudioClip PlantBallmovement;
     public AudioClip Magneticability;
+    public AudioClip keyCollectedSound; // Sound effect for key collection
+    public AudioClip doorOpenSound;     // Sound effect for door opening
+    public AudioClip doorCloseSound;    // Sound effect for door closing
 
     private void Start()
     {
@@ -41,6 +44,35 @@ public class AudioManager : MonoBehaviour
         {
             SFXSource.PlayOneShot(clip);
             Debug.Log("Playing SFX: " + clip.name);
+        }
+    }
+
+    // Method to play key collected sound
+    public void PlayKeyCollectedSound()
+    {
+        if (SFXSource != null && keyCollectedSound != null)
+        {
+            SFXSource.PlayOneShot(keyCollectedSound);
+            Debug.Log("Key collected sound played.");
+        }
+        else
+        {
+            Debug.LogWarning("Key collected sound or SFXSource is missing!");
+        }
+    }
+
+    // Method to play door open or close sound
+    public void PlayDoorSound(bool isOpen)
+    {
+        AudioClip clipToPlay = isOpen ? doorOpenSound : doorCloseSound;
+        if (SFXSource != null && clipToPlay != null)
+        {
+            SFXSource.PlayOneShot(clipToPlay);
+            Debug.Log(isOpen ? "Door open sound played." : "Door close sound played.");
+        }
+        else
+        {
+            Debug.LogWarning("Door sound or SFXSource is missing!");
         }
     }
 
@@ -123,7 +155,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Stop looping magnetic ability sound
+    // Stop magnetic ability sound
     public void StopMagneticAbilitySound()
     {
         if (SFXSource != null && SFXSource.clip == Magneticability && SFXSource.isPlaying)

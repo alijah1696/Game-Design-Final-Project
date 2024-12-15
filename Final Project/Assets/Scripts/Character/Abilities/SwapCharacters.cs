@@ -19,6 +19,10 @@ public class SwapCharacters : MonoBehaviour
     {
         // Find the AudioManager in the scene and get its component
         audioManager = GameObject.FindGameObjectWithTag("Audio")?.GetComponent<AudioManager>();
+        if (audioManager == null)
+        {
+            Debug.LogError("SwapCharacters: AudioManager not found! Make sure an AudioManager exists in the scene.");
+        }
     }
 
     private void Start()
@@ -33,40 +37,47 @@ public class SwapCharacters : MonoBehaviour
         LoseScreen.previousScene = SceneManager.GetActiveScene().name;
     }
 
-    public bool IsPlantActive(){
+    public bool IsPlantActive()
+    {
         return (activeCharacter == plant);
     }
 
-    public bool IsFacingRight(){
+    public bool IsFacingRight()
+    {
         return GetCurrentForm().GetComponent<MoveCharacter>().GetDirection();
     }
 
     private void Update()
     {
-        //Check if the character is on the ground and if the Tab key is pressed to swap characters
+        // Check if the Tab key is pressed and the character is on the ground
         bool isOnGround = GetCurrentForm().GetComponent<MoveCharacter>().IsOnGround();
-        if (Input.GetKeyDown(KeyCode.Tab) && isOnGround && false)
+        if (Input.GetKeyDown(KeyCode.Tab) && isOnGround)
         {
-            SwapCharacter();
-
-            // Play character switch sound, if available
-            if (audioManager != null && audioManager.switchingCharacterSound != null)
-            {
-                audioManager.PlaySFX(audioManager.switchingCharacterSound);
-            }
+            SwapCharacter(); // Immediately switch the character
+            PlaySwitchSound(); // Play the sound after switching
         }
     }
 
-    // Public method to get the currently active character for other scripts (e.g., CameraFollow)
+    private void PlaySwitchSound()
+    {
+        if (audioManager != null && audioManager.switchingCharacterSound != null)
+        {
+            Debug.Log("SwapCharacters: Playing switching character sound.");
+            audioManager.PlaySFX(audioManager.switchingCharacterSound);
+        }
+        else
+        {
+            Debug.LogWarning("SwapCharacters: Switching character sound or AudioManager is null.");
+        }
+    }
+
     public GameObject GetCurrentForm()
     {
         return activeCharacter.GetComponent<SwapForms>().CurrentForm();
     }
 
-    //needs to be public so UI buttons can access:
     public void SwapCharacter()
     {
-        // Toggle between plant and robot as the active character
         GameObject oldCharacter = activeCharacter;
         activeCharacter.SetActive(false);
         activeCharacter = (activeCharacter == plant) ? robot : plant;
@@ -75,66 +86,74 @@ public class SwapCharacters : MonoBehaviour
         TransferVariables(oldCharacter);
     }
 
-    // Transfer variables from the old character to the new one
     public void TransferVariables(GameObject old)
-    {   
+    {
         SwapForms oldSf = old.GetComponent<SwapForms>();
         SwapForms activeSf = activeCharacter.GetComponent<SwapForms>();
 
         MoveCharacter oldMv = oldSf.CurrentForm().GetComponent<MoveCharacter>();
         MoveCharacter activeMv = activeSf.CurrentForm().GetComponent<MoveCharacter>();
 
-        // Transfer movement variables and position from old to new character
         activeMv.TransferVariablesFrom(oldMv);
         activeSf.CurrentForm().transform.position = oldSf.CurrentForm().transform.position;
-        
+
+        Debug.Log("SwapCharacters: Transferred variables between characters.");
     }
 
-    public void LooseScreen(){
+    public void LooseScreen()
+    {
+        Debug.Log("SwapCharacters: Loading lose screen.");
         SceneManager.LoadScene("LoseMenu");
     }
 
-    public void Kill(GameObject respawnPoint){
-        
-
-        if(numLives > 1){
+    public void Kill(GameObject respawnPoint)
+    {
+        if (numLives > 1)
+        {
+            Debug.Log("SwapCharacters: Respawning character...");
             GameObject character = GetCurrentForm();
             MoveCharacter mv = character.GetComponent<MoveCharacter>();
-            if(activeCharacter == plant){
+            if (activeCharacter == plant)
+            {
                 PlantVineMovement vm = character.GetComponent<PlantVineMovement>();
                 vm.EndSwing();
-            }else if(activeCharacter == robot){
+            }
+            else if (activeCharacter == robot)
+            {
                 MagneticAbilities ma = character.GetComponent<MagneticAbilities>();
                 ma.StopControl();
             }
             character.transform.position = respawnPoint.transform.position;
-            character.GetComponent<Rigidbody2D>().velocity = new Vector2();
-        }else{
-            //ADD DEATH SCREEN
+            character.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        }
+        else
+        {
+            Debug.Log("SwapCharacters: No lives left, loading lose screen.");
             LooseScreen();
         }
         numLives--;
     }
 
-    public float CurrentLives(){
+    public float CurrentLives()
+    {
         return numLives;
     }
 
-    public bool isCurrentlyBusy(){
+    public bool isCurrentlyBusy()
+    {
         return GetCurrentForm().GetComponent<MoveCharacter>().isBusy;
     }
 
-    public float GetCurrentIndex(){
+    public float GetCurrentIndex()
+    {
         return formIndex;
     }
 
-    //these functions allow the UI to access forms swaps:
-    public void SetPlantForm1(){plant.GetComponent<SwapForms>().SwapForm(0); formIndex = 1;}
-    public void SetPlantForm2(){plant.GetComponent<SwapForms>().SwapForm(1); formIndex = 0;}
-    public void SetPlantForm3(){plant.GetComponent<SwapForms>().SwapForm(2); formIndex = 2;}
+    public void SetPlantForm1() { plant.GetComponent<SwapForms>().SwapForm(0); formIndex = 1; }
+    public void SetPlantForm2() { plant.GetComponent<SwapForms>().SwapForm(1); formIndex = 0; }
+    public void SetPlantForm3() { plant.GetComponent<SwapForms>().SwapForm(2); formIndex = 2; }
 
-    public void SetRobotForm1(){robot.GetComponent<SwapForms>().SwapForm(0); formIndex = 4;}
-    public void SetRobotForm2(){robot.GetComponent<SwapForms>().SwapForm(1); formIndex = 5;}
-    public void SetRobotForm3(){robot.GetComponent<SwapForms>().SwapForm(2); formIndex = 3;}
-
+    public void SetRobotForm1() { robot.GetComponent<SwapForms>().SwapForm(0); formIndex = 4; }
+    public void SetRobotForm2() { robot.GetComponent<SwapForms>().SwapForm(1); formIndex = 5; }
+    public void SetRobotForm3() { robot.GetComponent<SwapForms>().SwapForm(2); formIndex = 3; }
 }
