@@ -13,19 +13,19 @@ public class PressurePlateLogic : MonoBehaviour
 
     float progress;
 
-    private List <GameObject> currentTriggers;
+    private List <GameObject> currentColliders;
 
     // Start is called before the first frame update
     void Start()
     {
         emptyScale = platePivot.transform.localScale;
-        currentTriggers = new List <GameObject> ();
+        currentColliders = new List <GameObject> ();
     }
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        beingPressed = currentTriggers.Count > 0;
+    {   
+        beingPressed = currentColliders.Count > 0;
         
         float lerped = pressSpeed * Time.fixedDeltaTime;
         if(beingPressed){
@@ -44,15 +44,16 @@ public class PressurePlateLogic : MonoBehaviour
         return progress;
     }
 
-    void OnTriggerEnter2D(Collider2D other){
-        if(IsValid(other.gameObject) && !currentTriggers.Contains(other.gameObject)){
-            currentTriggers.Add(other.gameObject);
+    void OnCollisionEnter2D(Collision2D other){
+        Debug.Log(other.gameObject);
+        if(IsValid(other.gameObject) && !currentColliders.Contains(other.gameObject)){
+            currentColliders.Add(other.gameObject);
         }
     }
 
-    void OnTriggerExit2D(Collider2D other){
-        if(IsValid(other.gameObject) && currentTriggers.Contains(other.gameObject)){
-            currentTriggers.Remove(other.gameObject);
+    void OnCollisionExit2D(Collision2D other){
+        if(IsValid(other.gameObject) && currentColliders.Contains(other.gameObject)){
+            currentColliders.Remove(other.gameObject);
         }
     }
 
