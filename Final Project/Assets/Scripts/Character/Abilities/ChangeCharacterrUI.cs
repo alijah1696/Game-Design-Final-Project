@@ -8,6 +8,7 @@ public class ChangeCharacterrUI : MonoBehaviour
     private bool isOnCooldown = false;  // Flag to check if the coroutine is on cooldown
     [SerializeField]
     private float cooldownTime;  // Cooldown duration in seconds
+    SwapCharacters sw;
 
     [SerializeField]
     private GameObject plantIcon;
@@ -56,11 +57,13 @@ public class ChangeCharacterrUI : MonoBehaviour
         plantImage = plantIcon.GetComponent<Image>();
         robotImage = robotIcon.GetComponent<Image>();
         backgroundImage = background.GetComponent<Image>();
+
+        sw = FindObjectOfType<SwapCharacters>();
     }
 
     void Update()
     {   
-        //angle progress goes from 0 to 1
+        //angle progs goes from 0 to 1
         float angleProgress = (Mathf.Abs(Mathf.Sin(angleSpin/2 * Mathf.Deg2Rad)));
 
         //Change Positions
@@ -85,7 +88,8 @@ public class ChangeCharacterrUI : MonoBehaviour
         robotImage.color = Color.Lerp(dimmedColor, originalColor, angleProgress);
         backgroundImage.color = Color.Lerp(greenColor, blueColor, angleProgress);
         
-        if (Input.GetKeyDown(KeyCode.Tab) && !isOnCooldown)
+        Debug.Log(sw.IsNotBusy());
+        if (Input.GetKeyDown(KeyCode.Tab) && !isOnCooldown && sw.IsNotBusy())
         {
             StartCoroutine(AbilityCoroutine());
         }
@@ -101,7 +105,7 @@ public class ChangeCharacterrUI : MonoBehaviour
 
         LeanTween.value(gameObject, UpdateAngle, angleSpin, goalAngle, cooldownTime - 0.1f).setEase(LeanTweenType.easeInOutCirc);
         
-        SwapCharacters sw = FindObjectOfType<SwapCharacters>();
+        
         sw.SwapCharacter();
 
         // Wait for the cooldown time

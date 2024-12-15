@@ -69,6 +69,10 @@ public class SwapCharacters : MonoBehaviour
         return activeCharacter.GetComponent<SwapForms>().CurrentForm();
     }
 
+    public bool IsNotBusy(){
+        return (activeCharacter == null)? false : !GetCurrentForm().GetComponent<MoveCharacter>().isBusy;
+    }
+
     public void SwapCharacter()
     {
         GameObject oldCharacter = activeCharacter;
