@@ -47,15 +47,8 @@ public class SwapCharacters : MonoBehaviour
         return GetCurrentForm().GetComponent<MoveCharacter>().GetDirection();
     }
 
-    private void Update()
-    {
-        // Check if the Tab key is pressed and the character is on the ground
-        bool isOnGround = GetCurrentForm().GetComponent<MoveCharacter>().IsOnGround();
-        if (Input.GetKeyDown(KeyCode.Tab) && isOnGround)
-        {
-            SwapCharacter(); // Immediately switch the character
-            PlaySwitchSound(); // Play the sound after switching
-        }
+    private void Update(){
+
     }
 
     private void PlaySwitchSound()
@@ -82,8 +75,9 @@ public class SwapCharacters : MonoBehaviour
         activeCharacter.SetActive(false);
         activeCharacter = (activeCharacter == plant) ? robot : plant;
         activeCharacter.SetActive(true);
-
+        
         TransferVariables(oldCharacter);
+        PlaySwitchSound();
     }
 
     public void TransferVariables(GameObject old)
