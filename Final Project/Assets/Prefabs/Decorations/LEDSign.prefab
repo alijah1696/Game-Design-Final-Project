@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 90
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -180,88 +180,82 @@ MonoBehaviour:
   - position: {x: -0.06732805, y: -0.040041026, z: 0}
     color: {r: 0, g: 0, b: 0, a: 1}
     uv: {x: 0, y: 0}
-  - position: {x: -0.1124, y: -0.1227, z: 0}
+  - position: {x: -0.1013, y: -0.1331, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: -0.0805, y: -0.1488, z: 0}
+  - position: {x: -0.0585, y: -0.1487, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: -0.0336, y: -0.1577, z: 0}
+  - position: {x: 0.0429, y: -0.1582, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.0602, y: -0.1501, z: 0}
+  - position: {x: 0.0838, y: -0.1525, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.0995, y: -0.1374, z: 0}
+  - position: {x: 0.1179, y: -0.1292, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.1176, y: -0.123, z: 0}
+  - position: {x: 0.1396, y: -0.0858, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.1327, y: -0.1074, z: 0}
+  - position: {x: 0.1452, y: -0.0572, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.1538, y: -0.0719, z: 0}
+  - position: {x: 0.1543, y: -0.0209, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.1578, y: -0.0387, z: 0}
+  - position: {x: 0.1636, y: 0.0142, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.1544, y: 0.0113, z: 0}
+  - position: {x: 0.1647, y: 0.0555, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.1521, y: 0.0264, z: 0}
+  - position: {x: 0.1338, y: 0.1067, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.1453, y: 0.0545, z: 0}
+  - position: {x: 0.0951, y: 0.1386, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.139, y: 0.0722, z: 0}
+  - position: {x: 0.0581, y: 0.1569, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.122, y: 0.1077, z: 0}
+  - position: {x: 0.0291, y: 0.1588, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.0961, y: 0.1398, z: 0}
+  - position: {x: -0.0605, y: 0.15, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.0585, y: 0.157, z: 0}
+  - position: {x: -0.0996, y: 0.1366, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: 0.0242, y: 0.1573, z: 0}
+  - position: {x: -0.1322, y: 0.1006, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: -0.0752, y: 0.1387, z: 0}
+  - position: {x: -0.1398, y: 0.0854, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: -0.1129, y: 0.122, z: 0}
+  - position: {x: -0.1464, y: 0.0679, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: -0.1348, y: 0.0981, z: 0}
+  - position: {x: -0.1599, y: 0.0161, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: -0.1402, y: 0.0895, z: 0}
+  - position: {x: -0.1617, y: -0.0206, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: -0.1508, y: 0.0654, z: 0}
+  - position: {x: -0.1552, y: -0.0619, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: -0.1635, y: 0.0191, z: 0}
+  - position: {x: -0.1396, y: -0.1001, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: -0.1594, y: -0.0401, z: 0}
+  - position: {x: -0.1175, y: -0.1219, z: 0}
     color: {r: 0, g: 0, b: 0, a: 0}
     uv: {x: 0, y: 0}
-  - position: {x: -0.1434, y: -0.0775, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.1322, y: -0.0968, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  m_Triangles: 0000030001000000080003000000090008000100030002000300050004000300080005000500080006000600080007000a00140014000a00140015000a00150016000a000b0017000a00160017000b00170018000b00180019000b000c001a000b0019001a000c001a001b000c001b001c000c000d001d000c001c001d000d001d001e000d000e001f000d001e001f000e001f0020000e000f0021000e00200021000f00210022000f00220023000f00230024000f00100025000f0024002500100025002600100026002700100011002800100027002800110028002900110012002a00110029002a0012002a002b00120013002c0012002b002c0013002c002d0014000a00130014002d001300
+  m_Triangles: 0000030001000000080003000000090008000100030002000300050004000300080005000500080006000600080007000a00140014000a00140015000a000b0016000a00150016000b00160017000b00170018000b00180019000b000c001a000b0019001a000c000d001b000c001a001b000d000e001c000d001b001c000e001c001d000e001d001e000e000f001f000e001e001f000f001f0020000f00200021000f00100022000f0021002200100022002300100023002400100011002500100024002500110025002600110012002700110026002700120027002800120013002900120028002900130029002a0013002a002b0014000a00130014002b001300
   m_LocalBounds:
-    m_Center: {x: -0.002849996, y: -0.00020000339, z: 0}
-    m_Extent: {x: 0.16065, y: 0.1575, z: 0}
+    m_Center: {x: 0.001500003, y: 0.00030000508, z: 0}
+    m_Extent: {x: 0.16319999, y: 0.1585, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -332,7 +326,7 @@ Transform:
   m_Children:
   - {fileID: 3278626625847784292}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4060156712926592762
 SpriteRenderer:
@@ -374,7 +368,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 90
   m_Sprite: {fileID: 21300000, guid: 3f16b7d004b8c0a499eff8127e1c9171, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

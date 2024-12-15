@@ -62,6 +62,18 @@ public class KeyLogic : MonoBehaviour
         Debug.Log($"KeyLogic: Key collected by {player.name}.");
         isCollected = true;
         playerTransform = player;
+
+        // Play the key collected sound
+        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager != null && audioManager.keyCollectedSound != null)
+        {
+            Debug.Log("KeyLogic: Playing key collected sound.");
+            audioManager.PlayKeyCollectedSound();
+        }
+        else
+        {
+            Debug.LogWarning("KeyLogic: AudioManager or keyCollectedSound is missing!");
+        }
     }
 
     void FollowPlayer()

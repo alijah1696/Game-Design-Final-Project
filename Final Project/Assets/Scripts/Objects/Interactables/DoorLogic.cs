@@ -56,7 +56,8 @@ public class DoorLogic : MonoBehaviour
                 }
             }
         }
-        if(isOpen && interactableProxy != null && interactableProxy.getProgress() != 1 && shouldNotStayOpen){
+        if (isOpen && interactableProxy != null && interactableProxy.getProgress() != 1 && shouldNotStayOpen)
+        {
             Close();
         }
     }
@@ -76,9 +77,10 @@ public class DoorLogic : MonoBehaviour
             c2d.isTrigger = true;
             sr.sprite = openedSprite;
 
+            // Play the door open sound
             if (audioManager != null && audioManager.pressurePlateSound != null)
             {
-                audioManager.PlaySFX(audioManager.pressurePlateSound);
+                audioManager.PlayDoorSound(true);
                 Debug.Log("DoorLogic: Door opened sound played.");
             }
         }
@@ -90,17 +92,18 @@ public class DoorLogic : MonoBehaviour
 
     public void Close()
     {
-        if(isOpen)
+        if (isOpen)
         {
-            Debug.Log("DoorLogic: Opening the door.");
+            Debug.Log("DoorLogic: Closing the door.");
             isOpen = false;
             c2d.isTrigger = false;
             sr.sprite = closedSprite;
 
+            // Play the door close sound
             if (audioManager != null && audioManager.pressurePlateSound != null)
             {
-                audioManager.PlaySFX(audioManager.pressurePlateSound);
-                Debug.Log("DoorLogic: Door close sound played.");
+                audioManager.PlayDoorSound(false);
+                Debug.Log("DoorLogic: Door closed sound played.");
             }
         }
     }

@@ -19791,6 +19791,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManger
       objectReference: {fileID: 0}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: WallTouch
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d0f85983984f4fd6b68fd8c3404b624, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: jumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a12fd6bbf0032418b844f007352e3788, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: FloorTouch
+      value: 
+      objectReference: {fileID: 8300000, guid: 46b36ff7ec2194a7fa03da5a355c18f7, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 8300000, guid: 1895b5a2bd25e422ea5551f8dc3b7442, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: grappleVine
+      value: 
+      objectReference: {fileID: 8300000, guid: ae3bc865238fb45fb9bad9013032453b, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: doorOpenSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 520e4108369bb456ab56c0b892e1e8bd, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: Magneticability
+      value: 
+      objectReference: {fileID: 8300000, guid: 180dadacbc8c84e5a882333ab9e9313d, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: keyCollectedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d7e0857b3c73340f883f162e88871f47, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: pressurePlateSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f939e697a416343d9b7ebdc86e0ebf2f, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: switchingCharacterSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b29fe8064f7994d2e9f71b04391a7358, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
