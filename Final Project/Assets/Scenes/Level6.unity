@@ -100201,6 +100201,107 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1689743576
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 121.976524
+      objectReference: {fileID: 0}
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -29.329058
+      objectReference: {fileID: 0}
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.191386
+      objectReference: {fileID: 0}
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 970026297086359687, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2040747878618642609, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: m_Name
+      value: AudioManger
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: WallTouch
+      value: 
+      objectReference: {fileID: 8300000, guid: 5d0f85983984f4fd6b68fd8c3404b624, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: jumpSound
+      value: 
+      objectReference: {fileID: 8300000, guid: a12fd6bbf0032418b844f007352e3788, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: FloorTouch
+      value: 
+      objectReference: {fileID: 8300000, guid: 46b36ff7ec2194a7fa03da5a355c18f7, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: background
+      value: 
+      objectReference: {fileID: 8300000, guid: 1895b5a2bd25e422ea5551f8dc3b7442, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: grappleVine
+      value: 
+      objectReference: {fileID: 8300000, guid: ae3bc865238fb45fb9bad9013032453b, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: doorOpenSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 520e4108369bb456ab56c0b892e1e8bd, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: Magneticability
+      value: 
+      objectReference: {fileID: 8300000, guid: 180dadacbc8c84e5a882333ab9e9313d, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: keyCollectedSound
+      value: 
+      objectReference: {fileID: 8300000, guid: d7e0857b3c73340f883f162e88871f47, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: pressurePlateSound
+      value: 
+      objectReference: {fileID: 8300000, guid: f939e697a416343d9b7ebdc86e0ebf2f, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: switchingCharacterSound
+      value: 
+      objectReference: {fileID: 8300000, guid: b29fe8064f7994d2e9f71b04391a7358, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
 --- !u!1 &1836382751
 GameObject:
   m_ObjectHideFlags: 0
