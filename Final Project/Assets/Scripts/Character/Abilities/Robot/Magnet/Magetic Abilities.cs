@@ -183,12 +183,14 @@ public class MagneticAbilities : MonoBehaviour
 
         mv.canMove = false;
         mv.canJump = false;
-        mv.isBusy = true;
+        mv.StartAbility();
 
         rb.velocity = Vector2.zero;
         rb.bodyType = RigidbodyType2D.Kinematic;
 
         camera.FollowTemporaryTarget(other);
+
+
     }
 
     public void StopControl()
@@ -204,8 +206,7 @@ public class MagneticAbilities : MonoBehaviour
 
         mv.canMove = true;
         mv.canJump = true;
-        mv.isBusy = false;
-
+        mv.EndAbility();
         rb.bodyType = RigidbodyType2D.Dynamic;
 
         isControlling = false;

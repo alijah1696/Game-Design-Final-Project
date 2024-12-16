@@ -70,7 +70,7 @@ public class SwapCharacters : MonoBehaviour
     }
 
     public bool IsNotBusy(){
-        return (activeCharacter == null)? false : !GetCurrentForm().GetComponent<MoveCharacter>().isBusy;
+        return (activeCharacter == null) ? false : !(GetCurrentForm().GetComponent<MoveCharacter>().IsBusy());
     }
 
     public void SwapCharacter()

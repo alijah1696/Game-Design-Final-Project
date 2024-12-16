@@ -11,11 +11,22 @@ public class ChangeCharacterrUI : MonoBehaviour
     SwapCharacters sw;
 
     [SerializeField]
+    private RectTransform group;
+    private Vector3 originalGroupPos;
+
+    [SerializeField]
     private GameObject plantIcon;
     [SerializeField]
     private GameObject robotIcon;
     [SerializeField]
     private GameObject center;
+
+    
+    private float wrongProgress;
+    private bool wrongCalled;
+    private float wrongAngle;
+    [SerializeField] private int wrongAnimSpin;
+    [SerializeField] private float wrongAnimDist;
 
     private Vector3 originalPlantScale;
     private Vector3 originalRobotScale;
@@ -23,6 +34,7 @@ public class ChangeCharacterrUI : MonoBehaviour
     private Color originalColor = Color.white;
     [SerializeField]
     private Color dimmedColor;
+    private Color originalOutlineColor;
 
     [SerializeField]
     private Color greenColor;
@@ -30,11 +42,15 @@ public class ChangeCharacterrUI : MonoBehaviour
     private Color blueColor;
     [SerializeField]
     private GameObject background;
-    private Image backgroundImage;
+    [SerializeField]
+    private GameObject outline;
+    
     
 
     private Image plantImage;
     private Image robotImage;
+    private Image outlineImage;
+    private Image backgroundImage;
     
     [SerializeField]
     private float radius;
@@ -53,17 +69,36 @@ public class ChangeCharacterrUI : MonoBehaviour
     void Start(){
         originalPlantScale = plantIcon.transform.localScale;
         originalRobotScale = robotIcon.transform.localScale;
-
+    
         plantImage = plantIcon.GetComponent<Image>();
         robotImage = robotIcon.GetComponent<Image>();
         backgroundImage = background.GetComponent<Image>();
+        outlineImage = outline.GetComponent<Image>();
+
+        originalOutlineColor = outlineImage.color;
 
         sw = FindObjectOfType<SwapCharacters>();
+
+        originalGroupPos = group.GetComponent<RectTransform>().localPosition;
     }
 
     void Update()
     {   
-        //angle progs goes from 0 to 1
+        CorrectAbilityAnimation();
+        WrongAbilityAnimation();
+
+        if (Input.GetKeyDown(KeyCode.Tab) && !isOnCooldown)
+        {
+            if(sw.IsNotBusy()){
+                StartCoroutine(AbilityCoroutine());
+            }else{
+                StartCoroutine(WrongAbilityCoroutine());
+            }
+        }
+    }
+
+    private void CorrectAbilityAnimation(){
+                //angle progs goes from 0 to 1
         float angleProgress = (Mathf.Abs(Mathf.Sin(angleSpin/2 * Mathf.Deg2Rad)));
 
         //Change Positions
@@ -84,16 +119,18 @@ public class ChangeCharacterrUI : MonoBehaviour
 
 
         //Change Color and Alpha
-        plantImage.color = Color.Lerp(originalColor, dimmedColor, angleProgress);
-        robotImage.color = Color.Lerp(dimmedColor, originalColor, angleProgress);
-        backgroundImage.color = Color.Lerp(greenColor, blueColor, angleProgress);
-        
-        Debug.Log(sw.IsNotBusy());
-        if (Input.GetKeyDown(KeyCode.Tab) && !isOnCooldown && sw.IsNotBusy())
-        {
-            StartCoroutine(AbilityCoroutine());
+        if(!wrongCalled){
+            plantImage.color = Color.Lerp(originalColor, dimmedColor, angleProgress);
+            robotImage.color = Color.Lerp(dimmedColor, originalColor, angleProgress);
+            backgroundImage.color = Color.Lerp(greenColor, blueColor, angleProgress);
+            outlineImage.color = originalOutlineColor;
+        }else{
+            //plantImage.color = Color.Lerp(plantImage.color, dimmedColor, wrongProgress);
+            //robotImage.color = Color.Lerp(robotImage.color, dimmedColor, wrongProgress);
+            //outlineImage.color = Color.Lerp(originalOutlineColor, Color.grey, wrongProgress);
         }
     }
+    
 
     private IEnumerator AbilityCoroutine()
     {
@@ -115,5 +152,39 @@ public class ChangeCharacterrUI : MonoBehaviour
 
     void UpdateAngle(float a){
         angleSpin = a;
+    }
+
+    private IEnumerator WrongAbilityCoroutine(){
+        isOnCooldown = true;
+        wrongCalled = true;
+
+        float cd = cooldownTime/2;
+        float cdSlow = 2;
+
+        wrongAngle = Random.Range(0, 361);
+
+
+        LeanTween.value(gameObject, UpdateWrongProgress, 0, 1, cd/cdSlow).setEase(LeanTweenType.easeInSine);
+        yield return new WaitForSeconds(cd/cdSlow);
+        
+        LeanTween.value(gameObject, UpdateWrongProgress, 1, 0, cd/cdSlow).setEase(LeanTweenType.easeInSine);
+        yield return new WaitForSeconds(cd/cdSlow);
+
+        wrongCalled = false;
+        isOnCooldown = false;
+    }
+
+    void UpdateWrongProgress(float p){
+        wrongProgress = p;
+    }
+
+    void WrongAbilityAnimation(){
+        float angleOffset = Mathf.Sin((wrongProgress * wrongAnimSpin * Mathf.PI) + (Mathf.Deg2Rad * wrongAngle));
+        
+        float vOffset = wrongAnimDist * angleOffset;
+        float hOffset = wrongAnimDist * angleOffset;
+
+        Vector3 newPos = originalGroupPos + new Vector3(hOffset, vOffset, 0f);
+        group.GetComponent<RectTransform>().localPosition = newPos;
     }
 }

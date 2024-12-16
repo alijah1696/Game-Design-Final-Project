@@ -19,7 +19,6 @@ public class CharacterAnimator : MonoBehaviour
         Vector3 scale = Vector3.one;
 
         animator.SetFloat("Speed", Mathf.Abs(move));
-        Debug.Log("Character Speed: " + move);
 
         transform.localScale = scale;
     }

@@ -57,10 +57,12 @@ public class PlantVineMovement : MonoBehaviour
     void HandleClimbing()
     {
         if (isClimbing)
-        {
+        {   
+            mv.StartAbility();
             float vertical = Input.GetAxis("Vertical");
             rb.velocity = new Vector2(0, vertical * climbSpeed);
         }
+        if(!isClimbing && !isGrappling) mv.EndAbility();
     }
 
     void HandleGrappling()
@@ -86,7 +88,7 @@ public class PlantVineMovement : MonoBehaviour
                 isGrappling = true;
                 sj.enabled = true;
 
-                mv.isBusy = true;
+                mv.StartAbility();
             }
             else if (isGrappling && (fullyExtended || externallyCalled))
             {
@@ -101,8 +103,8 @@ public class PlantVineMovement : MonoBehaviour
                 isGrappling = false;
                 sj.connectedBody = null;
                 sj.enabled = false;
-
-                mv.isBusy = false;
+                
+                mv.EndAbility();
             }
             vineRenderer.SetActive(true);
             externallyCalled = false;

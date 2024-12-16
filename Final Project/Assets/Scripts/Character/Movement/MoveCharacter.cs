@@ -19,6 +19,9 @@ public class MoveCharacter : MonoBehaviour
     private float defaultGravityScale;
     public float gravityScaleIncrease = 2.5f;
 
+    private bool usingAbility = false;
+    private bool inDanger = false;
+
     private Rigidbody2D rb;
     private AudioManager audioManager; // Reference to AudioManager
 
@@ -212,4 +215,32 @@ public class MoveCharacter : MonoBehaviour
     {
         return isGrounded;
     }
+
+
+    //State Methods
+
+    public bool IsBusy(){
+        isBusy = inDanger || !isGrounded || usingAbility;
+        return isBusy;
+    }
+
+    public void InDanger(){
+        inDanger = true;
+    }
+    public void Safe(){
+        inDanger = false;
+    }
+    public void OnGround(){
+        isGrounded = true;
+    }
+    public void InAir(){
+        isGrounded = false;
+    }
+    public void StartAbility(){
+        usingAbility = true;
+    }
+    public void EndAbility(){
+        usingAbility = false;
+    }
+
 }
