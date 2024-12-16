@@ -21,7 +21,7 @@ public class PlayerGroundHitbox : MonoBehaviour
 
 
     void OnTriggerStay2D(Collider2D other){
-        if(other.CompareTag("Ground") || other.CompareTag("Magnet")){
+        if(other.CompareTag("Ground")){
             mv.isGrounded = true;
         }
     }

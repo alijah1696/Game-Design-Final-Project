@@ -14468,7 +14468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4373791972744949482, guid: 7d1ac21e8afbc1e4eab3fcb6298366e9, type: 3}
       propertyPath: NextLevel
-      value: Level5_b
+      value: Level5
       objectReference: {fileID: 0}
     - target: {fileID: 5740971685936102982, guid: 7d1ac21e8afbc1e4eab3fcb6298366e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15964,7 +15964,7 @@ GameObject:
   - component: {fileID: 557690400}
   m_Layer: 8
   m_Name: jumps
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131320,6 +131320,10 @@ PrefabInstance:
     - target: {fileID: 6015262032663361462, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_Name
       value: PLAYER
+      objectReference: {fileID: 0}
+    - target: {fileID: 8669147640648187984, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
+      propertyPath: m_Radius
+      value: 0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

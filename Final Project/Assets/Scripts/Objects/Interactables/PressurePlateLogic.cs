@@ -44,8 +44,7 @@ public class PressurePlateLogic : MonoBehaviour
         return progress;
     }
 
-    void OnCollisionEnter2D(Collision2D other){
-        Debug.Log(other.gameObject);
+    void OnCollisionStay2D(Collision2D other){
         if(IsValid(other.gameObject) && !currentColliders.Contains(other.gameObject)){
             currentColliders.Add(other.gameObject);
         }
