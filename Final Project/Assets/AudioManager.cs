@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource grappleSource;  // For grapple-related sounds
 
     [Header("Audio Clips")]
-    public AudioClip background;
+    public List<AudioClip> levelBackgroundMusic; // List of background music for levels
     public AudioClip pressurePlateSound;
     public AudioClip FloorTouch; // For walking or floor interaction
     public AudioClip WallTouch;  // For hitting walls
@@ -27,13 +28,31 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        // Play background music if assigned
-        if (musicSource != null && background != null)
+        PlayLevelMusic();
+    }
+
+    // Play the assigned background music for the current level
+    private void PlayLevelMusic()
+    {
+        if (musicSource == null || levelBackgroundMusic == null || levelBackgroundMusic.Count == 0)
         {
-            musicSource.clip = background;
+            Debug.LogWarning("AudioManager: Music source or level background music list is not set up.");
+            return;
+        }
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Check if the scene index has an assigned background music
+        if (currentSceneIndex < levelBackgroundMusic.Count && levelBackgroundMusic[currentSceneIndex] != null)
+        {
+            musicSource.clip = levelBackgroundMusic[currentSceneIndex];
             musicSource.loop = true;
             musicSource.Play();
-            Debug.Log("Background music playing!");
+            Debug.Log($"AudioManager: Playing background music for level {currentSceneIndex} - {levelBackgroundMusic[currentSceneIndex].name}");
+        }
+        else
+        {
+            Debug.LogWarning($"AudioManager: No background music assigned for level {currentSceneIndex}");
         }
     }
 

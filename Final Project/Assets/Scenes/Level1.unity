@@ -1281,7 +1281,7 @@ PrefabInstance:
     - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
       propertyPath: background
       value: 
-      objectReference: {fileID: 8300000, guid: 1895b5a2bd25e422ea5551f8dc3b7442, type: 3}
+      objectReference: {fileID: 8300000, guid: 4d27bd258b09e4c0db3597059b6264fe, type: 3}
     - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
       propertyPath: grappleVine
       value: 
@@ -1306,6 +1306,34 @@ PrefabInstance:
       propertyPath: switchingCharacterSound
       value: 
       objectReference: {fileID: 8300000, guid: b29fe8064f7994d2e9f71b04391a7358, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: levelBackgroundMusic.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: levelBackgroundMusic.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4d27bd258b09e4c0db3597059b6264fe, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: levelBackgroundMusic.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1895b5a2bd25e422ea5551f8dc3b7442, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: levelBackgroundMusic.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 153ca3a3303d6461192b0d554cbf5a76, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: levelBackgroundMusic.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: d41a5f08a838d4aaf8f6aeeea69d6b1d, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: levelBackgroundMusic.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 9a062214ba72746dbb56dab3bbe4b260, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: levelBackgroundMusic.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: e4af316e2f2a3493b8a6f47f97eea728, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
