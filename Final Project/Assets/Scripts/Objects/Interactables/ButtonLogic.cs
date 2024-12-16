@@ -4,77 +4,102 @@ using UnityEngine;
 
 public class ButtonLogic : MonoBehaviour
 {
-
+    [Header("Button State")]
     private float progress;
     public bool pressed;
     private bool canPress;
-    
+
     private SpriteRenderer sr;
     private Sprite unpressedSprite;
     [SerializeField]
     private Sprite pressedSprite;
 
+    [Header("Light Source")]
     [SerializeField]
     private GameObject lightSource;
-    UnityEngine.Rendering.Universal.Light2D lt;
+    private UnityEngine.Rendering.Universal.Light2D lt;
     private float maxLight;
 
+    [Header("Button Settings")]
     [SerializeField]
-    private bool forPlant;  
+    private bool forPlant;
 
+    [Header("Reset Zone")]
+    [SerializeField]
+    private ResetZone resetZone; // Drag your ResetZone GameObject here
 
-    // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        if(lightSource != null) lt = lightSource.GetComponent<UnityEngine.Rendering.Universal.Light2D>();
-        if(lt != null) maxLight = lt.intensity;
-        if(sr != null) unpressedSprite = sr.sprite;
+        if (lightSource != null)
+            lt = lightSource.GetComponent<UnityEngine.Rendering.Universal.Light2D>();
+
+        if (lt != null)
+            maxLight = lt.intensity;
+
+        if (sr != null)
+            unpressedSprite = sr.sprite;
     }
 
-    // Update is called once per frame
     void Update()
-    {   
-        if(canPress && Input.GetKeyDown(KeyCode.E)) Press();
+    {
+        if (canPress && Input.GetKeyDown(KeyCode.E))
+            Press();
     }
 
-    void Press(){
-        if(sr == null) return; 
-        
+    void Press()
+    {
+        if (sr == null) return;
+
         pressed = !pressed;
-        if(pressed){
+
+        if (pressed)
+        {
             sr.sprite = pressedSprite;
-            if(lt != null) lt.intensity = 0;
+            if (lt != null) lt.intensity = 0;
             progress = 1;
-        }else{
+
+            Debug.Log("ButtonLogic: Button pressed.");
+
+            // Trigger ResetZone if assigned
+            if (resetZone != null)
+            {
+                resetZone.ResetGameSection();
+                Debug.Log("ButtonLogic: ResetZone triggered.");
+            }
+        }
+        else
+        {
             sr.sprite = unpressedSprite;
-            if(lt != null) lt.intensity = maxLight;
+            if (lt != null) lt.intensity = maxLight;
             progress = 0;
-        } 
-        
+
+            Debug.Log("ButtonLogic: Button unpressed.");
+        }
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        bool isValid =
+            ((forPlant && other.CompareTag("Plant")) || (!forPlant && other.CompareTag("Robot")));
 
-    void OnTriggerEnter2D(Collider2D  other){
-        bool isValid = 
-        ((forPlant && other.CompareTag("Plant")) ||
-        (!forPlant && other.CompareTag("Robot")));
-
-        if(isValid) canPress = true;
+        if (isValid)
+            canPress = true;
     }
 
-    void OnTriggerExit2D(Collider2D  other){
-        if(isPlayer(other.gameObject))
-        canPress = false;
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (isPlayer(other.gameObject))
+            canPress = false;
     }
 
-    public float getProgress(){
+    public float getProgress()
+    {
         return progress;
     }
 
-    private bool isPlayer(GameObject other){
+    private bool isPlayer(GameObject other)
+    {
         return other.GetComponent<MoveCharacter>() != null;
     }
-
-
 }
