@@ -6,7 +6,7 @@ public class MoveCharacter : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 15f;
-    private bool isGrounded = true;
+    public bool isGrounded = true;
     public bool canJump = true;
 
     public bool facingRight = true;
@@ -23,7 +23,7 @@ public class MoveCharacter : MonoBehaviour
     private bool inDanger = false;
 
     private Rigidbody2D rb;
-    private AudioManager audioManager; // Reference to AudioManager
+    private AudioManager audioManager; // Reference to AudioManager    
 
     private bool isWalkingSoundPlaying = false; // Track if walking sound is currently playing
 
@@ -137,29 +137,10 @@ public class MoveCharacter : MonoBehaviour
         isGrounded = true;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Set grounded status
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Magnet"))
-        {
-            isGrounded = true;
-        }
-    }
-
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Magnet"))
-        {
-            isGrounded = true;
-        }
-    }
-
     void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Magnet"))
         {
-            isGrounded = false;
-
             // Ensure walking sound stops when leaving the ground
             if (audioManager != null && isWalkingSoundPlaying)
             {

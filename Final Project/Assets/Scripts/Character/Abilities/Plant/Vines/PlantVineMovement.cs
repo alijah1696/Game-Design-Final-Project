@@ -255,4 +255,12 @@ public class PlantVineMovement : MonoBehaviour
         if(other == null) return 0;
         return Vector2.Distance(transform.position, other.transform.position);
     }
+
+    public bool IsGrappling(){
+        return isGrappling;
+    }
+
+    public bool IsClimbing(){
+        return isClimbing;
+    }
 }
