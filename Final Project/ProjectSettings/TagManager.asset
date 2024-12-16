@@ -21,10 +21,10 @@ TagManager:
   - Pixels
   - Water
   - UI
-  - UI 1
-  - UI 2
+  - Background
+  - Foreground
+  - MidGround
   - Blocked
-  - 
   - 
   - 
   - 
@@ -51,8 +51,8 @@ TagManager:
   - name: Background
     uniqueID: 2264266051
     locked: 0
-  - name: Pixelated
-    uniqueID: 2869658741
+  - name: Decorations
+    uniqueID: 3094859531
     locked: 0
   - name: Default
     uniqueID: 0

@@ -26,12 +26,10 @@ public class MagnetObject : MonoBehaviour
     void Update()
     {
         mag = FindObjectOfType<MagneticAbilities>();
-        if(mag != null){
-            if(mag.GetControlled() == this.gameObject){
-                CanControl();
-            }else{
-                CantControl();
-            }
+        if(mag != null && mag.GetControlled() == this.gameObject){
+            CanControl();
+        }else{
+            CantControl();
         }
     }
 

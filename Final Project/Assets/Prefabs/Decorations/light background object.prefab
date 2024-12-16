@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2751007894287048944, guid: d93d46852a1de544db09d090199c6a04, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2751007894287048944, guid: d93d46852a1de544db09d090199c6a04, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7173005560719849233, guid: d93d46852a1de544db09d090199c6a04, type: 3}
       propertyPath: m_Name
-      value: LightBulbbg Variant
+      value: light background object
       objectReference: {fileID: 0}
     - target: {fileID: 8953783154283589650, guid: d93d46852a1de544db09d090199c6a04, type: 3}
       propertyPath: m_Color.b
@@ -661,6 +661,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8953783154283589650, guid: d93d46852a1de544db09d090199c6a04, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953783154283589650, guid: d93d46852a1de544db09d090199c6a04, type: 3}
       propertyPath: m_Vertices.Array.data[0].position.x
       value: 0.9985302
       objectReference: {fileID: 0}
@@ -739,6 +743,10 @@ PrefabInstance:
     - target: {fileID: 8953783154283589650, guid: d93d46852a1de544db09d090199c6a04, type: 3}
       propertyPath: m_Vertices.Array.data[9].position.y
       value: -0.599
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953783154283589650, guid: d93d46852a1de544db09d090199c6a04, type: 3}
+      propertyPath: m_ApplyToSortingLayers.Array.data[2]
+      value: -1200107765
       objectReference: {fileID: 0}
     - target: {fileID: 8953783154283589650, guid: d93d46852a1de544db09d090199c6a04, type: 3}
       propertyPath: m_Vertices.Array.data[10].position.x
