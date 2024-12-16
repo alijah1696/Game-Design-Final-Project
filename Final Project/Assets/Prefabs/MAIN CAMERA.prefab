@@ -126,7 +126,7 @@ Transform:
   - {fileID: 3652638018530510361}
   - {fileID: 7736576895773299838}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &3967870817385281862
 Camera:
@@ -1377,7 +1377,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1761139073
   m_SortingOrder: 200
   m_TargetDisplay: 0
 --- !u!114 &6130313276944509199

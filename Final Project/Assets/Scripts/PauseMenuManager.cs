@@ -58,6 +58,13 @@ public class PauseMenuManager : MonoBehaviour
         GameisPaused = true;
     }
 
+    public void RestartCurrentLevel(){
+        if(LoseScreen.previousScene == SceneManager.GetActiveScene().name){
+            Resume();
+            SceneManager.LoadScene(LoseScreen.previousScene);
+        }
+    }
+
     public void Resume()
     {
         pauseButton.SetActive(true);
