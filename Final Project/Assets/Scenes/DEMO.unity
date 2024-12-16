@@ -404,7 +404,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29380844}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2db99115dceabc4ca918374fe0d785d, type: 3}
   m_Name: 
@@ -4757,11 +4757,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1600939383528151755, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.31
+      value: -0.68
       objectReference: {fileID: 0}
     - target: {fileID: 1600939383528151755, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.52
+      value: -16.09
       objectReference: {fileID: 0}
     - target: {fileID: 1600939383528151755, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4798,6 +4798,10 @@ PrefabInstance:
     - target: {fileID: 6015262032663361462, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
       propertyPath: m_Name
       value: PLAYER
+      objectReference: {fileID: 0}
+    - target: {fileID: 7401553362456598174, guid: a6fb0e0efe95656409a4e7fc481572de, type: 3}
+      propertyPath: jumpMulti
+      value: 3.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23859,6 +23863,18 @@ PrefabInstance:
     - target: {fileID: 951892200675951209, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
       propertyPath: m_Name
       value: MAIN CAMERA
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967870817385281862, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.46226418
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967870817385281862, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.46226418
+      objectReference: {fileID: 0}
+    - target: {fileID: 3967870817385281862, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.46226418
       objectReference: {fileID: 0}
     - target: {fileID: 4403416186187994197, guid: 4e1a83c2abab0104aab98caa2674c542, type: 3}
       propertyPath: m_RootOrder

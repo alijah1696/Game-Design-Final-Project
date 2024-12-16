@@ -17,9 +17,12 @@ public class PlantVineMovement : MonoBehaviour
     private float radiusToDistanceMultiplier = 4.3f;
     [SerializeField] private float distanceToAnimSpeedMultiplier;
     private float defualtMoveSpeed;
+    private float goalMoveSpeed;
     [SerializeField] private float moveSpeedIncrease;
     [SerializeField] private float swingClimbSpeed;
     private float swingClimbProgress;
+
+    [SerializeField] private float jumpMulti;
 
     [SerializeField] private TrailRenderer trail;
     [SerializeField] private float radiusToTrailMultiplier;
@@ -51,6 +54,7 @@ public class PlantVineMovement : MonoBehaviour
     {
         HandleClimbing();
         HandleGrappling();
+        ChangeMoveSpeed();
         AdjustTrail();
     }
 
@@ -99,7 +103,6 @@ public class PlantVineMovement : MonoBehaviour
                 vgl.Cooldown();
                 
                 // Set Rigid Body variables
-                mv.moveSpeed = defualtMoveSpeed;
                 isGrappling = false;
                 sj.connectedBody = null;
                 sj.enabled = false;
@@ -121,9 +124,7 @@ public class PlantVineMovement : MonoBehaviour
 
         float vineRadius = (grapplePoint.GetComponent<CircleCollider2D>().radius);
         float vineDistance = vineRadius * (2f/3f) * radiusToDistanceMultiplier;
-
         float speedMulti = DistanceTo(grapplePoint) / distanceToAnimSpeedMultiplier;
-        float vineMoveSpeed = defualtMoveSpeed + moveSpeedIncrease * speedMulti;
 
         float percent = 0;
 
@@ -134,11 +135,8 @@ public class PlantVineMovement : MonoBehaviour
             
             //change distance of joint
             sj.distance = Mathf.Lerp(DistanceTo(grapplePoint), vineDistance, percent);
-            
             //change move speed of characters
-            
-            mv.moveSpeed = Mathf.Lerp(defualtMoveSpeed, vineMoveSpeed, percent);
-
+            goalMoveSpeed = defualtMoveSpeed + moveSpeedIncrease * (DistanceTo(grapplePoint) / distanceToAnimSpeedMultiplier);
             //play animation
             if(!particlePlayed && va.Progress() > 0.85){
                 particlePlayed = true;
@@ -147,9 +145,8 @@ public class PlantVineMovement : MonoBehaviour
 
             yield return null;
         }
-        mv.moveSpeed = vineMoveSpeed;
         StartCoroutine(ChangeVineHeight(vineDistance, 1f/3f));
-        while(percent >= 1 && grapplePoint != null){
+        while(isGrappling && grapplePoint != null){
             bool abovePoint = (transform.position.y - grapplePoint.transform.position.y) > 0;
 
             if(abovePoint){
@@ -159,6 +156,7 @@ public class PlantVineMovement : MonoBehaviour
             }  
             yield return null;
         }
+        EndJump();
     }
 
     IEnumerator ChangeVineHeight(float midDistance, float increment){ 
@@ -175,12 +173,22 @@ public class PlantVineMovement : MonoBehaviour
             swingClimbProgress = Mathf.Clamp01(swingClimbProgress);
             
             sj.distance = Mathf.Lerp(lowDistance, highDistance, swingClimbProgress);
-
+            goalMoveSpeed = defualtMoveSpeed + moveSpeedIncrease * (DistanceTo(grapplePoint) / distanceToAnimSpeedMultiplier);
             //move Speed
-            float newSpeed = defualtMoveSpeed + moveSpeedIncrease * (DistanceTo(grapplePoint) / distanceToAnimSpeedMultiplier);
-            mv.moveSpeed = newSpeed;
-
             yield return null;
+        }
+    }
+
+    void EndJump(){
+        float force = goalMoveSpeed/(jumpMulti * defualtMoveSpeed);
+        mv.Dash(0, force);
+    }
+
+    void ChangeMoveSpeed(){
+        float progress = va.Progress();
+        
+        if(progress > 0){
+            mv.moveSpeed = Mathf.Lerp(defualtMoveSpeed, goalMoveSpeed, progress);
         }
     }
     
@@ -243,7 +251,8 @@ public class PlantVineMovement : MonoBehaviour
     }
 
     float DistanceTo(GameObject other)
-    {
+    {   
+        if(other == null) return 0;
         return Vector2.Distance(transform.position, other.transform.position);
     }
 }
