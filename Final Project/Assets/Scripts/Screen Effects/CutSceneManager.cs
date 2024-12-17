@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Rendering.Universal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CutSceneManager : MonoBehaviour
 {
@@ -25,7 +26,15 @@ public class CutSceneManager : MonoBehaviour
     private List<float> endLights;
     [SerializeField] private Color startColor;
     [SerializeField] private Color endColor; 
-    
+
+    private bool startCredits;
+    private float creditProgess;   
+    [SerializeField]
+    private float creditTime; 
+    [SerializeField] private float endcreditDiff;
+    [SerializeField] private RectTransform creditCanvas;
+
+    [SerializeField] private CanvasGroup swap;
 
 
     [SerializeField] private float maxDistance;
@@ -37,6 +46,7 @@ public class CutSceneManager : MonoBehaviour
 
     private bool started;
     private GameObject player;
+    private MoveCharacter mc;
 
 
 
@@ -56,18 +66,63 @@ public class CutSceneManager : MonoBehaviour
         }
     }
 
+    void FixedUpdate(){
+        if(mc != null){
+            mc.Move(1f);
+            mc.facingRight = true;
+        }
+    }
+
 
     // Update is called once per frame
     void Update()
     {   
         progress = GetProgress();
-        
-        HandleColors();
+        Debug.Log(progress);
+        if(creditProgess ==  0){
+            HandleColors();
+        }
         if(started){
             HandleCamera();
             HandleSun();
+            HandleCredits();
         }
     } 
+
+    void HandleCredits(){
+        if(sunProgress == 1 && progress == 1 && creditProgess == 0){
+            StartCoroutine(StartCreditScene());
+        }
+        
+        
+    }
+    
+    IEnumerator StartCreditScene(){
+        creditProgess = 0.01f;
+        yield return new WaitForSeconds(2);
+        LeanTween.value(gameObject, UpdateCreditProgress, 0.01f, 3f, creditTime).setEase(LeanTweenType.easeInOutSine);
+
+        Vector3 startPosition = creditCanvas.position;
+        Vector3 endPosition = startPosition + new Vector3(0, endcreditDiff, 0);
+
+        while(creditProgess <= 1){
+            cm.backgroundColor = Color.Lerp(endColor, Color.white, creditProgess);
+            yield return null;
+        }
+        while(creditProgess < 3){
+            if(creditProgess < 2) yield return null; 
+            creditCanvas.position = Vector3.Lerp(startPosition, endPosition, (creditProgess - 2f));
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene ("EndMenu");
+    }
+
+    void UpdateCreditProgress(float p){
+        creditProgess = p;
+    }
+
 
     void HandleSun(){
         if(sunProgress == 0){
@@ -80,10 +135,15 @@ public class CutSceneManager : MonoBehaviour
 
     void HandleColors(){
         float cutOff  = 0.15f;
+
+        
+
         if(sunProgress > cutOff){
             float cutProgress = (sunProgress - cutOff)/(1f - cutOff);   
             cm.backgroundColor = Color.Lerp(startColor, endColor, cutProgress);
 
+            swap.alpha = Mathf.Lerp(1, 0f, cutProgress * 2f);
+            
             for(int i = 0; i < globalLights.Count; i++){
                 globalLights[i].intensity = Mathf.Lerp((endLights[i] - 0.5f) , endLights[i], cutProgress);
             }
@@ -110,7 +170,10 @@ public class CutSceneManager : MonoBehaviour
             started = true;
             startDistance = other.gameObject.transform.position;
             player = other.gameObject;
-            player.GetComponent<MoveCharacter>().InDanger();
+            mc = player.GetComponent<MoveCharacter>();
+            mc.InDanger();
+            mc.canMove = false;
+            mc.canJump = false;
         }
     }
 
@@ -120,13 +183,14 @@ public class CutSceneManager : MonoBehaviour
 
         float cutOff  = 0.25f;
         if(sunProgress > cutOff){
-            float camprogress = ((sunProgress - cutOff) / (1 - cutOff)) * progress * 1.25f;
+            float camprogress = ((sunProgress - cutOff) / (1 - cutOff)) * progress * 1.15f;
             camera.followSpeed = Mathf.Lerp((cameraSpeed + cameraSpeedIncrease), cameraSpeed * 5f, camprogress);
             camera.FollowTemporaryTarget(sun);
         }
     }
 
     float GetProgress(){
+
         if(started){
             Vector3 endDistance = startDistance + new Vector3(maxDistance, 0f, 0f);
             float difference = Mathf.Abs(player.transform.position.x - startDistance.x);

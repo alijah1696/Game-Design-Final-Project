@@ -70,7 +70,7 @@ public class MoveCharacter : MonoBehaviour
         ApplyXAxisDrag();
     }
 
-    void Move(float dir)
+    public void Move(float dir)
     {
         float moveAmount = dir * moveSpeed * Time.fixedDeltaTime;
         transform.position = new Vector3(transform.position.x + moveAmount, transform.position.y, transform.position.z);
