@@ -10,7 +10,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource SFXSource;   // For one-shot sound effects
     [SerializeField] private AudioSource climbingSource; // For climbing-related sounds
     [SerializeField] private AudioSource grappleSource;  // For grapple-related sounds
-    [SerializeField] private AudioSource waterLoopSource; // For continuous water sounds
 
     [Header("Audio Clips")]
     public List<AudioClip> levelBackgroundMusic; // List of background music for levels
@@ -25,11 +24,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip Magneticability;
     public AudioClip keyCollectedSound; // Sound effect for key collection
     public AudioClip doorOpenSound;     // Sound effect for door opening
-    public AudioClip doorCloseSound;    // Sound effect for door closing public AudioClip waterEnterSound;   // Sound effect when entering water
-    public AudioClip waterContinuousSound; // Sound for continuous water presence
-    public AudioClip waterEnterSound; // Sound for continuous water presence
-    public AudioClip toxicGasSound; // Sound effect for entering toxic gas
-    
+    public AudioClip doorCloseSound;    // Sound effect for door closing
 
     private void Start()
     {
@@ -99,72 +94,7 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("Door sound or SFXSource is missing!");
         }
     }
-    public void StartWaterLoop()
-    {
-        if (waterLoopSource != null && !waterLoopSource.isPlaying)
-        {
-            waterLoopSource.clip = waterContinuousSound;
-            waterLoopSource.loop = true;
-            waterLoopSource.Play();
-            Debug.Log("Water looping sound started.");
-        }
-    }
 
-    public void StopWaterLoop()
-    {
-        if (waterLoopSource != null && waterLoopSource.isPlaying)
-        {
-            waterLoopSource.Stop();
-            Debug.Log("Water looping sound stopped.");
-        }
-    }
-    public void PlayWaterEnterSound()
-    {
-        if (SFXSource != null && waterEnterSound != null)
-        {
-            SFXSource.PlayOneShot(waterEnterSound);
-            Debug.Log("Playing water enter sound.");
-        }
-        else
-        {
-            Debug.LogWarning("Water enter sound or SFX source is not set!");
-        }
-    }
-
-    private bool isPlayingToxicGasSound = false; // Flag to track the playing state of the toxic gas sound
-
-    public void PlayToxicGasSound()
-    {
-        if (SFXSource != null && toxicGasSound != null)
-        {
-            SFXSource.PlayOneShot(toxicGasSound);
-            isPlayingToxicGasSound = true;
-            Debug.Log("Playing toxic gas sound.");
-        }
-        else
-        {
-            Debug.LogWarning("Toxic gas sound or SFX source is not set!");
-        }
-    }
-
-    public void StopToxicGasSound()
-    {
-        if (SFXSource != null && SFXSource.isPlaying)
-        {
-            SFXSource.Stop();
-            isPlayingToxicGasSound = false;
-            Debug.Log("Stopping toxic gas sound.");
-        }
-        else
-        {
-            Debug.LogWarning("No sound is currently playing or SFX source is not set.");
-        }
-    }
-
-    public bool IsPlayingToxicGasSound()
-    {
-        return isPlayingToxicGasSound; // Return the status of the toxic gas sound
-    }
     // Start looping climbing sound effect
     public void StartClimbingSound()
     {
