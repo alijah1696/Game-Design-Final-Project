@@ -74,13 +74,13 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Play grapple sound effect
-    public void PlayGrappleSound()
+    // Play grapple sound effect with adjustable volume
+    public void PlayGrappleSound(float volume = 1.0f)
     {
         if (grappleSource != null && grappleVine != null)
         {
-            grappleSource.PlayOneShot(grappleVine);
-            Debug.Log("AudioManager: Grapple sound played.");
+            grappleSource.PlayOneShot(grappleVine, Mathf.Clamp01(volume)); // Adjust volume dynamically
+            Debug.Log($"AudioManager: Grapple sound played at volume {volume}.");
         }
         else
         {

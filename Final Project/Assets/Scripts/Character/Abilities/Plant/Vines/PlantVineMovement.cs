@@ -121,43 +121,62 @@ public class PlantVineMovement : MonoBehaviour
         externallyCalled = true;
     }
 
-    IEnumerator LerpVariables(){
-        
-
+    IEnumerator LerpVariables()
+    {
         float vineRadius = (grapplePoint.GetComponent<CircleCollider2D>().radius);
-        float vineDistance = vineRadius * (2f/3f) * radiusToDistanceMultiplier;
+        float vineDistance = vineRadius * (2f / 3f) * radiusToDistanceMultiplier;
         float speedMulti = DistanceTo(grapplePoint) / distanceToAnimSpeedMultiplier;
 
         float percent = 0;
-
         bool particlePlayed = false;
+
+        float oldDistance = sj.distance; // Store the old distance for comparison
+
         VineGrappleLogic vgl = grapplePoint.GetComponent<VineGrappleLogic>();
-        while(percent < 1 && grapplePoint != null){
-            percent += Time.deltaTime * lerpSpeed / speedMulti; 
-            
-            //change distance of joint
+
+        while (percent < 1 && grapplePoint != null)
+        {
+            percent += Time.deltaTime * lerpSpeed / speedMulti;
+
+            // Change distance of joint
             sj.distance = Mathf.Lerp(DistanceTo(grapplePoint), vineDistance, percent);
-            //change move speed of characters
+
+            // Check for distance change and play grapple sound
+            if (Mathf.Abs(sj.distance - oldDistance) > 0.01f) // Small threshold to avoid rapid triggers
+            {
+                audioManager?.PlayGrappleSound(0.2f); // Pass volume as 20%
+                oldDistance = sj.distance; // Update the old distance
+            }
+
+            // Change move speed of character
             goalMoveSpeed = defualtMoveSpeed + moveSpeedIncrease * (DistanceTo(grapplePoint) / distanceToAnimSpeedMultiplier);
-            //play animation
-            if(!particlePlayed && va.Progress() > 0.85){
+
+            // Play animation particle if not already played
+            if (!particlePlayed && va.Progress() > 0.85)
+            {
                 particlePlayed = true;
                 vgl.Particle();
             }
 
             yield return null;
         }
-        StartCoroutine(ChangeVineHeight(vineDistance, 1f/3f));
-        while(isGrappling && grapplePoint != null){
+
+        StartCoroutine(ChangeVineHeight(vineDistance, 1f / 3f));
+        while (isGrappling && grapplePoint != null)
+        {
             bool abovePoint = (transform.position.y - grapplePoint.transform.position.y) > 0;
 
-            if(abovePoint){
-               sj.frequency = 2f;
-            }else{
+            if (abovePoint)
+            {
+                sj.frequency = 2f;
+            }
+            else
+            {
                 sj.frequency = 5f;
-            }  
+            }
             yield return null;
         }
+
         EndJump();
     }
 
@@ -181,10 +200,10 @@ public class PlantVineMovement : MonoBehaviour
             // Update the joint distance
             sj.distance = Mathf.Lerp(lowDistance, highDistance, swingClimbProgress);
 
-            // Check if the distance changed and play the sound
+            // Check if the distance changed and play the sound at lower volume
             if (Mathf.Abs(sj.distance - oldDistance) > 0.01f) // Small threshold to avoid rapid triggers
             {
-                audioManager?.PlayGrappleSound();
+                audioManager?.PlayGrappleSound(0.2f); // Set volume to 20%
             }
 
             // Update move speed dynamically
@@ -192,7 +211,6 @@ public class PlantVineMovement : MonoBehaviour
             yield return null;
         }
     }
-
     void EndJump(){
         float force = goalMoveSpeed/(jumpMulti * defualtMoveSpeed);
         mv.Dash(0, force);
