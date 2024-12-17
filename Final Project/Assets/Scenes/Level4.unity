@@ -14827,9 +14827,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 520e4108369bb456ab56c0b892e1e8bd, type: 3}
     - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: toxicGasSound
+      value: 
+      objectReference: {fileID: 8300000, guid: de7c12d0fc0594cdebf7599716d9e875, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
       propertyPath: Magneticability
       value: 
       objectReference: {fileID: 8300000, guid: 180dadacbc8c84e5a882333ab9e9313d, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: waterEnterSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 24f459e5cfca84fd884319bee511ceb8, type: 3}
     - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
       propertyPath: keyCollectedSound
       value: 
@@ -14838,6 +14846,10 @@ PrefabInstance:
       propertyPath: pressurePlateSound
       value: 
       objectReference: {fileID: 8300000, guid: f939e697a416343d9b7ebdc86e0ebf2f, type: 3}
+    - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
+      propertyPath: waterContinuousSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5fab05cc4e65342a7bc09fbb780b0f43, type: 3}
     - target: {fileID: 7354834815836504238, guid: e8caf514b1b484bb594e5ea27d88d835, type: 3}
       propertyPath: switchingCharacterSound
       value: 
