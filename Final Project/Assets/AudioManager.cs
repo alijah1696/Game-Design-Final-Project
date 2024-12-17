@@ -19,7 +19,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip pressurePlateSound;
     public AudioClip FloorTouch; // For walking or floor interaction
     public AudioClip WallTouch;  // For hitting walls
-    public AudioClip climbVine;
+    public AudioClip climbVine1; // First climbing sound
+    public AudioClip climbVine2; // Second climbing sound
     public AudioClip jumpSound;
     public AudioClip switchingCharacterSound; // Character switch sound
     public AudioClip grappleVine;
@@ -70,6 +71,20 @@ public class AudioManager : MonoBehaviour
         {
             SFXSource.PlayOneShot(waterEnterSound);
             Debug.Log("AudioManager: Water entry sound played.");
+        }
+    }
+
+    // Play grapple sound effect
+    public void PlayGrappleSound()
+    {
+        if (grappleSource != null && grappleVine != null)
+        {
+            grappleSource.PlayOneShot(grappleVine);
+            Debug.Log("AudioManager: Grapple sound played.");
+        }
+        else
+        {
+            Debug.LogWarning("AudioManager: Grapple sound or source is not set!");
         }
     }
 
@@ -166,39 +181,34 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Start looping climbing sound effect
-    public void StartClimbingSound()
+    // Play a random climbing sound
+public void PlayRandomClimbingSound()
+{
+    if (climbingSource != null)
     {
-        if (climbingSource != null && climbVine != null)
+        // Randomly select one of the two climbing sounds
+        AudioClip selectedClip = Random.value < 0.5f ? climbVine1 : climbVine2;
+
+        if (selectedClip != null)
         {
-            climbingSource.clip = climbVine;
+            climbingSource.clip = selectedClip;
             climbingSource.loop = true;
             climbingSource.Play();
-            Debug.Log("Climbing sound started.");
+            Debug.Log($"AudioManager: Playing climbing sound {selectedClip.name}");
         }
     }
+}
 
-    // Stop climbing sound effect
-    public void StopClimbingSound()
+// Stop the climbing sound
+public void StopClimbingSound()
+{
+    if (climbingSource != null && climbingSource.isPlaying)
     {
-        if (climbingSource != null && climbingSource.isPlaying)
-        {
-            climbingSource.Stop();
-            Debug.Log("Climbing sound stopped.");
-        }
+        climbingSource.Stop();
+        Debug.Log("AudioManager: Climbing sound stopped.");
     }
+}
 
-    // Start looping grapple sound effect
-    public void StartGrappleSound()
-    {
-        if (grappleSource != null && grappleVine != null)
-        {
-            grappleSource.clip = grappleVine;
-            grappleSource.loop = true;
-            grappleSource.Play();
-            Debug.Log("Grapple sound started.");
-        }
-    }
 
     // Stop grapple sound effect
     public void StopGrappleSound()
