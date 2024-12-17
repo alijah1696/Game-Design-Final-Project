@@ -21,7 +21,7 @@ public class CameraFollow : MonoBehaviour
         {
             // Get the currently active character from SwapCharacters
             activeCharacter = swapScript.GetCurrentForm();
-        }
+        }   
 
         // Check if activeCharacter is not null before following
         if (activeCharacter != null)
