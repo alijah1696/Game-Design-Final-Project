@@ -11,6 +11,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource climbingSource; // For climbing-related sounds
     [SerializeField] private AudioSource grappleSource;  // For grapple-related sounds
     [SerializeField] private AudioSource gasSource;
+    [SerializeField] private AudioSource waterSource; // For looping water movement sound
+
 
     [Header("Audio Clips")]
     public List<AudioClip> levelBackgroundMusic; // List of background music for levels
@@ -27,6 +29,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip doorOpenSound;     // Sound effect for door opening
     public AudioClip doorCloseSound;    // Sound effect for door closing
     public AudioClip toxicGasSound;
+    public AudioClip waterEnterSound;  // Sound for entering water
+    public AudioClip waterMovementSound; // Continuous water movement sound
 
     private void Start()
     {
@@ -56,6 +60,47 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning($"AudioManager: No background music assigned for level {currentSceneIndex}");
         }
+    }
+    private bool isWaterSoundPlaying = false;
+
+    // Play water entry sound (one-shot)
+    public void PlayWaterEnterSound()
+    {
+        if (SFXSource != null && waterEnterSound != null)
+        {
+            SFXSource.PlayOneShot(waterEnterSound);
+            Debug.Log("AudioManager: Water entry sound played.");
+        }
+    }
+
+    // Play water movement sound (looping)
+    public void PlayWaterMovementSound()
+    {
+        if (waterSource != null && waterMovementSound != null && !waterSource.isPlaying)
+        {
+            waterSource.clip = waterMovementSound;
+            waterSource.loop = true;
+            waterSource.Play();
+            isWaterSoundPlaying = true;
+            Debug.Log("AudioManager: Water movement sound started.");
+        }
+    }
+
+    // Stop water movement sound
+    public void StopWaterMovementSound()
+    {
+        if (waterSource != null && waterSource.isPlaying)
+        {
+            waterSource.Stop();
+            isWaterSoundPlaying = false;
+            Debug.Log("AudioManager: Water movement sound stopped.");
+        }
+    }
+
+    // Check if water movement sound is playing
+    public bool IsWaterSoundPlaying()
+    {
+        return isWaterSoundPlaying;
     }
 
     // Play gas sound in a loop

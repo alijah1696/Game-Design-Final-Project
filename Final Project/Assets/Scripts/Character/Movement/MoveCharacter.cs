@@ -55,6 +55,11 @@ public class MoveCharacter : MonoBehaviour
         IncreaseGravity();
     }
 
+    public bool IsMoving()
+    {
+        return Mathf.Abs(rb.velocity.x) > 0.1f; // Check if horizontal velocity is significant
+    }
+
     void FixedUpdate()
     {
         if (canMove && notSlowed)
