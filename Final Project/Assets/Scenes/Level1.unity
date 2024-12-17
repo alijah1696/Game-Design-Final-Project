@@ -59516,7 +59516,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1761139073
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 105
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -72885,7 +72885,7 @@ GameObject:
   - component: {fileID: 1729002262}
   - component: {fileID: 1729002264}
   - component: {fileID: 1729002263}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Foreground2
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -72946,7 +72946,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1761139073
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 110
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}

@@ -231,6 +231,11 @@ public class PlantVineMovement : MonoBehaviour
                 }
             }
         }
+        if (other.CompareTag("Vine"))
+        {
+            isClimbing = true;
+            rb.gravityScale = 0; // Disable gravity while climbing
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
