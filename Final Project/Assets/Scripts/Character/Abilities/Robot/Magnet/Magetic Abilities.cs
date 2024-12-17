@@ -113,17 +113,6 @@ public class MagneticAbilities : MonoBehaviour
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Magnet"))
-        {
-            if(other.gameObject == controlled && !isControlling){
-                canControl = false;
-                controlled = null;
-            }
-        }
-    }
-
     float DistanceTo(GameObject other)
     {
         return Vector2.Distance(transform.position, other.transform.position);

@@ -4,13 +4,31 @@ public class Water : MonoBehaviour
 {
     public GameObject respawnPoint;
     private SwapCharacters sc;
-    private AudioManager audioManager;  // Reference to AudioManager
+    private AudioManager audioManager; // Reference to AudioManager
+    private bool isPlayerInWater = false; // Track if the player is in water
+    private MoveCharacter currentPlayer;  // To check movement state
 
     void Start()
     {
         // Find the SwapCharacters and AudioManager components at the start
         sc = FindObjectOfType<SwapCharacters>();
-        audioManager = FindObjectOfType<AudioManager>();  // Automatically find the AudioManager in the scene
+        audioManager = FindObjectOfType<AudioManager>(); // Automatically find the AudioManager in the scene
+    }
+
+    void Update()
+    {
+        // Check if the player is in water and moving
+        if (isPlayerInWater && currentPlayer != null)
+        {
+            if (currentPlayer.IsMoving() && !audioManager.IsWaterSoundPlaying())
+            {
+                audioManager.PlayWaterMovementSound();
+            }
+            else if (!currentPlayer.IsMoving() && audioManager.IsWaterSoundPlaying())
+            {
+                audioManager.StopWaterMovementSound();
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -23,30 +41,33 @@ public class Water : MonoBehaviour
         }
         else if (other.CompareTag("Plant")) // Handling for Plant
         {
-            MoveCharacter mv = sc.GetCurrentForm().GetComponent<MoveCharacter>();
-            mv.InDanger();
+            currentPlayer = sc.GetCurrentForm().GetComponent<MoveCharacter>();
+            currentPlayer.InDanger();
             PlayWaterEnterSound();
+            isPlayerInWater = true;
         }
     }
 
-    void OnTriggerExit2D(Collider2D other){
-        if(other.CompareTag("Plant")) // Handling for Plant
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Plant"))
         {
-            MoveCharacter mv = sc.GetCurrentForm().GetComponent<MoveCharacter>();
-            mv.Safe();
+            if (currentPlayer != null)
+            {
+                currentPlayer.Safe();
+            }
+
+            isPlayerInWater = false;
+            audioManager.StopWaterMovementSound();
         }
     }
 
     // Play water entry sound effect
     private void PlayWaterEnterSound()
     {
-        // if (audioManager != null && audioManager.waterEnterSound != null)
-        // {
-        //     audioManager.PlaySFX(audioManager.waterEnterSound);
-        // }
-        // else
-        // {
-        //     Debug.LogWarning("AudioManager or waterEnterSound is not set or is null");
-        // }
+        if (audioManager != null)
+        {
+            audioManager.PlayWaterEnterSound();
+        }
     }
 }

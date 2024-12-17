@@ -72,19 +72,22 @@ public class PlantVineMovement : MonoBehaviour
     void HandleGrappling()
     {
         if (Input.GetKeyDown(KeyCode.E) || externallyCalled)
-        {   
+        {
             bool animDone = va.AnimationDone();
             bool fullyExtended = va.FullyExtended();
-            
+
             if (!isGrappling && grapplePoint != null && animDone && !(grapplePoint.GetComponent<VineGrappleLogic>().OnCooldown()) && !externallyCalled)
-            {   
+            {
                 float currentDist = DistanceTo(grapplePoint);
                 float speedMulti = currentDist / distanceToAnimSpeedMultiplier;
+
+                // Play grapple sound
+                audioManager?.PlayGrappleSound(); // Call AudioManager to play the grapple sound
 
                 //Set animation Variables
                 va.SetBroken(false);
                 StartCoroutine(va.AnimateRope(grapplePoint.transform.position, 1f * speedMulti));
-            
+
                 // Set Rigid Body variables
                 StartCoroutine(LerpVariables());
                 rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -101,84 +104,113 @@ public class PlantVineMovement : MonoBehaviour
                 //cooldown
                 VineGrappleLogic vgl = grapplePoint.GetComponent<VineGrappleLogic>();
                 vgl.Cooldown();
-                
+
                 // Set Rigid Body variables
                 isGrappling = false;
                 sj.connectedBody = null;
                 sj.enabled = false;
-                
+
                 mv.EndAbility();
             }
             vineRenderer.SetActive(true);
             externallyCalled = false;
         }
-        
     }
 
     public void EndSwing(){
         externallyCalled = true;
     }
 
-    IEnumerator LerpVariables(){
-        
-
+    IEnumerator LerpVariables()
+    {
         float vineRadius = (grapplePoint.GetComponent<CircleCollider2D>().radius);
-        float vineDistance = vineRadius * (2f/3f) * radiusToDistanceMultiplier;
+        float vineDistance = vineRadius * (2f / 3f) * radiusToDistanceMultiplier;
         float speedMulti = DistanceTo(grapplePoint) / distanceToAnimSpeedMultiplier;
 
         float percent = 0;
-
         bool particlePlayed = false;
+
+        float oldDistance = sj.distance; // Store the old distance for comparison
+
         VineGrappleLogic vgl = grapplePoint.GetComponent<VineGrappleLogic>();
-        while(percent < 1 && grapplePoint != null){
-            percent += Time.deltaTime * lerpSpeed / speedMulti; 
-            
-            //change distance of joint
+
+        while (percent < 1 && grapplePoint != null)
+        {
+            percent += Time.deltaTime * lerpSpeed / speedMulti;
+
+            // Change distance of joint
             sj.distance = Mathf.Lerp(DistanceTo(grapplePoint), vineDistance, percent);
-            //change move speed of characters
+
+            // Check for distance change and play grapple sound
+            if (Mathf.Abs(sj.distance - oldDistance) > 0.01f) // Small threshold to avoid rapid triggers
+            {
+                audioManager?.PlayGrappleSound(0.2f); // Pass volume as 20%
+                oldDistance = sj.distance; // Update the old distance
+            }
+
+            // Change move speed of character
             goalMoveSpeed = defualtMoveSpeed + moveSpeedIncrease * (DistanceTo(grapplePoint) / distanceToAnimSpeedMultiplier);
-            //play animation
-            if(!particlePlayed && va.Progress() > 0.85){
+
+            // Play animation particle if not already played
+            if (!particlePlayed && va.Progress() > 0.85)
+            {
                 particlePlayed = true;
                 vgl.Particle();
             }
 
             yield return null;
         }
-        StartCoroutine(ChangeVineHeight(vineDistance, 1f/3f));
-        while(isGrappling && grapplePoint != null){
+
+        StartCoroutine(ChangeVineHeight(vineDistance, 1f / 3f));
+        while (isGrappling && grapplePoint != null)
+        {
             bool abovePoint = (transform.position.y - grapplePoint.transform.position.y) > 0;
 
-            if(abovePoint){
-               sj.frequency = 2f;
-            }else{
+            if (abovePoint)
+            {
+                sj.frequency = 2f;
+            }
+            else
+            {
                 sj.frequency = 5f;
-            }  
+            }
             yield return null;
         }
+
         EndJump();
     }
 
-    IEnumerator ChangeVineHeight(float midDistance, float increment){ 
+    IEnumerator ChangeVineHeight(float midDistance, float increment)
+    {
         swingClimbProgress = 0.5f;
-        
+
         increment *= (grapplePoint.GetComponent<CircleCollider2D>().radius) * radiusToDistanceMultiplier;
         float lowDistance = midDistance + increment;
         float highDistance = midDistance - increment;
 
-        while(isGrappling && grapplePoint != null){
+        while (isGrappling && grapplePoint != null)
+        {
             float dir = Input.GetAxisRaw("Vertical");
 
+            // Update swing climb progress
+            float oldDistance = sj.distance; // Store the old distance
             swingClimbProgress += dir * Time.deltaTime * swingClimbSpeed;
             swingClimbProgress = Mathf.Clamp01(swingClimbProgress);
-            
+
+            // Update the joint distance
             sj.distance = Mathf.Lerp(lowDistance, highDistance, swingClimbProgress);
+
+            // Check if the distance changed and play the sound at lower volume
+            if (Mathf.Abs(sj.distance - oldDistance) > 0.01f) // Small threshold to avoid rapid triggers
+            {
+                audioManager?.PlayGrappleSound(0.2f); // Set volume to 20%
+            }
+
+            // Update move speed dynamically
             goalMoveSpeed = defualtMoveSpeed + moveSpeedIncrease * (DistanceTo(grapplePoint) / distanceToAnimSpeedMultiplier);
-            //move Speed
             yield return null;
         }
     }
-
     void EndJump(){
         float force = goalMoveSpeed/(jumpMulti * defualtMoveSpeed);
         mv.Dash(0, force);
@@ -207,11 +239,11 @@ public class PlantVineMovement : MonoBehaviour
             isClimbing = true;
             rb.gravityScale = 0; // Disable gravity while climbing
 
-            // Start the climbing sound
-            audioManager?.StartClimbingSound();
+            // Play a random climbing sound
+            audioManager?.PlayRandomClimbingSound();
         }
     }
-
+    
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("VineGrapple") && !isGrappling && grapplePoint != other.gameObject)

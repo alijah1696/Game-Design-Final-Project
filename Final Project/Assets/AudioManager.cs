@@ -10,13 +10,17 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource SFXSource;   // For one-shot sound effects
     [SerializeField] private AudioSource climbingSource; // For climbing-related sounds
     [SerializeField] private AudioSource grappleSource;  // For grapple-related sounds
+    [SerializeField] private AudioSource gasSource;
+    [SerializeField] private AudioSource waterSource; // For looping water movement sound
+
 
     [Header("Audio Clips")]
     public List<AudioClip> levelBackgroundMusic; // List of background music for levels
     public AudioClip pressurePlateSound;
     public AudioClip FloorTouch; // For walking or floor interaction
     public AudioClip WallTouch;  // For hitting walls
-    public AudioClip climbVine;
+    public AudioClip climbVine1; // First climbing sound
+    public AudioClip climbVine2; // Second climbing sound
     public AudioClip jumpSound;
     public AudioClip switchingCharacterSound; // Character switch sound
     public AudioClip grappleVine;
@@ -25,6 +29,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip keyCollectedSound; // Sound effect for key collection
     public AudioClip doorOpenSound;     // Sound effect for door opening
     public AudioClip doorCloseSound;    // Sound effect for door closing
+    public AudioClip toxicGasSound;
+    public AudioClip waterEnterSound;  // Sound for entering water
+    public AudioClip waterMovementSound; // Continuous water movement sound
 
     private void Start()
     {
@@ -54,6 +61,85 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning($"AudioManager: No background music assigned for level {currentSceneIndex}");
         }
+    }
+    private bool isWaterSoundPlaying = false;
+
+    // Play water entry sound (one-shot)
+    public void PlayWaterEnterSound()
+    {
+        if (SFXSource != null && waterEnterSound != null)
+        {
+            SFXSource.PlayOneShot(waterEnterSound);
+            Debug.Log("AudioManager: Water entry sound played.");
+        }
+    }
+
+    // Play grapple sound effect with adjustable volume
+    public void PlayGrappleSound(float volume = 1.0f)
+    {
+        if (grappleSource != null && grappleVine != null)
+        {
+            grappleSource.PlayOneShot(grappleVine, Mathf.Clamp01(volume)); // Adjust volume dynamically
+            Debug.Log($"AudioManager: Grapple sound played at volume {volume}.");
+        }
+        else
+        {
+            Debug.LogWarning("AudioManager: Grapple sound or source is not set!");
+        }
+    }
+
+    // Play water movement sound (looping)
+    public void PlayWaterMovementSound()
+    {
+        if (waterSource != null && waterMovementSound != null && !waterSource.isPlaying)
+        {
+            waterSource.clip = waterMovementSound;
+            waterSource.loop = true;
+            waterSource.Play();
+            isWaterSoundPlaying = true;
+            Debug.Log("AudioManager: Water movement sound started.");
+        }
+    }
+
+    // Stop water movement sound
+    public void StopWaterMovementSound()
+    {
+        if (waterSource != null && waterSource.isPlaying)
+        {
+            waterSource.Stop();
+            isWaterSoundPlaying = false;
+            Debug.Log("AudioManager: Water movement sound stopped.");
+        }
+    }
+
+    // Check if water movement sound is playing
+    public bool IsWaterSoundPlaying()
+    {
+        return isWaterSoundPlaying;
+    }
+
+    // Play gas sound in a loop
+    public void PlayGasSound()
+    {
+        if (gasSource != null && toxicGasSound != null && !gasSource.isPlaying)
+        {
+            gasSource.clip = toxicGasSound;
+            gasSource.loop = true;
+            gasSource.Play();
+        }
+    }
+
+    public void StopGasSound()
+    {
+        if (gasSource != null && gasSource.isPlaying)
+        {
+            gasSource.Stop();
+        }
+    }
+
+    public bool IsGasSoundPlaying()
+    {
+        return gasSource != null && gasSource.isPlaying;
     }
 
     // Generic method to play one-shot sound effects
@@ -95,39 +181,34 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Start looping climbing sound effect
-    public void StartClimbingSound()
+    // Play a random climbing sound
+public void PlayRandomClimbingSound()
+{
+    if (climbingSource != null)
     {
-        if (climbingSource != null && climbVine != null)
+        // Randomly select one of the two climbing sounds
+        AudioClip selectedClip = Random.value < 0.5f ? climbVine1 : climbVine2;
+
+        if (selectedClip != null)
         {
-            climbingSource.clip = climbVine;
+            climbingSource.clip = selectedClip;
             climbingSource.loop = true;
             climbingSource.Play();
-            Debug.Log("Climbing sound started.");
+            Debug.Log($"AudioManager: Playing climbing sound {selectedClip.name}");
         }
     }
+}
 
-    // Stop climbing sound effect
-    public void StopClimbingSound()
+// Stop the climbing sound
+public void StopClimbingSound()
+{
+    if (climbingSource != null && climbingSource.isPlaying)
     {
-        if (climbingSource != null && climbingSource.isPlaying)
-        {
-            climbingSource.Stop();
-            Debug.Log("Climbing sound stopped.");
-        }
+        climbingSource.Stop();
+        Debug.Log("AudioManager: Climbing sound stopped.");
     }
+}
 
-    // Start looping grapple sound effect
-    public void StartGrappleSound()
-    {
-        if (grappleSource != null && grappleVine != null)
-        {
-            grappleSource.clip = grappleVine;
-            grappleSource.loop = true;
-            grappleSource.Play();
-            Debug.Log("Grapple sound started.");
-        }
-    }
 
     // Stop grapple sound effect
     public void StopGrappleSound()
