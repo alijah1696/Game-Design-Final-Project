@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource SFXSource;   // For one-shot sound effects
     [SerializeField] private AudioSource climbingSource; // For climbing-related sounds
     [SerializeField] private AudioSource grappleSource;  // For grapple-related sounds
+    [SerializeField] private AudioSource gasSource;
 
     [Header("Audio Clips")]
     public List<AudioClip> levelBackgroundMusic; // List of background music for levels
@@ -25,6 +26,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip keyCollectedSound; // Sound effect for key collection
     public AudioClip doorOpenSound;     // Sound effect for door opening
     public AudioClip doorCloseSound;    // Sound effect for door closing
+    public AudioClip toxicGasSound;
 
     private void Start()
     {
@@ -54,6 +56,30 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning($"AudioManager: No background music assigned for level {currentSceneIndex}");
         }
+    }
+
+    // Play gas sound in a loop
+    public void PlayGasSound()
+    {
+        if (gasSource != null && toxicGasSound != null && !gasSource.isPlaying)
+        {
+            gasSource.clip = toxicGasSound;
+            gasSource.loop = true;
+            gasSource.Play();
+        }
+    }
+
+    public void StopGasSound()
+    {
+        if (gasSource != null && gasSource.isPlaying)
+        {
+            gasSource.Stop();
+        }
+    }
+
+    public bool IsGasSoundPlaying()
+    {
+        return gasSource != null && gasSource.isPlaying;
     }
 
     // Generic method to play one-shot sound effects
