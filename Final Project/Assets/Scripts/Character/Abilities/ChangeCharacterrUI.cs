@@ -86,9 +86,8 @@ public class ChangeCharacterrUI : MonoBehaviour
     {   
         CorrectAbilityAnimation();
         WrongAbilityAnimation();
-
-        //if (Input.GetKeyDown(KeyCode.Tab))
-        if (Input.GetButtonDown("SwapCharacter"))
+        
+        if (Input.GetButtonDown("SwapCharacter") || Input.GetKeyDown(KeyCode.Tab))
         {
             Button_SwapCharacer();
         }
